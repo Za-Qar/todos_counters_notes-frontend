@@ -5,60 +5,63 @@
         <title>Document</title>
     </head>
     <body>
-    
-          <!-- <div class="navBar">
-            <div class="container">
-              <nav class="nav">
-                <img class="logo" src="imgs/logo.svg">
-                <a href="#">Geography</a>
-                <a href="#">Entertainment</a>
-              </nav>
-              </div>
-          </div> -->
 
-  
-            <div class="container">
-              <div class="question">
-                <span id="yourScore" class="startEnd"></span>
-                <!--
-                <button id="start" class="startEnd">Start Game</button>
-                
-                -->
-                <div class="startEnd" id="start">
-                  <input id="username"/>
-                  <button>Start Game</button>
-                </div>
+      <div class="container2">
+        <div class="dateTime">
+          <h2 id="time"></h2>
+          <h3 id="date"></h3>
+        </div>
+      </div>
 
+      <div class="continer2">
+        <div class="weather">
+            <h1 id="currentTemp"></h1>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg" width="50px">
+            <h2 id="situation"></h2>
+            <span class="inline">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg" width="30px"><h3 id="maxTemp"></h3>
+            </span>
+            <span class="inline"> 
+              <img src="https://www.flaticon.com/svg/static/icons/svg/3593/3593622.svg" width="30px"><h3 id="minTemp"></h3>
+            </span>
+            <p id="feel"></p>
+        </div>
+      </div>
 
-                <div id="main" class="hide">
-                
-                <h2 class="category">Category</h2>
-
-                <div class="three1">  
-                  <h3 class="difficulty">Difficulty</h3>
-                </div>
-              
-                <div class="three2">
-                  <h3><div class="score">Score: 0</div></h3>
-                </div>
-
-                <div class="three3">
-                  <h3><div class="round">Round: 1/5</div></h3>
-                </div>
-
-                    
-                  <h2 class="currentQuestion">Question</h2>
-                  <ul class="ul">
-                    <li><button class="btn" id="btn1">Option 1</button></li>
-                    <li><button class="btn" id="btn2">Option 1</button></li>
-                    <li><button class="btn" id="btn3">Option 1</button></li>
-                    <li><button class="btn" id="btn4">Option 1</button></li>
-                  </ul>
-              </div>
-            </div>
-
+      <div class="container">
+        <div class="data">
+          <div class="inputField">
+              <input type="text" id="input"/>
+              <button id="addButton">Add a to-do</button>
           </div>
-          <div class="bg"></div> 
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="colour">
+          <h4>Choose a colour</h4>
+          <button class="column2"></button>
+          <button class="column3"></button>
+          <button class="column4"></button>
+          <button class="column5"></button>
+          <!-- <input class="column2" name="colour" type="radio" /> 
+          <input class="column3" name="colour" type="radio" />
+          <input class="column4" name="colour" type="radio" />
+          <input class="column5" name="colour" type="radio" /> -->
+        </div>
+      </div>
+
+
+      <div class="container">
+        
+        <div class="todos">
+          <ul id="ul">
+
+          </ul>
+        </div>
+
+      </div>
+      
     </body>
     <script src="script.js"></script>
 </html>
