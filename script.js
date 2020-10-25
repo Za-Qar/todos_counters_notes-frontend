@@ -3,10 +3,10 @@ const input = document.querySelector("#input");
 const addButton = document.querySelector("#addButton");
 const ul = document.querySelector("ul");
 //Input buttons
-const inp2 = document.querySelector(".column2");
-const inp3 = document.querySelector(".column3");
-const inp4 = document.querySelector(".column4");
-const inp5 = document.querySelector(".column5");
+const inp2 = document.querySelector("#column2");
+const inp3 = document.querySelector("#column3");
+const inp4 = document.querySelector("#column4");
+const inp5 = document.querySelector("#column5");
 
 
 //add todo list

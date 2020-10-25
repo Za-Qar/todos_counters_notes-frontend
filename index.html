@@ -6,14 +6,24 @@
     </head>
     <body>
 
+    <div class="header">
+      <div class="topImage">
+        <img src="https://apod.nasa.gov/apod/image/2010/DarkMatter_KipacAmnh_960.jpg" width="100%"/>
+      </div>
+      <div class="topImageText">
+        <p>Image source and text comes here</p>
+      </div>  
+    </div>
+
       <div class="container2">
+
         <div class="dateTime">
           <h2 id="time"></h2>
           <h3 id="date"></h3>
         </div>
-      </div>
+      
 
-      <div class="continer2">
+      
         <div class="weather">
             <h1 id="currentTemp"></h1>
             <img src="https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg" width="50px">
@@ -26,33 +36,32 @@
             </span>
             <p id="feel"></p>
         </div>
+
       </div>
+      <!--Container2 end-->
 
       <div class="container">
+
         <div class="data">
           <div class="inputField">
               <input type="text" id="input"/>
               <button id="addButton">Add a to-do</button>
           </div>
         </div>
-      </div>
+      
 
-      <div class="container">
+      
         <div class="colour">
           <h4>Choose a colour</h4>
-          <button class="column2"></button>
+          <!-- <button class="column2"></button>
           <button class="column3"></button>
           <button class="column4"></button>
-          <button class="column5"></button>
-          <!-- <input class="column2" name="colour" type="radio" /> 
-          <input class="column3" name="colour" type="radio" />
-          <input class="column4" name="colour" type="radio" />
-          <input class="column5" name="colour" type="radio" /> -->
+          <button class="column5"></button> -->
+          <span class="column in2"><input class="allColumns" id="column2" name="colour" type="radio" /></span> 
+          <span class="column in3"><input class="allColumns" id="column3" name="colour" type="radio" /></span>
+          <span class="column in4"><input class="allColumns" id="column4" name="colour" type="radio" /></span>
+          <span class="column in5"><input class="allColumns" id="column5" name="colour" type="radio" /></span>
         </div>
-      </div>
-
-
-      <div class="container">
         
         <div class="todos">
           <ul id="ul">
@@ -61,6 +70,7 @@
         </div>
 
       </div>
+      <!--Container end-->
       
     </body>
     <script src="script.js"></script>
