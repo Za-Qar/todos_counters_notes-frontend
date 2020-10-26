@@ -222,6 +222,10 @@ ul li:hover {
     background-color: rgba(216, 184, 139, 0.1);
 }
 
+.white{
+    background-color:white;
+}
+
 
 /*-------Weather API-------*/
 .weather{

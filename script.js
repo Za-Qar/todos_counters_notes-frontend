@@ -7,6 +7,7 @@ const inp2 = document.querySelector("#column2");
 const inp3 = document.querySelector("#column3");
 const inp4 = document.querySelector("#column4");
 const inp5 = document.querySelector("#column5");
+const inp6 = document.querySelector("#column6");
 //Counter
 const counterUl = document.querySelector("#counterUl");
 const addCounterBtn = document.querySelector("#addCounter");
@@ -30,6 +31,8 @@ function add() {
     newLi.classList.add("pink")
   } else if (inp5.checked){
     newLi.classList.add("burlywood")
+  } else if (inp6.checked){
+    newLi.classList.add("white")
   } else {
     newLi.classList.add("listStyle");
   }
@@ -213,6 +216,10 @@ function addCounter(){
 
   let counterValue = 0;
   
+  let containerSpan = document.createElement("span");
+
+  counterUl.appendChild(containerSpan)
+
   let span1 = document.createElement("span");
   span1.innerText = "-";
   span1.classList.add("decrement");
@@ -221,14 +228,29 @@ function addCounter(){
     console.log("it should decrement")
   })
 
-  counterUl.appendChild(span1);
+  containerSpan.appendChild(span1);
 
   let newCounter = document.createElement("li");
   newCounter.innerHTML = input.value + `<br>` + counterValue;
   newCounter.classList.add("listStyle");
   newCounter.classList.add("liCounter");
 
-  counterUl.appendChild(newCounter);
+  //Change background colour
+  if (inp2.checked){
+    newCounter.classList.add("yellowgreen");
+  } else if (inp3.checked){
+    newCounter.classList.add("red")
+  } else if (inp4.checked){
+    newCounter.classList.add("pink")
+  } else if (inp5.checked){
+    newCounter.classList.add("burlywood")
+  } else if (inp6.checked){
+    newCounter.classList.add("white")
+  } else {
+    newCounter.classList.add("listStyle");
+  }
+
+  containerSpan.appendChild(newCounter);
 
   let span2 = document.createElement("span");
   span2.innerText = "+";
@@ -238,7 +260,25 @@ function addCounter(){
     console.log("it should increment")
   })
 
-  counterUl.appendChild(span2);
+  containerSpan.appendChild(span2);
+
+
+   //add x button
+   let span = document.createElement("span");
+   span.innerText = "\u00D7";
+   span.classList.add("xButton");
+   newCounter.appendChild(span);
+ 
+   input.value = "";
+ 
+   span.addEventListener("click", throughText);
+ 
+   //Delete list when xButton is clicked
+     function removeList(){
+      containerSpan.classList.add("hide");
+   };
+ 
+   containerSpan.addEventListener("click", removeList);
 
   input.value = "";
 }
