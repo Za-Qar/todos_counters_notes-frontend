@@ -15,35 +15,32 @@ body {
     display: none;
 }
 
-#ul{
+ul{
     padding: 0;
     margin: 0;
 }
 
 /*Container*/
 .container{
-    display: block;
-    min-width: 500px;
-    max-width: 850px;
-    /* margin: auto; */
-    float: left;
-    width: 50%;
+    margin: auto;
+    font-size: 10px;
+    padding: 3px;
+    width: 1000px
 }
 
-.container2{
-    display: block;
-    float: left;
-    width: 20%;
+.content1{
+    width: 70%;
+    float: right;
 }
 
-.container2{
+.content2{
     display: block;
     float: left;
     width: 30%;
 }
 
 /* Style the list items */
-#ul li {
+ul li {
     cursor: pointer;
     padding: 15px;
     /*background: skyblue;*/
@@ -60,6 +57,7 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    min-height: 50px;
   }
 
 /*Make odd numbered lists a different background colour*/
@@ -68,7 +66,7 @@ body {
 } */
 
 /*on hover of list*/
-#ul li:hover {
+ul li:hover {
     background-color:rgb(210, 209, 255);
 }
 
@@ -88,36 +86,42 @@ body {
 
 .data{
     width: 100%;
-    height: 50px;
+    height: 100px;
     margin-top: 3%;
 }
 
 #input{
     float: left;
-    width: 80%;
+    width: 100%;
     padding: 13px;
     margin: 0;
     border: none;
     text-decoration: none;
     background: #f4f8ff;
     top: 0;
-    border-radius: 50px 0 0 50px;
+    border-radius: 50px;
     outline: none
 }
 
-#addButton{
+.btns{
     float: left;
-    width: 16%;
-    padding: 0;
-    margin: 0;
+    width: 45%;
+    margin: auto;
     text-decoration: none;
     border: none;
     cursor: pointer;
     padding: 13px;
     top: 0;
     right: 0;
-    border-radius: 0 50px 50px 0;
-    outline: none
+    border-radius: 50px;
+    outline: none;
+    margin: 5px;
+}
+
+.bothBtns{
+    display: flex;
+    margin: auto;
+    width: 500px;
 }
 
 /*Colour choosing*/
@@ -125,7 +129,7 @@ body {
     margin-top: 60px;
     width: 100%;
     margin-bottom: 25px;
-    height: 100px;
+    height: 50px;
     margin: auto;
 }
 
@@ -137,6 +141,7 @@ body {
     left: 10px;
     float: left;
     margin-right: 15px;
+    font-size: 15px;
 }
 
 .column1{
@@ -220,7 +225,7 @@ body {
 
 /*-------Weather API-------*/
 .weather{
-    margin: 20px;
+    margin: 20px 20px 20px 0;
     position: relative;
     background-color: #f4f8ff;
     border-radius: 20px;
@@ -229,13 +234,13 @@ body {
     width: 200px;
 }
 
-.inline {
+.maxMin h3{
     display: inline;
 }
 
 /*------------Date and Time-------------*/
 .dateTime{
-    margin: 20px;
+    margin: 20px 20px 20px 0;
     position: relative;
     background-color: #f4f8ff;
     border-radius: 20px;
@@ -258,9 +263,73 @@ body {
     background-color: #f4f8ff;
 }
 
-.topImageText p{
+.imgDesc{
     margin: auto;
     font-size: 10px;
     padding: 3px;
     width: 1000px;
+    display: inline;
+}
+/*------------Image Banner END-------------*/
+
+/*-----------Counter-------------*/
+.liCounter{
+    text-align: center;
+}
+
+/* .increment{
+    font-size: 30px;
+    cursor: pointer;
+    position: relative;
+    top: -56px;
+    right: 0;
+    float: right;
+    padding: 7px;
+    transform: translateY(-5px); 
+} */
+
+.increment{
+    font-size: 30px;
+    cursor: pointer;
+    position: relative;
+    top: 27px;
+    left: 0;
+    float: left;
+    padding: 7px;
+    transform: translateY(-5px);
+}
+
+.decrement{
+    font-size: 30px;
+    cursor: pointer;
+    position: relative;
+    top: 27px;
+    left: 0;
+    float: left;
+    padding: 7px;
+    transform: translateY(-5px);
+}
+
+.decrement:hover{
+    background-color: azure;
+}
+
+.increment:hover{
+    background-color: azure;
+}
+
+
+/*-------------Coounter and Todo alignment--------------*/
+.counter{
+    width: 45%;
+    float: left;
+    margin-right: 3px;
+    position: relative;
+    top: -9px;
+}
+
+.todos{
+    width: 45%;
+    float: right;
+    margin-left: 3px;
 }

@@ -7,6 +7,9 @@ const inp2 = document.querySelector("#column2");
 const inp3 = document.querySelector("#column3");
 const inp4 = document.querySelector("#column4");
 const inp5 = document.querySelector("#column5");
+//Counter
+const counterUl = document.querySelector("#counterUl");
+const addCounterBtn = document.querySelector("#addCounter");
 
 
 //add todo list
@@ -102,6 +105,7 @@ async function getWeather(latitude, longitude){
     temp_max,
     pressure,
   } = results;
+  let city = data.name;
   
   temp = Math.floor(results.temp-273.15);
   feels_like = Math.floor(results.feels_like-273.15);
@@ -113,15 +117,23 @@ async function getWeather(latitude, longitude){
   const maxTemp = document.querySelector("#maxTemp");
   const minTemp = document.querySelector("#minTemp");
   const feel = document.querySelector("#feel");
+  const cityName = document.querySelector("#cityName"); 
 
+  cityName.innerText = city;
   currentTemp.innerText = temp + "°C";
   situation.innerText = currentSituation;
   maxTemp.innerText = "Maximum: " + temp_max + "°C";
   minTemp.innerText = "Minimum: " + temp_min + "°C";
   feel.innerText = "Feels like: " + feels_like + "°C";
+
+  //Thunder: https://www.flaticon.com/svg/static/icons/svg/3026/3026385.svg
+  //Snow: https://www.flaticon.com/svg/static/icons/svg/2942/2942909.svg
+  //Windy: https://www.flaticon.com/svg/static/icons/svg/3380/3380848.svg
+
 }
 
 getWeather(52.4862, -1.8904)
+setInterval(getWeather(52.4862, -1.8904), 30000)
 
 
 //-----------------Time and Date------------------//
@@ -160,3 +172,75 @@ function dateTime(){
 
 setInterval(dateTime, 1000)
 //-----------------End - Time and Date - END------------------//
+
+
+//-----------------NASA Image of the Day API------------------//
+async function dailyImage(){
+  let result = await fetch(`https://api.nasa.gov/planetary/apod?api_key=5hGXtiNISMXZjSMf7hvUqv1v67bFuqlJKoYVn6PX`);
+  let data = await result.json();
+  console.log(data)
+  const {
+    hdurl,
+    explanation,
+    copyright,
+    title
+  } = data;
+  console.log(copyright, title)
+
+  const banner = document.querySelector("#banner");
+  const imgTitle = document.querySelector("#title");
+  const imgExplanation = document.querySelector("#explanation");
+  const imgCopyright = document.querySelector("#copyright")
+  
+  banner.src = hdurl;
+  imgTitle.innerHTML = `<strong><span>Title:</span> ${title}</strong>`;
+  imgCopyright.innerText = "Copyright: " + copyright;
+  // imgExplanation.innerText = explanation;
+
+  
+}
+
+dailyImage()
+
+//Make an icon on the banner. When the icon is clicked, the description of the image appears
+
+
+//-----------Create a Counter------------//
+function addCounter(){
+  if(input.value === ""){
+    return alert("Please add text")
+  }
+
+  let counterValue = 0;
+  
+  let span1 = document.createElement("span");
+  span1.innerText = "-";
+  span1.classList.add("decrement");
+  span1.addEventListener("click", function(){
+    updatedCounterValue--;
+    console.log("it should decrement")
+  })
+
+  counterUl.appendChild(span1);
+
+  let newCounter = document.createElement("li");
+  newCounter.innerHTML = input.value + `<br>` + counterValue;
+  newCounter.classList.add("listStyle");
+  newCounter.classList.add("liCounter");
+
+  counterUl.appendChild(newCounter);
+
+  let span2 = document.createElement("span");
+  span2.innerText = "+";
+  span2.classList.add("increment");
+  span2.addEventListener("click", function(){
+    counterValue++;
+    console.log("it should increment")
+  })
+
+  counterUl.appendChild(span2);
+
+  input.value = "";
+}
+
+addCounterBtn.addEventListener("click", addCounter);
