@@ -191,11 +191,13 @@ async function dailyImage(){
   console.log(copyright, title)
 
   const banner = document.querySelector("#banner");
+  const banner2 = document.querySelector("#banner2")
   const imgTitle = document.querySelector("#title");
   const imgExplanation = document.querySelector("#explanation");
   const imgCopyright = document.querySelector("#copyright")
   
   banner.src = hdurl;
+  banner2.src = hdurl;
   imgTitle.innerHTML = `<strong><span>Title:</span> ${title}</strong>`;
   imgCopyright.innerText = "Copyright: " + copyright;
   // imgExplanation.innerText = explanation;
@@ -216,24 +218,49 @@ function addCounter(){
 
   let counterValue = 0;
   
+  //Creating main span
   let containerSpan = document.createElement("span");
 
   counterUl.appendChild(containerSpan)
 
+  const inputValue = input.value
+
+  //Creating minus button in span and decrementing value
   let span1 = document.createElement("span");
   span1.innerText = "-";
   span1.classList.add("decrement");
   span1.addEventListener("click", function(){
-    updatedCounterValue--;
-    console.log("it should decrement")
+    counterValue--;
+    newCounter.innerHTML = inputValue + `<br>` + counterValue;
+
+
+  //add x button when decrement is called
+   let span = document.createElement("span");
+   span.innerText = "\u00D7";
+   span.classList.add("xButton");
+   newCounter.appendChild(span);
+ 
+   span.addEventListener("click", throughText);
+ 
+   //Delete list when xButton is clicked
+     function removeList(){
+      containerSpan.classList.add("hide");
+   };
+ 
+   span.addEventListener("click", removeList);
+   
   })
 
   containerSpan.appendChild(span1);
 
+
+  //Creating a list item with input.value
   let newCounter = document.createElement("li");
-  newCounter.innerHTML = input.value + `<br>` + counterValue;
+  
   newCounter.classList.add("listStyle");
   newCounter.classList.add("liCounter");
+  
+  newCounter.innerHTML = inputValue + `<br>` + counterValue;
 
   //Change background colour
   if (inp2.checked){
@@ -252,14 +279,33 @@ function addCounter(){
 
   containerSpan.appendChild(newCounter);
 
+
+  //Creating the plus icon in span and incrementing value
   let span2 = document.createElement("span");
   span2.innerText = "+";
   span2.classList.add("increment");
   span2.addEventListener("click", function(){
     counterValue++;
-    console.log("it should increment")
-  })
+    newCounter.innerHTML = inputValue + `<br>` + counterValue;
 
+
+    //add x button when increment is called
+   let span = document.createElement("span");
+   span.innerText = "\u00D7";
+   span.classList.add("xButton");
+   newCounter.appendChild(span);
+ 
+   span.addEventListener("click", throughText);
+ 
+   //Delete list when xButton is clicked
+     function removeList(){
+      containerSpan.classList.add("hide");
+   };
+ 
+   span.addEventListener("click", removeList);
+
+  })
+  
   containerSpan.appendChild(span2);
 
 
@@ -269,8 +315,6 @@ function addCounter(){
    span.classList.add("xButton");
    newCounter.appendChild(span);
  
-   input.value = "";
- 
    span.addEventListener("click", throughText);
  
    //Delete list when xButton is clicked
@@ -278,7 +322,7 @@ function addCounter(){
       containerSpan.classList.add("hide");
    };
  
-   containerSpan.addEventListener("click", removeList);
+   span.addEventListener("click", removeList);
 
   input.value = "";
 }
