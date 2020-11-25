@@ -13,6 +13,9 @@ const counterUl = document.querySelector("#counterUl");
 const addCounterBtn = document.querySelector("#addCounter");
 //retrieve button
 const retrieve = document.querySelector(".retrieve");
+//Making image enlarge
+const banner2 = document.querySelector("#banner2");
+const banner3 = document.querySelector("#banner3");
 
 //Todo backend
 let createTodo = (msg) => {
@@ -228,6 +231,7 @@ async function dailyImage() {
 
   banner.src = hdurl;
   banner2.src = hdurl;
+  banner3.src = hdurl;
   imgTitle.innerHTML = `<strong><span>Title:</span> ${title}</strong>`;
   imgCopyright.innerText = "Copyright: " + copyright;
   // imgExplanation.innerText = explanation;
