@@ -112,7 +112,7 @@ async function counterId() {
 async function retrieveAll() {
   let res = await fetch("http://localhost:5000/");
   let data = await res.json();
-  console.log(data.payload);
+  return data.payload;
 }
 
 function retieval() {
@@ -484,3 +484,41 @@ banner2.addEventListener("click", function () {
 closeImage.addEventListener("click", function () {
   parent.classList.toggle("hidden");
 });
+
+//Display all retrieved items
+async function diplayAll() {
+  let ret = await retrieveAll();
+  console.log(ret);
+
+  ret.map((e) => {
+    console.log(e.todo);
+
+    //add li
+    let newLi = document.createElement("li");
+    newLi.innerText = e.todo;
+
+    ul.appendChild(newLi);
+
+    //add x button
+    let span = document.createElement("span");
+    span.innerText = "\u00D7";
+    span.classList.add("xButton");
+    newLi.appendChild(span);
+
+    newLi.addEventListener("click", throughText);
+
+    //Delete list when xButton is clicked
+    function removeList() {
+      newLi.classList.add("hide");
+    }
+
+    span.addEventListener("click", removeList);
+
+    //Mark as completed
+    function throughText(newLi) {
+      newLi.target.classList.toggle("through");
+    }
+  });
+}
+
+diplayAll();

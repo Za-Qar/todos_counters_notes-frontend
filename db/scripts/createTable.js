@@ -11,7 +11,6 @@ async function createTableTodo() {
 }
 
 createTableTodo();
-//what if I want to also add the value of the counter
 
 async function createTableCounter() {
   let res = await query(
@@ -26,8 +25,8 @@ async function createTableCounter() {
 
 createTableCounter();
 
-async function dropItems() {
-  let res = await query(`DROP TABLE todos `);
-  console.log(res);
-}
+// async function dropItems() {
+//   let res = await query(`DROP TABLE todos `);
+//   console.log(res);
+// }
 // dropItems();
