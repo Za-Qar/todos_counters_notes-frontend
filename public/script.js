@@ -16,6 +16,8 @@ const retrieve = document.querySelector(".retrieve");
 //Making image enlarge
 const banner2 = document.querySelector("#banner2");
 const banner3 = document.querySelector("#banner3");
+const parent = document.querySelector(".parent");
+const closeImage = document.querySelector(".closeImage");
 
 //Todo backend
 let createTodo = (msg) => {
@@ -31,15 +33,82 @@ let createTodo = (msg) => {
     .catch((error) => console.log(error, "my error")); //uncaught promise rejection. The promise throws and error and I need to catch otherwise it will be thrown into the ether
 };
 
-//Retreive
-// let retieveAll = () => {
-//   fetch("http://localhost:5000/", {
-//     method: "get",
+//Counter backend
+let createCounter = (msg, count) => {
+  console.log("counter Input recieved", msg);
+  fetch(`http://localhost:5000/createCounter`, {
+    method: "POST",
+    body: JSON.stringify({ counter: msg, zero: count }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data, "here's the counter data buddy boy"))
+    .catch((error) => console.log(error, "counter error"));
+};
+
+//Increment Counter backend
+let incrementCounter = (id) => {
+  console.log(id);
+  fetch(`http://localhost:5000/${id}`, {
+    method: "PATCH",
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data, "this is the id buddy boy"))
+    .catch((error) => console.log(error, "incrementCounter error"));
+};
+
+//Decrmenet Counter backend
+let decrementCounter = (id) => {
+  console.log("decremented counter", id);
+  fetch(`http://localhost:5000/decremet/${id}`, {
+    method: "PATCH",
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data, "this is the decrement id buddy boy"))
+    .catch((error) => console.log(error, "this is the decerment error"));
+};
+
+//Get counter id
+
+let newCounterId = 0;
+console.log(newCounterId, "line 73");
+
+async function counterId() {
+  let res = await fetch("http://localhost:5000/maxId");
+  // console.log("res id", res);
+  let data = await res.json();
+  // console.log("res id json", data);
+  // console.log(data.payload.payload);
+  let id = data.payload.payload;
+  // newCounterId = id;
+  console.log("lastest countner id", id);
+  return id;
+}
+
+// function counterId() {
+//   return fetch("http://localhost:5000/maxId", {
+//     method: "PATCH",
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       var userid = JSON.parse(data);
+//       console.log(userid);
+//       return userid;
+//     });
+// }
+
+// let counterId = () => {
+//   fetch(`http://localhost:5000/maxId`, {
+//     method: "GET",
 //   })
 //     .then((res) => res.json())
-//     .then((data) => console.log(data, "here's the data"));
+//     .then((data) => console.log(data, "this is the counter id data buddy boy"))
+//     .then((error) => console.log(error, "counterId error"));
 // };
 
+//Retrieve All
 async function retrieveAll() {
   let res = await fetch("http://localhost:5000/");
   let data = await res.json();
@@ -167,9 +236,44 @@ async function getWeather(latitude, longitude) {
   minTemp.innerText = "Minimum: " + temp_min + "°C";
   feel.innerText = "Feels like: " + feels_like + "°C";
 
-  //Thunder: https://www.flaticon.com/svg/static/icons/svg/3026/3026385.svg
-  //Snow: https://www.flaticon.com/svg/static/icons/svg/2942/2942909.svg
-  //Windy: https://www.flaticon.com/svg/static/icons/svg/3380/3380848.svg
+  //changing icon
+  const weatherImage = document.querySelector("#weatherImage");
+
+  // /b /b => regex
+  if (currentSituation === "fog") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/2076/2076792.svg";
+  } else if (currentSituation === "clear sky") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/2698/2698194.svg";
+  } else if (currentSituation === "few clouds") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/1146/1146869.svg";
+  } else if (currentSituation === "scattered clouds") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/2151/2151266.svg";
+  } else if (currentSituation === "broken clouds") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/616/616682.svg";
+  } else if (currentSituation === "shower rain") {
+    weatherImage.src =
+      "https://www.flaticon.com/premium-icon/icons/svg/1959/1959338.svg";
+  } else if (currentSituation === "rain") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg";
+  } else if (currentSituation === "thunderstorm") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/1779/1779963.svg";
+  } else if (currentSituation === "snow") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/2942/2942909.svg";
+  } else if (currentSituation === "mist") {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/990/990469.svg";
+  } else {
+    weatherImage.src =
+      "https://www.flaticon.com/svg/static/icons/svg/616/616450.svg";
+  }
 }
 
 getWeather(52.4862, -1.8904);
@@ -242,12 +346,16 @@ dailyImage();
 //Make an icon on the banner. When the icon is clicked, the description of the image appears
 
 //-----------Create a Counter------------//
-function addCounter() {
+async function addCounter() {
   if (input.value === "") {
     return alert("Please add text");
   }
+  let jamesIdIdea = await counterId();
+  console.log(jamesIdIdea);
 
   let counterValue = 0;
+
+  createCounter(input.value, counterValue);
 
   //Creating main span
   let containerSpan = document.createElement("span");
@@ -258,10 +366,12 @@ function addCounter() {
 
   //Creating minus button in span and decrementing value
   let span1 = document.createElement("span");
+
   span1.innerText = "-";
   span1.classList.add("decrement");
   span1.addEventListener("click", function () {
     counterValue--;
+    decrementCounter(jamesIdIdea + 1);
     newCounter.innerHTML = inputValue + `<br>` + counterValue;
 
     //add x button when decrement is called
@@ -313,6 +423,7 @@ function addCounter() {
   span2.classList.add("increment");
   span2.addEventListener("click", function () {
     counterValue++;
+    incrementCounter(jamesIdIdea + 1);
     newCounter.innerHTML = inputValue + `<br>` + counterValue;
 
     //add x button when increment is called
@@ -355,34 +466,21 @@ addCounterBtn.addEventListener("click", addCounter);
 
 // Make movable items
 const ulTodos = document.querySelector("#ul");
-new Sortable(ulTodos, {
+let sort1 = new Sortable(ulTodos, {
   handle: ".listStyle",
   animation: 200,
 });
 
-new Sortable(counterUl, {
-  handle: "span",
-  animation: 200,
-});
+// let sort2 = new Sortable(counterUl, {
+//   handle: "span",
+//   animation: 200,
+// });
 
 //Make image enlarge
-// Get the modal
-var modal = document.getElementById("myModal");
+banner2.addEventListener("click", function () {
+  parent.classList.toggle("hidden");
+});
 
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function () {
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-};
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-};
+closeImage.addEventListener("click", function () {
+  parent.classList.toggle("hidden");
+});

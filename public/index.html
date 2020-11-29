@@ -31,7 +31,7 @@
             <div class="weather">
                 <h2 id="cityName"></h2>
                 <h1 id="currentTemp"></h1>
-                <img src="https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg" width="50px">
+                <img id="weatherImage" width="50px">
                 <h2 id="situation"></h2>
 
                 <div class="maxMin">
@@ -87,11 +87,11 @@
           </div>
 
             <div class="counter">
-              <ul id="ulCounter">
+           
                 <ul id="counterUl">
                   
                 </ul>
-              </ul>
+        
             </div>
           <button class="retrieve">Retrieve alles</button>
         </div>
@@ -100,9 +100,12 @@
       </div>
       <!--Container end-->
       
-      <div id="parent hide"> 
+      <div class="parent hidden"> 
         <div class="child">
-          <img id="banner3" class="nasaImage" width="100%"/>
+          <div>
+            <div class="closeImage">x</div>
+            <img id="banner3" class="nasaImage" width="100%"/>
+          </div>
         </div>
       </div>
       
