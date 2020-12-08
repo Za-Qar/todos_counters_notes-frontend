@@ -8,6 +8,8 @@ const {
   incrementCounter,
   decrementCounter,
   getMaxid,
+  deleteTodo,
+  getMaxTodoId,
 } = require("../models/items");
 
 const router = express.Router();
@@ -60,6 +62,18 @@ router.patch("/decremet/:id", async function (req, res) {
 router.get("/maxId", async function (req, res) {
   const id = await getMaxid();
   res.json({ success: true, payload: id });
+});
+
+router.get("/todo/maxId", async function (req, res) {
+  const id = await getMaxTodoId();
+  res.json({ success: true, payload: id });
+});
+
+router.delete("/:id", async function (req, res) {
+  let id = req.params.id;
+  console.log("delete id, routes", id);
+  deleteTodo(id);
+  return res.json({ success: true });
 });
 
 //export the router - what is this?

@@ -69,10 +69,6 @@ let decrementCounter = (id) => {
 };
 
 //Get counter id
-
-let newCounterId = 0;
-console.log(newCounterId, "line 73");
-
 async function counterId() {
   let res = await fetch("http://localhost:5000/maxId");
   // console.log("res id", res);
@@ -85,28 +81,24 @@ async function counterId() {
   return id;
 }
 
-// function counterId() {
-//   return fetch("http://localhost:5000/maxId", {
-//     method: "PATCH",
-//   })
-//     .then(function (response) {
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       var userid = JSON.parse(data);
-//       console.log(userid);
-//       return userid;
-//     });
-// }
+//Get todo id
+async function todoMaxId() {
+  let res = await fetch("http://localhost:5000/todo/maxId");
+  let data = await res.json();
+  let id = data.payload[0].id;
+  console.log(id);
+  return id;
+}
 
-// let counterId = () => {
-//   fetch(`http://localhost:5000/maxId`, {
-//     method: "GET",
-//   })
-//     .then((res) => res.json())
-//     .then((data) => console.log(data, "this is the counter id data buddy boy"))
-//     .then((error) => console.log(error, "counterId error"));
-// };
+//Delete todo
+let deleteTodo = (id) => {
+  fetch(`http://localhost:5000/${id}`, {
+    method: "delete",
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data, "Todo has been delete buddy boy"))
+    .catch((error) => console.log(error, "this is the delete todo error"));
+};
 
 //Retrieve All
 async function retrieveAll() {
@@ -115,20 +107,25 @@ async function retrieveAll() {
   return data.payload;
 }
 
-function retieval() {
-  console.log("Retrieval function");
-  retrieveAll();
-}
-retrieve.addEventListener("click", retieval);
+// function retieval() {
+//   console.log("Retrieval function");
+//   todoMaxId();
+// }
+// retrieve.addEventListener("click", retieval);
 
 //add todo list
 // [object%20Object] : explain
-function add(e) {
+async function add(e) {
   e.preventDefault(); //An event the browser is expecting. Expecting with addevent - event will be passed up until it stops either by my code or browser. This stops the event and overrides the default browser behavious
   if (input.value === "") {
     alert("You must add a todo");
     return;
   }
+
+  //Get todo id
+  let todoId = await todoMaxId();
+  console.log(todoId);
+
   console.log("inside add");
   createTodo(input.value);
   //add li
@@ -136,14 +133,19 @@ function add(e) {
   newLi.innerText = input.value;
   if (inp2.checked) {
     newLi.classList.add("yellowgreen");
+    newLi.classList.add("listStyle");
   } else if (inp3.checked) {
     newLi.classList.add("red");
+    newLi.classList.add("listStyle");
   } else if (inp4.checked) {
     newLi.classList.add("pink");
+    newLi.classList.add("listStyle");
   } else if (inp5.checked) {
     newLi.classList.add("burlywood");
+    newLi.classList.add("listStyle");
   } else if (inp6.checked) {
     newLi.classList.add("white");
+    newLi.classList.add("listStyle");
   } else {
     newLi.classList.add("listStyle");
   }
@@ -165,7 +167,17 @@ function add(e) {
     newLi.classList.add("hide");
   }
 
-  span.addEventListener("click", removeList);
+  // span.addEventListener("click", removeList);
+  span.addEventListener("click", function () {
+    let confRes = confirm("are you sure you want to delete?");
+    if (confRes === true) {
+      console.log(todoId + 1);
+      deleteTodo(todoId + 1);
+      removeList();
+    }
+  });
+
+  console.log(todoId + 1);
 }
 
 addButton.addEventListener("click", add);
@@ -486,7 +498,7 @@ closeImage.addEventListener("click", function () {
 });
 
 //Display all retrieved items
-async function diplayAll() {
+async function displayAll() {
   let ret = await retrieveAll();
   console.log(ret);
 
@@ -521,4 +533,4 @@ async function diplayAll() {
   });
 }
 
-diplayAll();
+displayAll();
