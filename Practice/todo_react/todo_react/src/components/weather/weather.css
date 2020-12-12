@@ -1,0 +1,9 @@
+.weatherSec {
+  margin-top: 2rem;
+}
+
+.curWeathImage {
+  width: 50px;
+  margin: auto;
+  padding: 1rem;
+}

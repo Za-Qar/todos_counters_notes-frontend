@@ -1,0 +1,13 @@
+/* .timeBox {
+  background-color: teal;
+  width: 30%;
+  height: 50px;
+} */
+
+.dateTimeSec {
+  text-align: center;
+}
+
+.dateTimeSec p {
+  margin: 1rem;
+}
