@@ -6,15 +6,19 @@ import Nav from "./components/nav";
 import Input from "./components/input";
 import TimeDate from "./components/timeDate";
 import Weather from "./components/weather";
+import Notes from "./components/notes";
+import NasaPic from "./components/nasaPic";
 
 function App() {
   return (
     <div>
       <Nav />
       <Header />
-      <Input />
+      {/* <Input /> */}
+      <Notes />
       <TimeDate />
       <Weather />
+      <NasaPic />
     </div>
   );
 }
