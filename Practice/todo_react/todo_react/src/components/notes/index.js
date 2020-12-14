@@ -18,11 +18,15 @@ function Notes() {
             className="inputFieldNotesLeft"
             onChange={(e) => setNoteTitle(e.target.value)}
           />
-          <input placeholder="Text" className="inputFieldNotesRight" />
+          <input
+            placeholder="Text"
+            className="inputFieldNotesRight"
+            onChange={(e) => setNoteText(e.target.value)}
+          />
         </div>
         <button className="addNoteButton">Add Note</button>
         <motion.div className="drag-area" ref={area}>
-          <Note area={area} noteTitle={noteTitle} />
+          <Note area={area} noteTitle={noteTitle} noteText={noteText} />
         </motion.div>
       </div>
     </div>
