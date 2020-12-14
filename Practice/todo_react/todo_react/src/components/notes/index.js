@@ -6,21 +6,23 @@ import Note from "../note";
 
 function Notes() {
   const area = useRef(null);
-  const [note, setNote] = useState("hello");
+  const [noteTitle, setNoteTitle] = useState("hello");
+  const [noteText, setNoteText] = useState("hello");
 
   return (
     <div className="container">
       <div className="notesSec">
         <div className="notesInput">
           <input
+            placeholder="Title"
             className="inputFieldNotesLeft"
-            onChange={(e) => setNote(e.target.value)}
+            onChange={(e) => setNoteTitle(e.target.value)}
           />
-          <input className="inputFieldNotesRight" />
+          <input placeholder="Text" className="inputFieldNotesRight" />
         </div>
         <button className="addNoteButton">Add Note</button>
         <motion.div className="drag-area" ref={area}>
-          <Note area={area} note={note} />
+          <Note area={area} noteTitle={noteTitle} />
         </motion.div>
       </div>
     </div>

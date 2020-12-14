@@ -2,11 +2,11 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import "./note.css";
 
-function Note(area, note) {
+function Note(area, { noteTitle }) {
   //   const [note, setNote] = useState("");
 
   function log() {
-    console.log(note);
+    console.log(noteTitle);
   }
 
   return (
@@ -25,7 +25,7 @@ function Note(area, note) {
       // whileTap={{ rotate: 90 }}
     >
       <p>What if I have some text here?</p>
-      {/* <p>{note}</p> */}
+      <p>{noteTitle}</p>
       <button onClick={log}>Click me</button>
     </motion.div>
   );

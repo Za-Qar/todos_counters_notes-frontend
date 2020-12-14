@@ -15,7 +15,7 @@ function NasaPic() {
     let data = await result.json();
 
     setUrl(data.url);
-    console.log(data);
+    console.log(data.url);
 
     setCopyright(data.copyright);
     setDate(data.date);

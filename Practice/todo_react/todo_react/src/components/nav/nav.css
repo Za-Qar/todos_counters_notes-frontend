@@ -18,9 +18,10 @@
   align-items: center;
   padding: 0;
   margin: 0;
+  text-decoration: none;
 }
 
-.navUl li a {
+.navUl li span {
   display: block;
   padding: 1rem;
   cursor: pointer;
@@ -28,7 +29,7 @@
   font-weight: 400;
 }
 
-.navUl li a:hover {
+.navUl li span:hover {
   padding: 1rem;
   cursor: pointer;
   animation-name: aHover;
@@ -44,4 +45,9 @@
   to {
     background-color: white;
   }
+}
+
+.linkRouter {
+  text-decoration: none;
+  color: black;
 }
