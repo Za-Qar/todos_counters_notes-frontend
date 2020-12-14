@@ -4,6 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
+    "start": "node ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "createTable": "node -r dotenv/config ./db/scripts/createTable",
     "dev": "node ./app.js"
@@ -24,5 +25,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "pg": "^8.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

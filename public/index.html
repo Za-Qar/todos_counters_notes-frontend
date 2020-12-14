@@ -31,7 +31,7 @@
             <div class="weather">
                 <h2 id="cityName"></h2>
                 <h1 id="currentTemp"></h1>
-                <img src="https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg" width="50px">
+                <img id="weatherImage" width="50px">
                 <h2 id="situation"></h2>
 
                 <div class="maxMin">
@@ -48,9 +48,11 @@
             </div>
 
 
+            
             <div class="weather">
               <h2 id="cityName">Nasa Picture of the day</h2>
-              <img id="banner2" width="100%"/>
+              <img id="banner2" class="nasaImage"  width="100%"/>
+             
             </div>
           </div>  
       
@@ -77,23 +79,37 @@
           </div>
         
           <div class="todos">
+            
             <ul id="ul">
-
+             
             </ul>
+            
           </div>
 
             <div class="counter">
-              <ul id="ulCounter">
+           
                 <ul id="counterUl">
                   
                 </ul>
-              </ul>
+        
             </div>
-          <button class="retrieve">Retrieve alles</button>
+          <!-- <button class="retrieve">Retrieve alles</button> -->
         </div>
+
+        
       </div>
       <!--Container end-->
       
+      <div class="parent hidden"> 
+        <div class="child">
+          <div>
+            <div class="closeImage">x</div>
+            <img id="banner3" class="nasaImage" width="100%"/>
+          </div>
+        </div>
+      </div>
+      
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.10.2/Sortable.min.js" integrity="sha512-ELgdXEUQM5x+vB2mycmnSCsiDZWQYXKwlzh9+p+Hff4f5LA+uf0w2pOp3j7UAuSAajxfEzmYZNOOLQuiotrt9Q==" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </html>

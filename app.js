@@ -1,6 +1,6 @@
 const express = require("express");
 const { router } = require("./routes/items");
-const port = 5000;
+const port = process.env.PORT || 5000;
 var bodyParser = require("body-parser");
 const cors = require("cors");
 
