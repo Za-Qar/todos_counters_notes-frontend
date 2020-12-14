@@ -2,8 +2,46 @@
   margin-top: 2rem;
 }
 
+.weatherSec p {
+  padding: 0;
+  text-align: center;
+  line-height: 1rem;
+}
+
 .curWeathImage {
   width: 50px;
   margin: auto;
   padding: 1rem;
+}
+
+.city {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.curr {
+  font-weight: 700;
+}
+
+.temp {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.temp p {
+  font-weight: 400;
+  font-size: 0.7rem;
+  float: right;
+}
+
+.spanWeather {
+  width: 1rem;
+}
+
+.feel {
+  font-weight: 200;
+  font-size: 0.8rem;
 }

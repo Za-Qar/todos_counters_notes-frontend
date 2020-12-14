@@ -79,7 +79,7 @@ function Weather() {
         );
       } else if (currentSituation === "rain") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg"
+          "https://www.flaticon.com/svg/static/icons/svg/616/616450.svg"
         );
       } else if (currentSituation === "thunderstorm") {
         setWethImage(
@@ -92,6 +92,13 @@ function Weather() {
       } else if (currentSituation === "mist") {
         setWethImage(
           "https://www.flaticon.com/svg/static/icons/svg/990/990469.svg"
+        );
+      } else if (
+        currentSituation === "moderate rain" ||
+        currentSituation === "light rain"
+      ) {
+        setWethImage(
+          "https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg"
         );
       } else {
         setWethImage(
@@ -107,13 +114,31 @@ function Weather() {
   return (
     <div className="container">
       <div className="sideBox weatherSec">
-        <p>{temp}</p>
-        <p>{tempMax}</p>
-        <p>{tempMin}</p>
-        <p>{feel}</p>
-        <p>{curr}</p>
-        <p>{city}</p>
+        <p className="city">{city}</p>
+        <p className="temp">{temp}°C</p>
+
         <img alt="current weather" className="curWeathImage" src={wethImage} />
+        <p className="curr">{curr}</p>
+
+        <div className="temp">
+          <img
+            src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg"
+            width="30px"
+          />
+          <span className="spanWeather"></span>
+          <p> Max: {tempMax}°C</p>
+        </div>
+
+        <div className="temp">
+          <img
+            src="https://www.flaticon.com/svg/static/icons/svg/3593/3593622.svg"
+            width="30px"
+          />
+          <span className="spanWeather"></span>
+          <p> Min: {tempMin}°C</p>
+        </div>
+
+        <p className="feel">Feels like {feel}°C</p>
       </div>
     </div>
   );

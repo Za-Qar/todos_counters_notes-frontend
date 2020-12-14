@@ -30,3 +30,16 @@ code {
   text-align: center;
   border-radius: 1rem;
 }
+
+.complete {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.opacity {
+  opacity: 0.5;
+}
+
+.opacityGarbage {
+  opacity: 0.9;
+}

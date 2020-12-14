@@ -10,7 +10,6 @@ function Input() {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
   const [counter, setCounter] = useState([]);
-  const [counterValue, setCounterValue] = useState(0);
 
   function addTodo() {
     const newTodos = [...todos, { todo: inputValue }];
@@ -76,10 +75,6 @@ function Input() {
     });
   }
 
-  // function changeCounter(val) {
-  //   setCounterValue(counterValue + val);
-  // }
-
   return (
     <div className="container">
       <div className="inputSec">
@@ -109,9 +104,7 @@ function Input() {
               return (
                 <Counter
                   counterItem={item.counter}
-                  counterValue={counterValue}
                   deleteCounter={() => deleteCounter(index)}
-                  changeCounter={changeCounter}
                 />
               );
             })}

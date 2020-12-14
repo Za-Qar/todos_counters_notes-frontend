@@ -7,15 +7,15 @@ function TimeDate() {
   const [time, setTime] = useState("");
 
   function makeDate() {
-    var currentdate = new Date();
-    var dateOnly =
-      currentdate.getDate() +
-      "/" +
-      (currentdate.getMonth() + 1) +
-      "/" +
-      currentdate.getFullYear();
-    console.log(dateOnly);
-    setDate(dateOnly);
+    let currentdate = new Date();
+    // var dateOnly =
+    //   currentdate.getDate() +
+    //   "/" +
+    //   (currentdate.getMonth() + 1) +
+    //   "/" +
+    //   currentdate.getFullYear();
+    // console.log(dateOnly);
+    setDate(currentdate.toLocaleDateString());
     // setDate(date);
   }
 
@@ -25,28 +25,29 @@ function TimeDate() {
   }, []);
 
   function makeTime() {
-    // currentdate.toLocaleString()
-    // currentdate.toLocaleTimeString()
-    // currentdate.toLocaleDateString()
     let currentdate = new Date();
-    let hours = currentdate.getHours();
-    let minutes = currentdate.getMinutes();
-    let seconds = currentdate.getSeconds();
+    // currentdate.toLocaleString();
+    // currentdate.toLocaleTimeString();
+    // currentdate.toLocaleDateString();
 
-    if (hours < 1) {
-      hours = "0" + currentdate.getHours();
-    }
+    // let hours = currentdate.getHours();
+    // let minutes = currentdate.getMinutes();
+    // let seconds = currentdate.getSeconds();
 
-    if (minutes <= 9) {
-      minutes = "0" + currentdate.getMinutes();
-    }
+    // if (hours < 1) {
+    //   hours = "0" + currentdate.getHours();
+    // }
 
-    if (seconds <= 9) {
-      seconds = "0" + currentdate.getSeconds();
-    }
+    // if (minutes <= 9) {
+    //   minutes = "0" + currentdate.getMinutes();
+    // }
 
-    var timeOnly = hours + ":" + minutes + ":" + seconds;
-    setTime(timeOnly);
+    // if (seconds <= 9) {
+    //   seconds = "0" + currentdate.getSeconds();
+    // }
+
+    // var timeOnly = hours + ":" + minutes + ":" + seconds;
+    setTime(currentdate.toLocaleTimeString());
   }
 
   useEffect(() => {
@@ -58,8 +59,8 @@ function TimeDate() {
     <div className="container">
       {/* <button onClick={() => con}>click me</button> */}
       <div className="sideBox dateTimeSec">
-        <p>{date}</p>
-        <p>{time}</p>
+        <p className="date">{date}</p>
+        <p className="time">{time}</p>
       </div>
     </div>
   );

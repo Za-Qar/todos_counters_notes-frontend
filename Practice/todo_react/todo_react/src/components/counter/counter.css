@@ -1,0 +1,83 @@
+.counterText {
+  padding: 2rem;
+  font-weight: 700;
+  width: 60%;
+  overflow: hidden;
+  margin-left: 1rem;
+}
+
+.add {
+  position: absolute;
+  top: 0;
+
+  background-color: #ddf1c97e;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  height: 50%;
+  font-weight: 500;
+  font-size: 1rem;
+
+  border-bottom: 0.5px solid #bbdabe;
+}
+
+.minus {
+  position: absolute;
+  bottom: 0;
+
+  background-color: #ddf1c97e;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  height: 50%;
+  font-weight: 500;
+  font-size: 1rem;
+
+  border-top: 0.5px solid #bbdabe;
+}
+
+/* .counterValue {
+  position: absolute;
+  top: 0;
+  margin-top: 3rem;
+  padding-left: 0.5rem;
+} */
+
+.counter {
+  position: relative;
+  margin: 1rem 0 1rem 1rem;
+  min-height: 7rem;
+  height: auto;
+}
+
+.white {
+  background-color: #f9faff;
+  border-bottom: 0.5px solid black;
+}
+
+.add:hover {
+  background-color: #b2ceb5;
+}
+
+.minus:hover {
+  background-color: #b2ceb5;
+}
+
+.counterInnerText {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  line-height: 1rem;
+  cursor: pointer;
+}
+
+.counterValue {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  line-height: 1rem;
+
+  font-weight: 200;
+}

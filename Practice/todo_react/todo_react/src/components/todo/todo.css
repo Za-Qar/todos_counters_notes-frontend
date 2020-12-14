@@ -2,6 +2,12 @@
   margin: 1rem 1rem 1rem 0;
 }
 
+.todoInnerText {
+  font-weight: 700;
+  width: 85%;
+  overflow: hidden;
+}
+
 .white {
   background-color: #f9faff;
   border-bottom: 0.5px solid black;
@@ -9,6 +15,8 @@
 
 .todo {
   position: relative;
+  min-height: 7rem;
+  height: auto;
 }
 
 .todoDelete {
@@ -29,4 +37,17 @@
   background-image: url("https://i.imgur.com/RhRzGrr.png");
   /* background-color: rgb(157, 186, 233);
   border-radius: 50px; */
+}
+
+/* .aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.todoText {
+  margin-top: 3rem;
+  padding-left: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
 }
