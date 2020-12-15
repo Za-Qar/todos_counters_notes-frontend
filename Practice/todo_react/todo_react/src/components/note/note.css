@@ -1,4 +1,19 @@
 .note {
   color: black;
   opacity: 1;
+  background-color: white;
+  width: 25%;
+  min-height: 1rem;
+}
+
+.noteTitle {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.noteText {
+  margin: 0;
+  padding: 0;
 }

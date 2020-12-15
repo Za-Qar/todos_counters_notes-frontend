@@ -36,7 +36,7 @@ function NasaPic() {
   return (
     <div className="container">
       <div className="sideBox nasaPicSec">
-        text
+        {explanation}
         <img src={url} alt="Nasa picture of the day" className="nasaImgSmall" />
       </div>
     </div>

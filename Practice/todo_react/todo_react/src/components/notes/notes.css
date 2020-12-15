@@ -13,7 +13,7 @@
 }
 
 .inputFieldNotesLeft {
-  width: 50%;
+  width: 30%;
   /* width: calc(100% - 20px); should be a last resord*/
   border: 1px solid black;
   border-radius: 50px 0 0 50px;
@@ -22,7 +22,7 @@
 }
 
 .inputFieldNotesRight {
-  width: 50%;
+  width: 70%;
   /* width: calc(100% - 20px); should be a last resord*/
   border: 1px solid black;
   border-radius: 0 50px 50px 0;
@@ -47,7 +47,7 @@
   /* width: 50%;
     height: 70%; */
   width: auto;
-  height: 1000px;
+  min-height: 3rem;
   border-radius: 30px;
   top: calc(50% - 200px);
   left: calc(35% - 135px);
@@ -68,11 +68,6 @@
 
 .title {
   font-size: 20px;
-}
-
-.note {
-  background-color: white;
-  width: 100px;
 }
 
 .note p {

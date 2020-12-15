@@ -6,8 +6,15 @@ import Note from "../note";
 
 function Notes() {
   const area = useRef(null);
-  const [noteTitle, setNoteTitle] = useState("hello");
-  const [noteText, setNoteText] = useState("hello");
+  const [titleInput, setTitleInput] = useState("");
+  const [textInput, setTextInput] = useState("");
+  const [note, setNote] = useState([]);
+
+  function addNote() {
+    console.log(note);
+    let newNoteTitle = [...note, { title: titleInput, text: textInput }];
+    setNote(newNoteTitle);
+  }
 
   return (
     <div className="container">
@@ -16,17 +23,24 @@ function Notes() {
           <input
             placeholder="Title"
             className="inputFieldNotesLeft"
-            onChange={(e) => setNoteTitle(e.target.value)}
+            onChange={(e) => setTitleInput(e.target.value)}
           />
           <input
             placeholder="Text"
             className="inputFieldNotesRight"
-            onChange={(e) => setNoteText(e.target.value)}
+            onChange={(e) => setTextInput(e.target.value)}
           />
         </div>
-        <button className="addNoteButton">Add Note</button>
+        <button className="addNoteButton" onClick={addNote}>
+          Add Note
+        </button>
         <motion.div className="drag-area" ref={area}>
-          <Note area={area} noteTitle={noteTitle} noteText={noteText} />
+          {note.map((item) => {
+            return (
+              <Note area={area} noteTitle={item.title} noteText={item.text} />
+            );
+          })}
+          {/*noteText={noteText}*/}
         </motion.div>
       </div>
     </div>

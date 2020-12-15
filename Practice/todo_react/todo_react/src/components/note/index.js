@@ -5,11 +5,7 @@ import "./note.css";
 function Note({ area, noteTitle, noteText }) {
   //   const [note, setNote] = useState("");
 
-  function log() {
-    console.log(noteTitle);
-    console.log(noteText);
-    console.log(area);
-  }
+  console.log(noteTitle, "line 8 of note");
 
   return (
     <motion.div
@@ -18,17 +14,16 @@ function Note({ area, noteTitle, noteText }) {
       dragConstraints={area}
       dragElastic={0.05}
       dragMomentum={false}
-      whileHover={{ scale: 1.05 }}
-      animate={{ rotate: 360 }}
+      whileHover={{ scale: 1.2 }}
+      // animate={{ rotate: 360 }}
       transition={{ duration: 2 }}
       onMouseUp={(e) =>
         console.log({ taget: e.target.getBoundingClientRect() })
       }
       // whileTap={{ rotate: 90 }}
     >
-      <p>{noteTitle}</p>
-      <p>{noteText}</p>
-      <button onClick={log}>Click me</button>
+      <p className="noteTitle">{noteTitle}</p>
+      <p className="noteText">{noteText}</p>
     </motion.div>
   );
 }
