@@ -77,7 +77,7 @@ function Input() {
     createTodo(inputValue);
   }
 
-  function deleteTodo(id) {
+  async function deleteTodo(id) {
     //linting rule which is why confirm doesn't work.
     //I can still window.confirm
     confirmAlert({
@@ -102,9 +102,9 @@ function Input() {
         },
       ],
     });
-    let todoId = todoMaxId();
+    let todoId = await todoMaxId();
     console.log(todoId);
-    // deleteTodoBackend(todoId + 1);
+    deleteTodoBackend(todoId);
   }
 
   function addCounter() {
@@ -162,11 +162,12 @@ function Input() {
                 />
               );
             })}
-            {getTodos.map((item, index, array) => {
+            {getTodos.map((item, index) => {
               return (
                 <Todo
                   key={index}
                   todoItem={item.todo}
+                  todoId={item.id}
                   deleteTodo={() => deleteTodo(index)}
                 />
               );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./todo.css";
 
-function Todo({ todoItem, deleteTodo }) {
+function Todo({ todoItem, deleteTodo, todoId }) {
   const [color, setColor] = useState("todo white");
   const [complete, setComplete] = useState("");
   const [opacity, setOpacity] = useState("");
