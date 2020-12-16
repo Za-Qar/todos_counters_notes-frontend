@@ -12,6 +12,9 @@ function Input() {
   const [counter, setCounter] = useState([]);
 
   const [getTodos, setGetTodos] = useState([]);
+  const [getTodoId, setGetTodosId] = useState(0);
+
+  const [deleteTodoClass, SetDeleteTodoClass] = useState("");
 
   /*---------------Add todo----------------*/
   let createTodo = (msg) => {
@@ -26,27 +29,17 @@ function Input() {
       .catch((error) => console.log(error, "my error"));
   };
 
-  /*---------------Add Counter----------------*/
-  let createCounter = (msg, count) => {
-    console.log("counter Input recieved", msg);
-    fetch(`http://localhost:5000/createCounter`, {
-      method: "POST",
-      body: JSON.stringify({ counter: msg, zero: count }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data, "here's the counter data buddy boy"))
-      .catch((error) => console.log(error, "counter error"));
-  };
-
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
-  async function retrieveAll() {
+  async function retrieveAllTodos() {
     let res = await fetch("http://localhost:5000/"); //process.env.REACT_APP_HOST_URL - for react
     let data = await res.json();
     console.log(data.payload);
     setGetTodos(data.payload);
   }
+  useEffect(() => {
+    retrieveAllTodos();
+  }, []);
 
   /*---------------Delete todo id----------------*/
   async function todoMaxId() {
@@ -66,18 +59,66 @@ function Input() {
       .then((data) => console.log(data, "Todo has been delete buddy boy"))
       .catch((error) => console.log(error, "this is the delete todo error"));
   };
-  useEffect(() => {
-    retrieveAll();
-  }, []);
 
-  function addTodo() {
+  /*---------------Add Counter----------------*/
+  let createCounter = (msg, count) => {
+    console.log("counter Input recieved", msg);
+    fetch(`http://localhost:5000/createCounter`, {
+      method: "POST",
+      body: JSON.stringify({ counter: msg, zero: count }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data, "here's the counter data buddy boy"))
+      .catch((error) => console.log(error, "counter error"));
+  };
+
+  /*---------------Get all Counters----------------*/
+  async function retrieveAllCounters() {
+    let res = await fetch("http://localhost:5000/allCounters");
+    let data = await res.json();
+    console.log(data.payload[0].counter);
+  }
+
+  /*---------------Get all Max Counter ID----------------*/
+  async function retrieveMaxCounterId() {
+    let res = await fetch("http://localhost:5000/maxIdCounters");
+    let data = await res.json();
+    console.log(data);
+  }
+
+  /*---------------Increment Counter backend----------------*/
+  let incrementCounter = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data, "this is the id buddy boy"))
+      .catch((error) => console.log(error, "incrementCounter error"));
+  };
+
+  /*---------------Decrement Counter backend----------------*/
+  let decrementCounter = (id) => {
+    console.log("decremented counter", id);
+    fetch(`http://localhost:5000/decremet/${id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data, "this is the decrement id buddy boy"))
+      .catch((error) => console.log(error, "this is the decerment error"));
+  };
+
+  async function addTodo() {
     const newTodos = [...todos, { todo: inputValue }];
     setTodos(newTodos);
     setInputValue("");
     createTodo(inputValue);
+    let todoIdBackend = await todoMaxId();
+    setGetTodosId(todoIdBackend);
   }
 
-  async function deleteTodo(id) {
+  async function deleteTodo(id, todoId) {
     //linting rule which is why confirm doesn't work.
     //I can still window.confirm
     confirmAlert({
@@ -92,6 +133,8 @@ function Input() {
             const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
             console.log(newTodo);
             setTodos(newTodo);
+            deleteTodoBackend(todoId);
+            SetDeleteTodoClass("hidden");
           },
         },
         {
@@ -102,15 +145,13 @@ function Input() {
         },
       ],
     });
-    let todoId = await todoMaxId();
-    console.log(todoId);
-    deleteTodoBackend(todoId);
+    retrieveAllCounters();
   }
 
   function addCounter() {
     let newCounter = [...counter, { counter: inputValue }];
     setCounter(newCounter);
-    createCounter(inputValue);
+    createCounter(inputValue, 0);
     setInputValue("");
   }
 
@@ -158,7 +199,10 @@ function Input() {
                 <Todo
                   key={index}
                   todoItem={item.todo}
-                  deleteTodo={() => deleteTodo(index)}
+                  todoId={getTodoId}
+                  index={index}
+                  deleteTodo={deleteTodo}
+                  todoClass={deleteTodoClass}
                 />
               );
             })}
@@ -168,7 +212,9 @@ function Input() {
                   key={index}
                   todoItem={item.todo}
                   todoId={item.id}
-                  deleteTodo={() => deleteTodo(index)}
+                  index={index}
+                  deleteTodo={deleteTodo}
+                  todoClass={deleteTodoClass}
                 />
               );
             })}

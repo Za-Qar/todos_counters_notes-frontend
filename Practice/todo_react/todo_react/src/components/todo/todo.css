@@ -15,7 +15,7 @@
 
 .todo {
   position: relative;
-  min-height: 7rem;
+  min-height: 7.5rem;
   height: auto;
 }
 
@@ -50,4 +50,8 @@
   padding-left: 1.5rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

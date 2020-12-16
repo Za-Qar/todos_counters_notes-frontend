@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./todo.css";
 
-function Todo({ todoItem, deleteTodo, todoId }) {
+function Todo({ todoItem, deleteTodo, todoId, index, todoClass }) {
   const [color, setColor] = useState("todo white");
   const [complete, setComplete] = useState("");
   const [opacity, setOpacity] = useState("");
@@ -20,7 +20,8 @@ function Todo({ todoItem, deleteTodo, todoId }) {
   }
 
   return (
-    <div className={`${color} ${opacity}`}>
+    <div className={`${color} ${opacity} ` /*${todoClass}*/}>
+      {" "}
       <div className="container">
         <div className="todoDiv">
           <div className="todoInnerText">
@@ -30,7 +31,7 @@ function Todo({ todoItem, deleteTodo, todoId }) {
           </div>
           <img
             className={`todoDelete ${opacityGarbage}`}
-            onClick={deleteTodo}
+            onClick={() => deleteTodo(index, todoId)}
             src="https://i.imgur.com/z4KpjzC.png"
             alt="delete"
           />
