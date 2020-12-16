@@ -42,12 +42,11 @@
 
 /*---------Drag area styling-----------*/
 .drag-area {
-  opacity: 0.2;
-  background: black;
+  background: rgba(0, 0, 0, 0.3);
   /* width: 50%;
     height: 70%; */
   width: auto;
-  min-height: 3rem;
+  min-height: 7rem;
   border-radius: 30px;
   top: calc(50% - 200px);
   left: calc(35% - 135px);
