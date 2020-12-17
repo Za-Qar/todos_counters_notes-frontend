@@ -12,7 +12,10 @@ function Input() {
   const [counter, setCounter] = useState([]);
 
   const [getTodos, setGetTodos] = useState([]);
-  const [getTodoId, setGetTodosId] = useState(0);
+  const [getTodoMaxId, setGetTodosMaxId] = useState(0);
+
+  const [getCounters, setGetCounters] = useState([]);
+  const [getCounterMaxId, setGetCounterMaxId] = useState(0);
 
   const [deleteTodoClass, SetDeleteTodoClass] = useState("");
 
@@ -41,7 +44,7 @@ function Input() {
     retrieveAllTodos();
   }, []);
 
-  /*---------------Delete todo id----------------*/
+  /*---------------Get max todo id----------------*/
   async function todoMaxId() {
     let res = await fetch("http://localhost:5000/todo/maxId");
     let data = await res.json();
@@ -77,14 +80,29 @@ function Input() {
   async function retrieveAllCounters() {
     let res = await fetch("http://localhost:5000/allCounters");
     let data = await res.json();
-    console.log(data.payload[0].counter);
+    setGetCounters(data.payload);
   }
+  useEffect(() => {
+    retrieveAllCounters();
+  }, []);
+
+  /*---------------Delete Counter----------------*/
+  let deleteCounterBackend = (id) => {
+    fetch(`http://localhost:5000/counterDelete/${id}`, {
+      method: "delete",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data, "Counter has been delete buddy boy"))
+      .catch((error) => console.log(error, "this is the delete Counter error"));
+  };
 
   /*---------------Get all Max Counter ID----------------*/
   async function retrieveMaxCounterId() {
     let res = await fetch("http://localhost:5000/maxIdCounters");
     let data = await res.json();
-    console.log(data);
+    let id = data.payload[0].id;
+    console.log("his is the counter id in the counterMaxId function:  ", id);
+    return id;
   }
 
   /*---------------Increment Counter backend----------------*/
@@ -115,7 +133,7 @@ function Input() {
     setInputValue("");
     createTodo(inputValue);
     let todoIdBackend = await todoMaxId();
-    setGetTodosId(todoIdBackend);
+    setGetTodosMaxId(todoIdBackend);
   }
 
   async function deleteTodo(id, todoId) {
@@ -145,17 +163,19 @@ function Input() {
         },
       ],
     });
-    retrieveAllCounters();
   }
 
-  function addCounter() {
+  async function addCounter() {
     let newCounter = [...counter, { counter: inputValue }];
     setCounter(newCounter);
     createCounter(inputValue, 0);
     setInputValue("");
+    let maxId = retrieveMaxCounterId();
+    console.log("add counter max id retrieval", maxId);
+    setGetCounterMaxId(maxId);
   }
 
-  function deleteCounter(id) {
+  async function deleteCounter(id, counterId) {
     confirmAlert({
       title: "Are you sure you want to delete this todo?",
       message: "This action is irreversible",
@@ -168,6 +188,12 @@ function Input() {
               ...counter.slice(id + 1),
             ];
             setCounter(newCounter);
+            deleteCounterBackend(counterId);
+            SetDeleteTodoClass("hidden");
+            console.log(
+              "this is the counterID, line 193 react input.js: ",
+              counterId
+            );
           },
         },
         {
@@ -199,7 +225,7 @@ function Input() {
                 <Todo
                   key={index}
                   todoItem={item.todo}
-                  todoId={getTodoId}
+                  todoId={getTodoMaxId}
                   index={index}
                   deleteTodo={deleteTodo}
                   todoClass={deleteTodoClass}
@@ -223,8 +249,25 @@ function Input() {
             {counter.map((item, index) => {
               return (
                 <Counter
+                  key={index}
                   counterItem={item.counter}
-                  deleteCounter={() => deleteCounter(index)}
+                  counterId={getCounterMaxId}
+                  index={index}
+                  deleteCounter={deleteCounter}
+                />
+              );
+            })}
+            {getCounters.map((item, index) => {
+              return (
+                <Counter
+                  key={index}
+                  counterItem={item.counter}
+                  counterId={item.id}
+                  index={index}
+                  deleteCounter={deleteCounter}
+                  incrementCounter={incrementCounter}
+                  decrementCounter={decrementCounter}
+                  counterValue={item.count}
                 />
               );
             })}

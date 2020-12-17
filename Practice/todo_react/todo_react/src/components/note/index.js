@@ -2,10 +2,8 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import "./note.css";
 
-function Note({ area, noteTitle, noteText }) {
+function Note({ area, noteTitle, noteText, index, deleteNote, noteId }) {
   //   const [note, setNote] = useState("");
-
-  console.log(noteTitle, "line 8 of note");
 
   return (
     <motion.div
@@ -24,6 +22,16 @@ function Note({ area, noteTitle, noteText }) {
     >
       <p className="noteTitle">{noteTitle}</p>
       <p className="noteText">{noteText}</p>
+
+      <img
+        className={`todoDelete`}
+        onClick={() => {
+          deleteNote(index, noteId);
+          console.log(noteId);
+        }}
+        src="https://i.imgur.com/z4KpjzC.png"
+        alt="delete"
+      />
     </motion.div>
   );
 }
