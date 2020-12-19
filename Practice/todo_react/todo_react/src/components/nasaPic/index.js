@@ -24,9 +24,14 @@ function NasaPic() {
   }
 
   useEffect(() => {
-    setInterval(nasaImageApi, 8.64e7); //8.64e7
+    setInterval(nasaImageApi(), 8.64e7); //8.64e7
     // return () => clearInterval(imageInterval);
   }, []);
+
+  // useEffect(() => {
+  //   nasaImageApi(); //8.64e7
+  //   // return () => clearInterval(imageInterval);
+  // }, []);
 
   //   useEffect(() => {
   //     const timeInterval = setInterval(makeTime, 1000);

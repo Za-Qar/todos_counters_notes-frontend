@@ -153,6 +153,7 @@ function Input() {
             setTodos(newTodo);
             deleteTodoBackend(todoId);
             SetDeleteTodoClass("hidden");
+            retrieveAllTodos();
           },
         },
         {
@@ -190,6 +191,7 @@ function Input() {
             setCounter(newCounter);
             deleteCounterBackend(counterId);
             SetDeleteTodoClass("hidden");
+            setGetCounters(newCounter);
             console.log(
               "this is the counterID, line 193 react input.js: ",
               counterId
@@ -249,11 +251,21 @@ function Input() {
             {counter.map((item, index) => {
               return (
                 <Counter
+                  //uuid
+                  // key={index}
+                  // counterItem={item.counter}
+                  // counterId={getCounterMaxId}
+                  // index={index}
+                  // deleteCounter={deleteCounter}
+
                   key={index}
                   counterItem={item.counter}
                   counterId={getCounterMaxId}
                   index={index}
                   deleteCounter={deleteCounter}
+                  incrementCounter={incrementCounter}
+                  decrementCounter={decrementCounter}
+                  counterValue={item.count}
                 />
               );
             })}
