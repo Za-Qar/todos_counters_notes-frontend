@@ -18,6 +18,7 @@ code {
 .container {
   max-width: 960px;
   margin: auto;
+  /* position: relative; */
 }
 
 .sideBox {
@@ -42,4 +43,8 @@ code {
 
 .opacityGarbage {
   opacity: 0.9;
+}
+
+.navContainer {
+  position: relative;
 }

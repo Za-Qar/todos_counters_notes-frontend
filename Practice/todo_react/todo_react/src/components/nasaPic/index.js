@@ -8,6 +8,8 @@ function NasaPic() {
   const [explanation, setExplanation] = useState("");
   const [hdurl, setHdurl] = useState("");
 
+  const [flexHide, setFlexHide] = useState("flexHide");
+
   async function nasaImageApi() {
     let result = await fetch(
       `https://api.nasa.gov/planetary/apod?api_key=5hGXtiNISMXZjSMf7hvUqv1v67bFuqlJKoYVn6PX`
@@ -28,21 +30,51 @@ function NasaPic() {
     // return () => clearInterval(imageInterval);
   }, []);
 
-  // useEffect(() => {
-  //   nasaImageApi(); //8.64e7
-  //   // return () => clearInterval(imageInterval);
-  // }, []);
+  function hideExpandedImage() {
+    setFlexHide("flexHide");
+  }
 
-  //   useEffect(() => {
-  //     const timeInterval = setInterval(makeTime, 1000);
-  //     return () => clearInterval(timeInterval); //change page, time will stop
-  //   }, []);
+  function expandedImage() {
+    // setFlexHide("");
+    flexHide ? setFlexHide("") : setFlexHide("flexHide");
+  }
 
   return (
-    <div className="container">
-      <div className="sideBox nasaPicSec">
-        {explanation}
-        <img src={url} alt="Nasa picture of the day" className="nasaImgSmall" />
+    <div>
+      <div className="container">
+        <div className="sideBox nasaPicSec">
+          <p>Nasa Image of the day</p>
+          <div className="nasaImageSmallContainer">
+            <img
+              src={url}
+              alt="Nasa picture of the day"
+              className="nasaImgSmall"
+              onClick={expandedImage}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className={`alignerNasa ${flexHide}`} onClick={hideExpandedImage}>
+        <div className="nasaExplanation">
+          <p>{date}</p>
+        </div>
+
+        <div className="nasaExplanation">
+          <p>{copyright}</p>
+        </div>
+
+        <div className="aligneeNasa">
+          <div className="nasaImageClose">
+            <p onClick={hideExpandedImage}>x</p>
+          </div>
+
+          <img src={hdurl} alt="Nasa image of the day" className="nasaImgBig" />
+        </div>
+
+        <div className="nasaExplanation">
+          <p>{explanation}</p>
+        </div>
       </div>
     </div>
   );

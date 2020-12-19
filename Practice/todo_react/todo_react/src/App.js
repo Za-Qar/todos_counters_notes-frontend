@@ -44,35 +44,53 @@ function App() {
         <Router>
           <nav className="nav">
             <div className="container">
-              <ul className="navUl">
-                <li>
-                  <Link to="/" className="linkRouter">
-                    <span>Todos and counters</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/notes" className="linkRouter">
-                    <span>Notes</span>
-                  </Link>
-                </li>
-                <li>
-                  <Login />
-                </li>
-                <li>
-                  <Logout />
-                </li>
-              </ul>
+              <div className="navContainer">
+                <ul className="navUl">
+                  <li>
+                    <Link to="/" className="linkRouter">
+                      <span>Todos and counters</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/notes" className="linkRouter">
+                      <span>Notes</span>
+                    </Link>
+                  </li>
+                  <li className="loginLi">
+                    <Login />
+                  </li>
+                  <li>
+                    <Logout />
+                  </li>
+                  <li>
+                    <IfFirebaseAuthedAnd
+                      filter={({ providerId }) => providerId !== "anonymous"}
+                    >
+                      {({ user }) => {
+                        return (
+                          <img
+                            src={user.photoURL}
+                            alt="user image"
+                            className="authUserImage"
+                          />
+                        );
+                      }}
+                    </IfFirebaseAuthedAnd>
+                  </li>
+                </ul>
+              </div>
             </div>
           </nav>
           <Header />
-
-          <IfFirebaseAuthedAnd
-            filter={({ providerId }) => providerId !== "anonymous"}
-          >
-            {({ user }) => {
-              return <div>Welcome {user.displayName}</div>;
-            }}
-          </IfFirebaseAuthedAnd>
+          <div className="container">
+            <IfFirebaseAuthedAnd
+              filter={({ providerId }) => providerId !== "anonymous"}
+            >
+              {({ user }) => {
+                return <p>Welcome {user.displayName}</p>;
+              }}
+            </IfFirebaseAuthedAnd>
+          </div>
 
           <Switch>
             <Route path="/notes">

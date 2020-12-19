@@ -10,6 +10,8 @@ import {
 } from "@react-firebase/auth";
 import { config } from "../config";
 
+import "./logout.css";
+
 function Logout() {
   return (
     <FirebaseAuthProvider {...config} firebase={firebase}>
@@ -20,8 +22,9 @@ function Logout() {
               onClick={() => {
                 firebase.auth().signOut();
               }}
+              className="logoutButton"
             >
-              Sign Out
+              Logout
             </button>
           );
         }}

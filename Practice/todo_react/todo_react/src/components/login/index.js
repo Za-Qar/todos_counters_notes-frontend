@@ -10,6 +10,8 @@ import {
 } from "@react-firebase/auth";
 import { config } from "../config";
 
+import "./login.css";
+
 function Login() {
   return (
     <FirebaseAuthProvider {...config} firebase={firebase}>
@@ -19,16 +21,15 @@ function Login() {
             return;
           } else {
             return (
-              <div className="container">
-                <button
-                  onClick={() => {
-                    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-                    firebase.auth().signInWithPopup(googleAuthProvider);
-                  }}
-                >
-                  Sign In with Google
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+                  firebase.auth().signInWithPopup(googleAuthProvider);
+                }}
+                className="loginButton"
+              >
+                Login with Google
+              </button>
             );
           }
         }}

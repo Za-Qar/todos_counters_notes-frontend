@@ -1,0 +1,43 @@
+.loginButton {
+  background-color: none;
+  border: none;
+  background-color: transparent;
+
+  display: block;
+  padding: 1rem;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.loginLi {
+  float: right;
+  height: 60px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  position: absolute;
+  right: 0;
+}
+
+.loginButton:hover {
+  padding: 1rem;
+  cursor: pointer;
+  animation-name: aHover;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes aHover {
+  from {
+    background-color: none;
+  }
+  to {
+    background-color: white;
+  }
+}

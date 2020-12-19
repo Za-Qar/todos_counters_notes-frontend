@@ -6,4 +6,82 @@
   width: 80%;
   height: auto;
   margin: auto;
+
+  cursor: zoom-in;
+}
+
+.nasaImgSmall:hover {
+  opacity: 0.7;
+  animation-duration: 100ms;
+  border-radius: 1rem 1rem 1rem 1rem;
+}
+
+.nasaImageSmallContainer {
+  padding-bottom: 1.5rem;
+}
+
+.alignerNasa {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  overflow-y: scroll;
+}
+
+.aligneeNasa {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
+.nasaImgBig {
+  width: 100%;
+}
+
+.nasaImageClose {
+  color: white;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+
+  display: flex;
+  place-items: center;
+}
+
+.nasaImageClose p {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.nasaImageClose:hover {
+  background-color: white;
+  color: black;
+  border-radius: 50px;
+}
+
+.flexHide {
+  flex-wrap: wrap;
+  height: 0;
+  overflow: hidden;
+}
+
+.nasaExplanation {
+  width: 50%;
+  color: white;
 }

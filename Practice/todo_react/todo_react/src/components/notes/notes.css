@@ -46,7 +46,7 @@
   /* width: 50%;
     height: 70%; */
   width: auto;
-  min-height: 7rem;
+  min-height: 30rem;
   border-radius: 30px;
   top: calc(50% - 200px);
   left: calc(35% - 135px);
