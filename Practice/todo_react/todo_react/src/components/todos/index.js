@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
 
+import uuid from "react-uuid";
+
 import Todo from "../todo";
 
 function Todos() {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
+
   const [getTodos, setGetTodos] = useState([]);
+  const [localGetTodos, setLocalGetTodos] = useState([]);
+
   const [getTodoMaxId, setGetTodosMaxId] = useState(0);
-  const [deleteTodoClass, SetDeleteTodoClass] = useState("");
 
   /*---------------Add todo----------------*/
   let createTodo = (msg) => {
@@ -74,12 +78,14 @@ function Todos() {
           onClick: () => {
             console.log(id);
             console.log("to delete");
+
             const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
-            console.log(newTodo);
             setTodos(newTodo);
+
             deleteTodoBackend(todoId);
-            SetDeleteTodoClass("hidden");
-            retrieveAllTodos();
+
+            // retrieveAllTodos();
+            console.log(getTodos);
           },
         },
         {
@@ -92,36 +98,85 @@ function Todos() {
     });
   }
 
+  async function deleteTodoGet(id, todoId) {
+    //linting rule which is why confirm doesn't work.
+    //I can still window.confirm
+    confirmAlert({
+      title: "Are you sure you want to delete this todo?",
+      message: "This action is irreversible",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            console.log("this is the array id: ", id);
+            console.log("this is todo id: ", todoId);
+            console.log("to delete");
+
+            const newTodo = [
+              ...getTodos.slice(0, id),
+              ...getTodos.slice(id + 1),
+            ];
+            setGetTodos(newTodo);
+
+            deleteTodoBackend(todoId);
+
+            // retrieveAllTodos();
+            console.log(getTodos);
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  }
+
+  function debugging() {
+    console.log("todos get: ", getTodos);
+    console.log("todos Local: ", todos);
+  }
+
   return (
     <div className="container">
-      <div className="inputButtons">
-        <button onClick={addTodo}>Add Todo</button>
-      </div>
-      <div className="todoSection">
-        {todos.map((item, index, array) => {
-          return (
-            <Todo
-              key={index}
-              todoItem={item.todo}
-              todoId={getTodoMaxId}
-              index={index}
-              deleteTodo={deleteTodo}
-              todoClass={deleteTodoClass}
-            />
-          );
-        })}
-        {getTodos.map((item, index) => {
-          return (
-            <Todo
-              key={index}
-              todoItem={item.todo}
-              todoId={item.id}
-              index={index}
-              deleteTodo={deleteTodo}
-              todoClass={deleteTodoClass}
-            />
-          );
-        })}
+      <div className="inputSec">
+        {/* <button onClick={debugging}>Debugging</button> */}
+        <input
+          className="inputField"
+          onChange={(e) => setInputValue(e.target.value)}
+          value={inputValue}
+        />
+        <div className="inputButtons">
+          <button onClick={addTodo}>Add Todo</button>
+        </div>
+        <div className="appSec">
+          <div className="todoSection">
+            {getTodos.map((item, index) => {
+              return (
+                <Todo
+                  key={uuid()}
+                  todoItem={item.todo}
+                  todoId={item.id}
+                  index={index}
+                  deleteTodo={deleteTodoGet}
+                />
+              );
+            })}
+            {todos.map((item, index, array) => {
+              return (
+                <Todo
+                  key={uuid()}
+                  todoItem={item.todo}
+                  todoId={getTodoMaxId}
+                  index={index}
+                  deleteTodo={deleteTodo}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

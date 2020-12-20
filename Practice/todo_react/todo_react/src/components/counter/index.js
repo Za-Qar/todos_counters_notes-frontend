@@ -16,6 +16,7 @@ function Counter({
   const [opacity, setOpacity] = useState("");
 
   function setDbCounterValueToLocal() {
+    // console.log("this is the db counter value: ", counterValue);
     setCounterLocalValue(counterValue);
   }
 
@@ -24,8 +25,9 @@ function Counter({
   }, []);
 
   function changeCounter(val) {
+    // console.log("this is val in change counter: ", val);
     setCounterLocalValue(counterLocalValue + val);
-    console.log("line 28 - counterValue live update :", counterLocalValue);
+    // console.log("line 28 - counterValue live update :", counterLocalValue);
   }
 
   function strikeThrough() {

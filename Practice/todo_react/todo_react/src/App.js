@@ -25,6 +25,8 @@ import NasaPic from "./components/nasaPic";
 import Login from "./components/login";
 import Logout from "./components/logout";
 
+import Todos from "./components/todos";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
@@ -48,9 +50,16 @@ function App() {
                 <ul className="navUl">
                   <li>
                     <Link to="/" className="linkRouter">
-                      <span>Todos and counters</span>
+                      <span>Todos</span>
                     </Link>
                   </li>
+
+                  <li>
+                    <Link to="/counter" className="linkRouter">
+                      <span>Counters</span>
+                    </Link>
+                  </li>
+
                   <li>
                     <Link to="/notes" className="linkRouter">
                       <span>Notes</span>
@@ -96,8 +105,13 @@ function App() {
             <Route path="/notes">
               <Notes />
             </Route>
-            <Route path="/">
+
+            <Route path="/counter">
               <Input />
+            </Route>
+
+            <Route path="/">
+              <Todos />
             </Route>
           </Switch>
         </Router>
