@@ -19,6 +19,7 @@
 .inputButtons {
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .inputButtons button {

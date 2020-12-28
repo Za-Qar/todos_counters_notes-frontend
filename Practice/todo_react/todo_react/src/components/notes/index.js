@@ -14,6 +14,8 @@ function Notes() {
 
   const [getNotesMaxId, setGetNotesMaxId] = useState(0);
 
+  const [colour, setColour] = useState("whiteNote");
+
   /*---------------Add Note----------------*/
   let postNote = (title, text) => {
     console.log("counter Input recieved", title, text);
@@ -114,6 +116,7 @@ function Notes() {
                 deleteNote={deleteNote}
                 noteId={getNotesMaxId}
                 key={index}
+                colour={colour}
               />
             );
           })}
@@ -128,6 +131,7 @@ function Notes() {
                 deleteNote={deleteNote}
                 noteId={item.id}
                 key={index}
+                colour={colour}
               />
             );
           })}

@@ -2,12 +2,20 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import "./note.css";
 
-function Note({ area, noteTitle, noteText, index, deleteNote, noteId }) {
+function Note({
+  area,
+  noteTitle,
+  noteText,
+  index,
+  deleteNote,
+  noteId,
+  colour,
+}) {
   //   const [note, setNote] = useState("");
 
   return (
     <motion.div
-      class="note"
+      class={`note ${colour}`}
       drag
       dragConstraints={area}
       dragElastic={0.05}

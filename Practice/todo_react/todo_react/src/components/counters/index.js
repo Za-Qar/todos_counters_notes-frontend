@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 // import "react-confirm-alert/src/react-confirm-alert.css";
-import "./input.css";
+import "./counter.css";
 
 import uuid from "react-uuid";
 
@@ -20,12 +20,16 @@ function Counters() {
 
   const [deleteTodoClass, SetDeleteTodoClass] = useState("");
 
+  const [colour, setColour] = useState("white");
+
+  /*---------------Counter backend----------------*/
+
   /*---------------Add Counter----------------*/
-  let createCounter = (msg, count) => {
+  let createCounter = (msg, count, colour) => {
     console.log("counter Input recieved", msg);
     fetch(`http://localhost:5000/counter`, {
       method: "POST",
-      body: JSON.stringify({ counter: msg, zero: count }),
+      body: JSON.stringify({ counter: msg, zero: count, colour: colour }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -38,6 +42,7 @@ function Counters() {
     let res = await fetch("http://localhost:5000/counter");
     let data = await res.json();
     setGetCounters(data.payload);
+    console.log("these are the counters from the db: ", data.payload);
   }
   useEffect(() => {
     retrieveAllCounters();
@@ -85,9 +90,9 @@ function Counters() {
   };
 
   async function addCounter() {
-    let newCounter = [...counter, { counter: inputValue }];
+    const newCounter = [...counter, { counter: inputValue, colour: colour }];
     setCounter(newCounter);
-    createCounter(inputValue, 0);
+    createCounter(inputValue, 0, colour);
     setInputValue("");
     let maxId = await retrieveMaxCounterId();
     console.log("add counter max id retrieval", maxId);
@@ -173,6 +178,58 @@ function Counters() {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
+        <div class="colour">
+          <h4>Choose a colour</h4>
+          <span class="column in1">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("white")}
+            />
+          </span>
+          <span class="column in2">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("green")}
+            />
+          </span>
+          <span class="column in3">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("red")}
+            />
+          </span>
+          <span class="column in4">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("purple")}
+            />
+          </span>
+          <span class="column in5">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("peach")}
+            />
+          </span>
+
+          <span class="column in6">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("blue")}
+            />
+          </span>
+        </div>
         <div className="inputButtons">
           <button onClick={addCounter}>Add Counter</button>
         </div>
@@ -189,19 +246,13 @@ function Counters() {
                   incrementCounter={incrementCounter}
                   decrementCounter={decrementCounter}
                   counterValue={item.count}
+                  colour={item.color}
                 />
               );
             })}
             {counter.map((item, index) => {
               return (
                 <Counter
-                  //uuid
-                  // key={index}
-                  // counterItem={item.counter}
-                  // counterId={getCounterMaxId}
-                  // index={index}
-                  // deleteCounter={deleteCounter}
-
                   key={uuid()}
                   counterItem={item.counter}
                   counterId={getCounterMaxId}
@@ -210,6 +261,7 @@ function Counters() {
                   incrementCounter={incrementCounter}
                   decrementCounter={decrementCounter}
                   counterValue={0}
+                  colour={item.colour}
                 />
               );
             })}

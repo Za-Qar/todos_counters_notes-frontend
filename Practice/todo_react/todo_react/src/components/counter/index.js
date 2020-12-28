@@ -9,8 +9,8 @@ function Counter({
   incrementCounter,
   decrementCounter,
   counterValue,
+  colour,
 }) {
-  const [color, setColor] = useState("counter white");
   const [counterLocalValue, setCounterLocalValue] = useState(0);
   const [complete, setComplete] = useState("");
   const [opacity, setOpacity] = useState("");
@@ -37,7 +37,7 @@ function Counter({
   }
 
   return (
-    <div className={`${color} ${opacity}`}>
+    <div className={`todo ${colour} ${opacity}`}>
       <div className="container">
         <div className="todoDiv">
           <div className="counterText">
