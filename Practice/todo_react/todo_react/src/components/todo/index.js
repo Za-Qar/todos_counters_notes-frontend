@@ -9,22 +9,25 @@ function Todo({
   todoClass,
   colour,
   strikeTodo,
+  currentStatus,
 }) {
-  const [complete, setComplete] = useState("");
+  const [complete, setComplete] = useState(`${currentStatus}`);
   const [opacity, setOpacity] = useState("");
   const [opacityGarbage, setOpacityGarbage] = useState("");
 
   function strikeThrough() {
     console.log(complete);
-    !complete ? setComplete("complete") : setComplete("");
-    !complete ? setOpacity("opacity") : setOpacity("");
-    !complete ? setOpacityGarbage("opacityGarbage") : setOpacityGarbage("");
+    complete != "complete" ? setComplete("complete") : setComplete("active");
+    complete != "complete" ? setOpacity("opacity") : setOpacity("");
+    complete != "complete"
+      ? setOpacityGarbage("opacityGarbage")
+      : setOpacityGarbage("");
     // if (!complete) {
     //   setComplete("complete");
     // } else {
     //   setComplete("active");
     // }
-    console.log(todoId);
+    console.log(todoId, complete);
     strikeTodo(todoId, complete);
   }
 

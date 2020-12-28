@@ -238,6 +238,7 @@ function Todos() {
                   deleteTodo={deleteTodoGet}
                   colour={item.color}
                   strikeTodo={strikeTodo}
+                  currentStatus={item.status}
                 />
               );
             })}
@@ -250,6 +251,8 @@ function Todos() {
                   index={index}
                   deleteTodo={deleteTodo}
                   colour={item.colour}
+                  strikeTodo={strikeTodo}
+                  currentStatus={"active"}
                 />
               );
             })}
