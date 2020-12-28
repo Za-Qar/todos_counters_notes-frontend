@@ -17,7 +17,7 @@ function Notes() {
   /*---------------Add Note----------------*/
   let postNote = (title, text) => {
     console.log("counter Input recieved", title, text);
-    fetch(`http://localhost:5000/createNote`, {
+    fetch(`http://localhost:5000/note`, {
       method: "POST",
       body: JSON.stringify({ title: title, text: text }),
       headers: { "Content-Type": "application/json" },
@@ -29,7 +29,7 @@ function Notes() {
 
   /*---------------Get max note id----------------*/
   async function noteMaxId() {
-    let res = await fetch("http://localhost:5000/getMaxNoteId");
+    let res = await fetch("http://localhost:5000/note/getMaxNoteId");
     let data = await res.json();
     let id = data.payload[0].id;
     return id;
@@ -37,7 +37,7 @@ function Notes() {
 
   /*---------------Retrieve all notes----------------*/
   async function retrieveAllNotes() {
-    let res = await fetch("http://localhost:5000/getAllNotes");
+    let res = await fetch("http://localhost:5000/note");
     let data = await res.json();
     console.log("these are all the notes on the database: ", data.payload);
     setRetrieveAllNotes(data.payload);
@@ -49,7 +49,7 @@ function Notes() {
 
   /*---------------Delete note----------------*/
   let deleteNoteBackend = (id) => {
-    fetch(`http://localhost:5000/deleteNote/${id}`, {
+    fetch(`http://localhost:5000/note/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())

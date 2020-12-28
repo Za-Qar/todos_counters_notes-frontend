@@ -23,7 +23,7 @@ function Counters() {
   /*---------------Add Counter----------------*/
   let createCounter = (msg, count) => {
     console.log("counter Input recieved", msg);
-    fetch(`http://localhost:5000/createCounter`, {
+    fetch(`http://localhost:5000/counter`, {
       method: "POST",
       body: JSON.stringify({ counter: msg, zero: count }),
       headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ function Counters() {
 
   /*---------------Get all Counters----------------*/
   async function retrieveAllCounters() {
-    let res = await fetch("http://localhost:5000/allCounters");
+    let res = await fetch("http://localhost:5000/counter");
     let data = await res.json();
     setGetCounters(data.payload);
   }
@@ -45,7 +45,7 @@ function Counters() {
 
   /*---------------Delete Counter----------------*/
   let deleteCounterBackend = (id) => {
-    fetch(`http://localhost:5000/counterDelete/${id}`, {
+    fetch(`http://localhost:5000/counter/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())
@@ -55,7 +55,7 @@ function Counters() {
 
   /*---------------Get all Max Counter ID----------------*/
   async function retrieveMaxCounterId() {
-    let res = await fetch("http://localhost:5000/maxIdCounters");
+    let res = await fetch("http://localhost:5000/counter/maxIdCounters");
     let data = await res.json();
     let id = data.payload[0].id;
     console.log("his is the counter id in the counterMaxId function:  ", id);
@@ -65,7 +65,7 @@ function Counters() {
   /*---------------Increment Counter backend----------------*/
   let incrementCounter = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/${id}`, {
+    fetch(`http://localhost:5000/counter/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -76,7 +76,7 @@ function Counters() {
   /*---------------Decrement Counter backend----------------*/
   let decrementCounter = (id) => {
     console.log("decremented counter", id);
-    fetch(`http://localhost:5000/decremet/${id}`, {
+    fetch(`http://localhost:5000/counter/decremet/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())

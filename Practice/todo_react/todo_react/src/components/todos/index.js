@@ -19,7 +19,7 @@ function Todos() {
   /*---------------Add todo----------------*/
   let createTodo = (msg, colour) => {
     console.log("todo fnc", msg);
-    fetch(`http://localhost:5000/createTodo`, {
+    fetch(`http://localhost:5000/todo`, {
       method: "post",
       body: JSON.stringify({ todo: msg, colour: colour }),
       headers: { "Content-Type": "application/json" },
@@ -32,7 +32,7 @@ function Todos() {
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
   async function retrieveAllTodos() {
-    let res = await fetch("http://localhost:5000/"); //process.env.REACT_APP_HOST_URL - for react
+    let res = await fetch("http://localhost:5000/todo"); //process.env.REACT_APP_HOST_URL - for react
     let data = await res.json();
     console.log(data.payload);
     setGetTodos(data.payload);
@@ -52,7 +52,7 @@ function Todos() {
 
   /*---------------Delete todo----------------*/
   let deleteTodoBackend = (id) => {
-    fetch(`http://localhost:5000/${id}`, {
+    fetch(`http://localhost:5000/todo/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())
