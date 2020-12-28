@@ -23,21 +23,21 @@
 }
 
 .greenNote {
-  background-color: rgba(0, 128, 0, 0.2);
+  background-color: rgb(162, 255, 162);
 }
 
 .redNote {
-  background-color: rgba(255, 0, 0, 0.2);
+  background-color: rgb(255, 128, 128);
 }
 
 .purpleNote {
-  background-color: rgba(128, 0, 128, 0.2);
+  background-color: rgb(255, 124, 255);
 }
 
 .peachNote {
-  background-color: rgba(222, 184, 135, 0.2);
+  background-color: rgb(255, 212, 157);
 }
 
 .blueNote {
-  background-color: rgba(0, 0, 255, 0.2);
+  background-color: rgb(109, 148, 255);
 }

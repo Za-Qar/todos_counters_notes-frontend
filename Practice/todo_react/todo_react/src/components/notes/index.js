@@ -17,11 +17,11 @@ function Notes() {
   const [colour, setColour] = useState("whiteNote");
 
   /*---------------Add Note----------------*/
-  let postNote = (title, text) => {
+  let postNote = (title, text, colour) => {
     console.log("counter Input recieved", title, text);
     fetch(`http://localhost:5000/note`, {
       method: "POST",
-      body: JSON.stringify({ title: title, text: text }),
+      body: JSON.stringify({ title: title, text: text, colour: colour }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -62,9 +62,12 @@ function Notes() {
   /*--------------------Notes backend end----------------------*/
 
   async function addNote() {
-    let newNotes = [...note, { title: titleInput, text: textInput }];
+    let newNotes = [
+      ...note,
+      { title: titleInput, text: textInput, colour: colour },
+    ];
     setNote(newNotes);
-    postNote(titleInput, textInput);
+    postNote(titleInput, textInput, colour);
 
     let maxNotesId = await noteMaxId();
     setGetNotesMaxId(maxNotesId);
@@ -105,6 +108,58 @@ function Notes() {
         <button className="addNoteButton" onClick={addNote}>
           Add Note
         </button>
+        <div class="colour">
+          <h4>Choose a colour</h4>
+          <span class="column in1">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("whiteNote")}
+            />
+          </span>
+          <span class="column in2">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("greenNote")}
+            />
+          </span>
+          <span class="column in3">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("redNote")}
+            />
+          </span>
+          <span class="column in4">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("purpleNote")}
+            />
+          </span>
+          <span class="column in5">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("peachNote")}
+            />
+          </span>
+
+          <span class="column in6">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("blueNote")}
+            />
+          </span>
+        </div>
         <motion.div className="drag-area" ref={area}>
           {note.map((item, index) => {
             return (
@@ -116,7 +171,7 @@ function Notes() {
                 deleteNote={deleteNote}
                 noteId={getNotesMaxId}
                 key={index}
-                colour={colour}
+                colour={item.colour}
               />
             );
           })}
@@ -131,7 +186,7 @@ function Notes() {
                 deleteNote={deleteNote}
                 noteId={item.id}
                 key={index}
-                colour={colour}
+                colour={item.color}
               />
             );
           })}
