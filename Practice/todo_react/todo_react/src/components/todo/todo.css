@@ -8,11 +8,6 @@
   overflow: hidden;
 }
 
-.white {
-  background-color: #f9faff;
-  border-bottom: 0.5px solid black;
-}
-
 .todo {
   position: relative;
   min-height: 7.5rem;

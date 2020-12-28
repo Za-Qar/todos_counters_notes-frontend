@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./todo.css";
 
-function Todo({ todoItem, deleteTodo, todoId, index, todoClass }) {
-  const [color, setColor] = useState("todo white");
+function Todo({ todoItem, deleteTodo, todoId, index, todoClass, colour }) {
   const [complete, setComplete] = useState("");
   const [opacity, setOpacity] = useState("");
   const [opacityGarbage, setOpacityGarbage] = useState("");
@@ -20,7 +19,7 @@ function Todo({ todoItem, deleteTodo, todoId, index, todoClass }) {
   }
 
   return (
-    <div className={`${color} ${opacity} ` /*${todoClass}*/}>
+    <div className={`todo ${colour} ${opacity} ` /*${todoClass}*/}>
       {" "}
       <div className="container">
         <div className="todoDiv">

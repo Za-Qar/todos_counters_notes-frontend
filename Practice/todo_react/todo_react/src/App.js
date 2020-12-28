@@ -17,7 +17,7 @@ import "./components/nav/nav.css";
 
 import Header from "./components/header";
 import Nav from "./components/nav";
-import Input from "./components/input";
+import Counters from "./components/counters";
 import TimeDate from "./components/timeDate";
 import Weather from "./components/weather";
 import Notes from "./components/notes";
@@ -107,7 +107,7 @@ function App() {
             </Route>
 
             <Route path="/counter">
-              <Input />
+              <Counters />
             </Route>
 
             <Route path="/">

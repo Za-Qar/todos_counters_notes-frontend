@@ -36,11 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-/*-------------user image styling---------------*/
-.authUserImage {
-  width: 3rem;
-  border-radius: 100%;
-  position: absolute;
-  right: 0;
-}

@@ -14,12 +14,14 @@ function Todos() {
 
   const [getTodoMaxId, setGetTodosMaxId] = useState(0);
 
+  const [colour, setColour] = useState("white");
+
   /*---------------Add todo----------------*/
-  let createTodo = (msg) => {
+  let createTodo = (msg, colour) => {
     console.log("todo fnc", msg);
     fetch(`http://localhost:5000/createTodo`, {
       method: "post",
-      body: JSON.stringify({ todo: msg }),
+      body: JSON.stringify({ todo: msg, colour: colour }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -58,12 +60,14 @@ function Todos() {
       .catch((error) => console.log(error, "this is the delete todo error"));
   };
   async function addTodo() {
-    const newTodos = [...todos, { todo: inputValue }];
+    const newTodos = [...todos, { todo: inputValue, colour: colour }];
     setTodos(newTodos);
     setInputValue("");
-    createTodo(inputValue);
+    createTodo(inputValue, colour);
     let todoIdBackend = await todoMaxId();
     setGetTodosMaxId(todoIdBackend);
+
+    console.log("new Todos: ", newTodos);
   }
 
   async function deleteTodo(id, todoId) {
@@ -148,6 +152,59 @@ function Todos() {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
+        <div class="colour">
+          <h4>Choose a colour</h4>
+          <span class="column in1">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("white")}
+            />
+          </span>
+          <span class="column in2">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("green")}
+            />
+          </span>
+          <span class="column in3">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("red")}
+            />
+          </span>
+          <span class="column in4">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("purple")}
+            />
+          </span>
+          <span class="column in5">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("peach")}
+            />
+          </span>
+
+          <span class="column in6">
+            <input
+              class="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("blue")}
+            />
+          </span>
+        </div>
+
         <div className="inputButtons">
           <button onClick={addTodo}>Add Todo</button>
         </div>
@@ -161,6 +218,7 @@ function Todos() {
                   todoId={item.id}
                   index={index}
                   deleteTodo={deleteTodoGet}
+                  colour={item.color}
                 />
               );
             })}
@@ -172,6 +230,7 @@ function Todos() {
                   todoId={getTodoMaxId}
                   index={index}
                   deleteTodo={deleteTodo}
+                  colour={item.colour}
                 />
               );
             })}

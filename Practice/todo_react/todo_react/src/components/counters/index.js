@@ -10,7 +10,7 @@ import Counter from "../counter";
 
 import Todos from "../todos";
 
-function Input() {
+function Counters() {
   const [inputValue, setInputValue] = useState("");
 
   const [counter, setCounter] = useState([]);
@@ -220,4 +220,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default Counters;
