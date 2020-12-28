@@ -16,6 +16,8 @@ function Todos() {
 
   const [colour, setColour] = useState("white");
 
+  /*---------------Todo backend----------------*/
+
   /*---------------Add todo----------------*/
   let createTodo = (msg, colour) => {
     console.log("todo fnc", msg);
@@ -69,6 +71,22 @@ function Todos() {
 
     console.log("new Todos: ", newTodos);
   }
+
+  /*---------------Strike through Todo----------------*/
+  let strikeTodo = (id, value) => {
+    console.log("this is id: ", id);
+    console.log("this is value: ", value);
+    fetch(`http://localhost:5000/todo/strike`, {
+      method: "PATCH",
+      body: JSON.stringify({ id: id, status: value }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data, "this is the id buddy boy"))
+      .catch((error) => console.log(error, "incrementCounter error"));
+  };
+
+  /*---------------Todo backend end----------------*/
 
   async function deleteTodo(id, todoId) {
     //linting rule which is why confirm doesn't work.
@@ -219,6 +237,7 @@ function Todos() {
                   index={index}
                   deleteTodo={deleteTodoGet}
                   colour={item.color}
+                  strikeTodo={strikeTodo}
                 />
               );
             })}

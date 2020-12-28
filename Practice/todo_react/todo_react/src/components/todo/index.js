@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "./todo.css";
 
-function Todo({ todoItem, deleteTodo, todoId, index, todoClass, colour }) {
+function Todo({
+  todoItem,
+  deleteTodo,
+  todoId,
+  index,
+  todoClass,
+  colour,
+  strikeTodo,
+}) {
   const [complete, setComplete] = useState("");
   const [opacity, setOpacity] = useState("");
   const [opacityGarbage, setOpacityGarbage] = useState("");
@@ -14,8 +22,10 @@ function Todo({ todoItem, deleteTodo, todoId, index, todoClass, colour }) {
     // if (!complete) {
     //   setComplete("complete");
     // } else {
-    //   setComplete("");
+    //   setComplete("active");
     // }
+    console.log(todoId);
+    strikeTodo(todoId, complete);
   }
 
   return (
