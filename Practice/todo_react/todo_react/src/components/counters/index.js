@@ -14,7 +14,7 @@ function Counters() {
   const [counter, setCounter] = useState([]);
 
   const [getCounters, setGetCounters] = useState([]);
-  const [getCounterMaxId, setGetCounterMaxId] = useState(0);
+  const [newCounterId, setNewCounterId] = useState(0);
 
   const [deleteTodoClass, SetDeleteTodoClass] = useState("");
 
@@ -31,7 +31,7 @@ function Counters() {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "here's the counter data buddy boy"))
+      .then((data) => setNewCounterId(data[0].id))
       .catch((error) => console.log(error, "counter error"));
   };
 
@@ -55,15 +55,6 @@ function Counters() {
       .then((data) => console.log(data, "Counter has been delete buddy boy"))
       .catch((error) => console.log(error, "this is the delete Counter error"));
   };
-
-  /*---------------Get all Max Counter ID----------------*/
-  async function retrieveMaxCounterId() {
-    let res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/maxIdCounters`);
-    let data = await res.json();
-    let id = data.payload[0].id;
-    console.log("his is the counter id in the counterMaxId function:  ", id);
-    return id;
-  }
 
   /*---------------Increment Counter backend----------------*/
   let incrementCounter = (id) => {
@@ -92,9 +83,6 @@ function Counters() {
     setCounter(newCounter);
     createCounter(inputValue, 0, colour);
     setInputValue("");
-    let maxId = await retrieveMaxCounterId();
-    console.log("add counter max id retrieval", maxId);
-    setGetCounterMaxId(maxId);
   }
 
   async function deleteCounter(id, counterId) {
@@ -253,7 +241,7 @@ function Counters() {
                 <Counter
                   key={uuid()}
                   counterItem={item.counter}
-                  counterId={getCounterMaxId}
+                  counterId={newCounterId}
                   index={index}
                   deleteCounter={deleteCounter}
                   incrementCounter={incrementCounter}
