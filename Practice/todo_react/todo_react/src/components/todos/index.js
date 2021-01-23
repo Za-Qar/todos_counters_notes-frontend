@@ -77,7 +77,7 @@ function Todos() {
   let strikeTodo = (id, value) => {
     console.log("this is id: ", id);
     console.log("this is value: ", value);
-    fetch(`http://localhost:5000/todo/strike`, {
+    fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "PATCH",
       body: JSON.stringify({ id: id, status: value }),
       headers: { "Content-Type": "application/json" },
