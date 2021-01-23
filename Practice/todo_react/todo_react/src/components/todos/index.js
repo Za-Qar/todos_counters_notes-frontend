@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
+import { TODO_BACKEND_URLS } from "../../configs/configs.js";
 
 import uuid from "react-uuid";
 
@@ -21,7 +22,7 @@ function Todos() {
   /*---------------Add todo----------------*/
   let createTodo = (msg, colour) => {
     console.log("todo fnc", msg);
-    fetch(`http://localhost:5000/todo`, {
+    fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "post",
       body: JSON.stringify({ todo: msg, colour: colour }),
       headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ function Todos() {
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
   async function retrieveAllTodos() {
-    let res = await fetch("http://localhost:5000/todo"); //process.env.REACT_APP_HOST_URL - for react
+    let res = await fetch(TODO_BACKEND_URLS.TODOS); //process.env.REACT_APP_HOST_URL - for react
     let data = await res.json();
     console.log(data.payload);
     setGetTodos(data.payload);
@@ -45,7 +46,7 @@ function Todos() {
 
   /*---------------Get max todo id----------------*/
   async function todoMaxId() {
-    let res = await fetch("http://localhost:5000/todo/maxId");
+    let res = await fetch(`${TODO_BACKEND_URLS.TODOS}/maxId`);
     let data = await res.json();
     let id = data.payload[0].id;
     console.log(id);
@@ -54,7 +55,7 @@ function Todos() {
 
   /*---------------Delete todo----------------*/
   let deleteTodoBackend = (id) => {
-    fetch(`http://localhost:5000/todo/${id}`, {
+    fetch(`${TODO_BACKEND_URLS.TODOS}/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())
