@@ -11,7 +11,6 @@ function Todos() {
   const [todos, setTodos] = useState([]);
 
   const [getTodos, setGetTodos] = useState([]);
-  const [localGetTodos, setLocalGetTodos] = useState([]);
 
   const [newTodoId, setNewTodoId] = useState(0);
 
@@ -136,11 +135,6 @@ function Todos() {
         },
       ],
     });
-  }
-
-  function debugging() {
-    console.log("todos get: ", getTodos);
-    console.log("todos Local: ", todos);
   }
 
   return (

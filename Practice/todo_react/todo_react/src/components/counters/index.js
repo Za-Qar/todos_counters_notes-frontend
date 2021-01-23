@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
+import { COUNTERS_BACKEND_URLS } from "../../configs/configs";
 // import "react-confirm-alert/src/react-confirm-alert.css";
 import "./counter.css";
 
 import uuid from "react-uuid";
 
-import Todo from "../todo";
 import Counter from "../counter";
-
-import Todos from "../todos";
 
 function Counters() {
   const [inputValue, setInputValue] = useState("");
@@ -27,7 +25,7 @@ function Counters() {
   /*---------------Add Counter----------------*/
   let createCounter = (msg, count, colour) => {
     console.log("counter Input recieved", msg);
-    fetch(`http://localhost:5000/counter`, {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`, {
       method: "POST",
       body: JSON.stringify({ counter: msg, zero: count, colour: colour }),
       headers: { "Content-Type": "application/json" },
@@ -39,7 +37,7 @@ function Counters() {
 
   /*---------------Get all Counters----------------*/
   async function retrieveAllCounters() {
-    let res = await fetch("http://localhost:5000/counter");
+    let res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`);
     let data = await res.json();
     setGetCounters(data.payload);
     console.log("these are the counters from the db: ", data.payload);
@@ -50,7 +48,7 @@ function Counters() {
 
   /*---------------Delete Counter----------------*/
   let deleteCounterBackend = (id) => {
-    fetch(`http://localhost:5000/counter/${id}`, {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())
@@ -60,7 +58,7 @@ function Counters() {
 
   /*---------------Get all Max Counter ID----------------*/
   async function retrieveMaxCounterId() {
-    let res = await fetch("http://localhost:5000/counter/maxIdCounters");
+    let res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/maxIdCounters`);
     let data = await res.json();
     let id = data.payload[0].id;
     console.log("his is the counter id in the counterMaxId function:  ", id);
@@ -70,7 +68,7 @@ function Counters() {
   /*---------------Increment Counter backend----------------*/
   let incrementCounter = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/counter/${id}`, {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/increment/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -81,7 +79,7 @@ function Counters() {
   /*---------------Decrement Counter backend----------------*/
   let decrementCounter = (id) => {
     console.log("decremented counter", id);
-    fetch(`http://localhost:5000/counter/decremet/${id}`, {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/decremet/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
