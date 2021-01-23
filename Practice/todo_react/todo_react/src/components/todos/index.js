@@ -6,6 +6,9 @@ import uuid from "react-uuid";
 
 import Todo from "../todo";
 
+// Encryption
+import CryptoJS from "react-native-crypto-js";
+
 function Todos() {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
@@ -20,10 +23,22 @@ function Todos() {
 
   /*---------------Add todo----------------*/
   let createTodo = (msg, colour) => {
+    // Encrypt
+    let encryptedMsg = CryptoJS.AES.encrypt(
+      `${msg}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
+    // Encrypt
+    let encryptedColour = CryptoJS.AES.encrypt(
+      `${colour}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
     console.log("todo fnc", msg);
     fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "post",
-      body: JSON.stringify({ todo: msg, colour: colour }),
+      body: JSON.stringify({ todo: encryptedMsg, colour: encryptedColour }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -36,8 +51,32 @@ function Todos() {
   async function retrieveAllTodos() {
     let res = await fetch(TODO_BACKEND_URLS.TODOS); //process.env.REACT_APP_HOST_URL - for react
     let data = await res.json();
-    console.log(data.payload);
-    setGetTodos(data.payload);
+
+    const decrypting = data.payload.map((item) => {
+      console.log("this is proof of encryption: ", item.todo);
+      // Decrypt
+      let decryptingColour = CryptoJS.AES.decrypt(
+        `${item.color}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
+
+      // Decrypt
+      let decryptingTodo = CryptoJS.AES.decrypt(
+        `${item.todo}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedTodo = decryptingTodo.toString(CryptoJS.enc.Utf8);
+      return {
+        color: decryptedColour,
+        id: item.id,
+        status: item.status,
+        todo: decryptedTodo,
+      };
+    });
+    console.log("this is the payload of todos: ", data.payload);
+    console.log("this is the decrypted payload of todos: ", decrypting);
+    setGetTodos(decrypting);
   }
   useEffect(() => {
     retrieveAllTodos();
