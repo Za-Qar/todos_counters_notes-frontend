@@ -13,7 +13,7 @@ function Todos() {
   const [getTodos, setGetTodos] = useState([]);
   const [localGetTodos, setLocalGetTodos] = useState([]);
 
-  const [getTodoMaxId, setGetTodosMaxId] = useState(0);
+  const [newTodoId, setNewTodoId] = useState(0);
 
   const [colour, setColour] = useState("white");
 
@@ -28,7 +28,7 @@ function Todos() {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "here's the data, buddy boy"))
+      .then((data) => setNewTodoId(data[0].id))
       .catch((error) => console.log(error, "my error"));
   };
 
@@ -44,15 +44,6 @@ function Todos() {
     retrieveAllTodos();
   }, []);
 
-  /*---------------Get max todo id----------------*/
-  async function todoMaxId() {
-    let res = await fetch(`${TODO_BACKEND_URLS.TODOS}/maxId`);
-    let data = await res.json();
-    let id = data.payload[0].id;
-    console.log(id);
-    return id;
-  }
-
   /*---------------Delete todo----------------*/
   let deleteTodoBackend = (id) => {
     fetch(`${TODO_BACKEND_URLS.TODOS}/${id}`, {
@@ -67,9 +58,6 @@ function Todos() {
     setTodos(newTodos);
     setInputValue("");
     createTodo(inputValue, colour);
-    let todoIdBackend = await todoMaxId();
-    setGetTodosMaxId(todoIdBackend);
-
     console.log("new Todos: ", newTodos);
   }
 
@@ -99,16 +87,9 @@ function Todos() {
         {
           label: "Yes",
           onClick: () => {
-            console.log(id);
-            console.log("to delete");
-
             const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
             setTodos(newTodo);
-
             deleteTodoBackend(todoId);
-
-            // retrieveAllTodos();
-            console.log(getTodos);
           },
         },
         {
@@ -248,7 +229,7 @@ function Todos() {
                 <Todo
                   key={uuid()}
                   todoItem={item.todo}
-                  todoId={getTodoMaxId}
+                  todoId={newTodoId}
                   index={index}
                   deleteTodo={deleteTodo}
                   colour={item.colour}
