@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./notes.css";
+import { BACKEND_URLS } from "../../configs/configs";
 
 import Note from "../note";
 
@@ -19,7 +20,7 @@ function Notes() {
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
     console.log("counter Input recieved", title, text);
-    fetch(`http://localhost:5000/note`, {
+    fetch(`${BACKEND_URLS.NOTES}`, {
       method: "POST",
       body: JSON.stringify({ title: title, text: text, colour: colour }),
       headers: { "Content-Type": "application/json" },
@@ -31,7 +32,7 @@ function Notes() {
 
   /*---------------Get max note id----------------*/
   async function noteMaxId() {
-    let res = await fetch("http://localhost:5000/note/getMaxNoteId");
+    let res = await fetch(`${BACKEND_URLS.NOTES}/getMaxNoteId`);
     let data = await res.json();
     let id = data.payload[0].id;
     return id;
@@ -39,7 +40,7 @@ function Notes() {
 
   /*---------------Retrieve all notes----------------*/
   async function retrieveAllNotes() {
-    let res = await fetch("http://localhost:5000/note");
+    let res = await fetch(`${BACKEND_URLS.NOTES}`);
     let data = await res.json();
     console.log("these are all the notes on the database: ", data.payload);
     setRetrieveAllNotes(data.payload);
@@ -51,7 +52,7 @@ function Notes() {
 
   /*---------------Delete note----------------*/
   let deleteNoteBackend = (id) => {
-    fetch(`http://localhost:5000/note/${id}`, {
+    fetch(`${BACKEND_URLS.NOTES}/${id}`, {
       method: "delete",
     })
       .then((res) => res.json())

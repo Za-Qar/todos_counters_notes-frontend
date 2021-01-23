@@ -8,6 +8,9 @@ import uuid from "react-uuid";
 
 import Counter from "../counter";
 
+// Encryption
+import CryptoJS from "react-native-crypto-js";
+
 function Counters() {
   const [inputValue, setInputValue] = useState("");
 
@@ -23,9 +26,25 @@ function Counters() {
   /*---------------Add Counter----------------*/
   let createCounter = (msg, count, colour) => {
     console.log("counter Input recieved", msg);
+    // Encrypt
+    const encryptedMsg = CryptoJS.AES.encrypt(
+      `${msg}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
+    // Encrypt
+    const encryptedColour = CryptoJS.AES.encrypt(
+      `${colour}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
     fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`, {
       method: "POST",
-      body: JSON.stringify({ counter: msg, zero: count, colour: colour }),
+      body: JSON.stringify({
+        counter: encryptedMsg,
+        zero: count,
+        colour: encryptedColour,
+      }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -37,8 +56,32 @@ function Counters() {
   async function retrieveAllCounters() {
     let res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`);
     let data = await res.json();
-    setGetCounters(data.payload);
-    console.log("these are the counters from the db: ", data.payload);
+
+    const decrypting = data.payload.map((item) => {
+      console.log("this is proof of encryption: ", item.todo);
+      // Decrypt
+      const decryptingColour = CryptoJS.AES.decrypt(
+        `${item.color}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
+
+      // Decrypt
+      const decryptingCounter = CryptoJS.AES.decrypt(
+        `${item.counter}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedCounter = decryptingCounter.toString(CryptoJS.enc.Utf8);
+      return {
+        color: decryptedColour,
+        count: 0,
+        counter: decryptedCounter,
+        id: item.id,
+        status: null,
+      };
+    });
+    setGetCounters(decrypting);
+    console.log("This is proof of encryption of counters: ", data.payload);
   }
   useEffect(() => {
     retrieveAllCounters();

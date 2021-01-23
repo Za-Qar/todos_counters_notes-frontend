@@ -24,13 +24,13 @@ function Todos() {
   /*---------------Add todo----------------*/
   let createTodo = (msg, colour) => {
     // Encrypt
-    let encryptedMsg = CryptoJS.AES.encrypt(
+    const encryptedMsg = CryptoJS.AES.encrypt(
       `${msg}`,
       `${process.env.ENCRYPTION_HASH}`
     ).toString();
 
     // Encrypt
-    let encryptedColour = CryptoJS.AES.encrypt(
+    const encryptedColour = CryptoJS.AES.encrypt(
       `${colour}`,
       `${process.env.ENCRYPTION_HASH}`
     ).toString();
