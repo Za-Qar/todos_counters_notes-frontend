@@ -16,8 +16,6 @@ function Counters() {
   const [getCounters, setGetCounters] = useState([]);
   const [newCounterId, setNewCounterId] = useState(0);
 
-  const [deleteTodoClass, SetDeleteTodoClass] = useState("");
-
   const [colour, setColour] = useState("white");
 
   /*---------------Counter backend----------------*/
@@ -148,11 +146,6 @@ function Counters() {
         },
       ],
     });
-  }
-
-  function debugging() {
-    console.log("counters get: ", getCounters);
-    console.log("counters Local: ", counter);
   }
 
   return (
