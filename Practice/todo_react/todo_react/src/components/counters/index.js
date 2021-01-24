@@ -161,7 +161,7 @@ function Counters() {
     //linting rule which is why confirm doesn't work.
     //I can still window.confirm
     confirmAlert({
-      title: "Are you sure you want to delete this todo?",
+      title: "Are you sure you want to delete this counter?",
       message: "This action is irreversible",
       buttons: [
         {

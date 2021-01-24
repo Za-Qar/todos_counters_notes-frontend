@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { confirmAlert } from "react-confirm-alert";
 import { motion } from "framer-motion";
 import "./notes.css";
 import { BACKEND_URLS } from "../../configs/configs";
@@ -22,7 +23,6 @@ function Notes() {
 
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
-    console.log("counter Input recieved", title, text);
     // Encrypt
     const encryptedTitle = CryptoJS.AES.encrypt(
       `${title}`,
@@ -121,12 +121,28 @@ function Notes() {
   }
 
   function deleteNote(id, noteId) {
-    console.log(note);
-    let newNotes = [...note.slice(0, id), ...note.slice(id + 1)];
-    setNote(newNotes);
+    confirmAlert({
+      title: "Are you sure you want to delete this notes?",
+      message: "This action is irreversible",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            let newNotes = [...note.slice(0, id), ...note.slice(id + 1)];
+            setNote(newNotes);
 
-    deleteNoteBackend(noteId);
-    retrieveAllNotes();
+            deleteNoteBackend(noteId);
+            retrieveAllNotes();
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
   }
 
   return (
