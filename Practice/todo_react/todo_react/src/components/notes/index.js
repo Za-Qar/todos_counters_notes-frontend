@@ -13,7 +13,7 @@ function Notes() {
 
   const [retrieveAllNote, setRetrieveAllNotes] = useState([]);
 
-  const [getNotesMaxId, setGetNotesMaxId] = useState(0);
+  const [getNewNoteId, setNewNoteId] = useState(0);
 
   const [colour, setColour] = useState("whiteNote");
 
@@ -26,17 +26,9 @@ function Notes() {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "here's the note data buddy boy"))
+      .then((data) => setNewNoteId(data[0].id))
       .catch((error) => console.log(error, "counter error"));
   };
-
-  /*---------------Get max note id----------------*/
-  async function noteMaxId() {
-    let res = await fetch(`${BACKEND_URLS.NOTES}/getMaxNoteId`);
-    let data = await res.json();
-    let id = data.payload[0].id;
-    return id;
-  }
 
   /*---------------Retrieve all notes----------------*/
   async function retrieveAllNotes() {
@@ -69,13 +61,6 @@ function Notes() {
     ];
     setNote(newNotes);
     postNote(titleInput, textInput, colour);
-
-    let maxNotesId = await noteMaxId();
-    setGetNotesMaxId(maxNotesId);
-    console.log(
-      "this is the noteMaxId that I get from the fetch: ",
-      maxNotesId
-    );
   }
 
   function deleteNote(id, noteId) {
@@ -83,10 +68,6 @@ function Notes() {
     let newNotes = [...note.slice(0, id), ...note.slice(id + 1)];
     setNote(newNotes);
 
-    console.log(
-      "this is noteId that is passed down from the getAll and getMaxId: ",
-      noteId
-    );
     deleteNoteBackend(noteId);
     retrieveAllNotes();
   }
@@ -162,21 +143,6 @@ function Notes() {
           </span>
         </div>
         <motion.div className="drag-area" ref={area}>
-          {note.map((item, index) => {
-            return (
-              <Note
-                area={area}
-                noteTitle={item.title}
-                noteText={item.text}
-                index={index}
-                deleteNote={deleteNote}
-                noteId={getNotesMaxId}
-                key={index}
-                colour={item.colour}
-              />
-            );
-          })}
-          {/*noteText={noteText}*/}
           {retrieveAllNote.map((item, index) => {
             return (
               <Note
@@ -188,6 +154,21 @@ function Notes() {
                 noteId={item.id}
                 key={index}
                 colour={item.color}
+              />
+            );
+          })}
+          {/*noteText={noteText}*/}
+          {note.map((item, index) => {
+            return (
+              <Note
+                area={area}
+                noteTitle={item.title}
+                noteText={item.text}
+                index={index}
+                deleteNote={deleteNote}
+                noteId={getNewNoteId}
+                key={index}
+                colour={item.colour}
               />
             );
           })}
