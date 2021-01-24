@@ -5,6 +5,9 @@ import { BACKEND_URLS } from "../../configs/configs";
 
 import Note from "../note";
 
+// Encryption
+import CryptoJS from "react-native-crypto-js";
+
 function Notes() {
   const area = useRef(null);
   const [titleInput, setTitleInput] = useState("");
@@ -20,22 +23,76 @@ function Notes() {
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
     console.log("counter Input recieved", title, text);
+    // Encrypt
+    const encryptedTitle = CryptoJS.AES.encrypt(
+      `${title}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
+    // Encrypt
+    const encryptedText = CryptoJS.AES.encrypt(
+      `${text}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
+    // Encrypt
+    const encryptedColour = CryptoJS.AES.encrypt(
+      `${colour}`,
+      `${process.env.ENCRYPTION_HASH}`
+    ).toString();
+
     fetch(`${BACKEND_URLS.NOTES}`, {
       method: "POST",
-      body: JSON.stringify({ title: title, text: text, colour: colour }),
+      body: JSON.stringify({
+        title: encryptedTitle,
+        text: encryptedText,
+        colour: encryptedColour,
+      }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((data) => setNewNoteId(data[0].id))
-      .catch((error) => console.log(error, "counter error"));
+      .catch((error) => console.log("Notes error: ", error));
   };
 
   /*---------------Retrieve all notes----------------*/
   async function retrieveAllNotes() {
     let res = await fetch(`${BACKEND_URLS.NOTES}`);
     let data = await res.json();
+
+    const decrypting = data.payload.map((item) => {
+      // Decrypt
+      const decryptingColour = CryptoJS.AES.decrypt(
+        `${item.color}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
+
+      // Decrypt
+      const decryptingText = CryptoJS.AES.decrypt(
+        `${item.text}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedText = decryptingText.toString(CryptoJS.enc.Utf8);
+
+      // Decrypt
+      const decryptingTitle = CryptoJS.AES.decrypt(
+        `${item.title}`,
+        `${process.env.ENCRYPTION_HASH}`
+      );
+      const decryptedTitle = decryptingTitle.toString(CryptoJS.enc.Utf8);
+
+      return {
+        color: decryptedColour,
+        id: item.id,
+        text: decryptedText,
+        title: decryptedTitle,
+        status: item.status,
+      };
+    });
+
     console.log("these are all the notes on the database: ", data.payload);
-    setRetrieveAllNotes(data.payload);
+    setRetrieveAllNotes(decrypting);
   }
 
   useEffect(() => {

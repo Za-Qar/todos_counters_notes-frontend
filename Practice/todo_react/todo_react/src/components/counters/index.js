@@ -77,7 +77,7 @@ function Counters() {
         count: 0,
         counter: decryptedCounter,
         id: item.id,
-        status: null,
+        status: item.status,
       };
     });
     setGetCounters(decrypting);
@@ -167,18 +167,12 @@ function Counters() {
         {
           label: "Yes",
           onClick: () => {
-            console.log("this is the array id: ", id);
-            console.log("this is counter id: ", counterId);
-            console.log("to delete");
-
             const newCounter = [
               ...getCounters.slice(0, id),
               ...getCounters.slice(id + 1),
             ];
             setGetCounters(newCounter);
             deleteCounterBackend(counterId);
-
-            console.log("this is the get all counters: ", getCounters);
           },
         },
         {
