@@ -1,4 +1,4 @@
-const url = "http://localhost:5000";
+const url = `${process.env.REACT_APP_DATABASE_URL}`;
 
 //Todos
 export const TODO_BACKEND_URLS = { TODOS: `${url}/todos` };

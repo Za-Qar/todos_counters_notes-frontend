@@ -12,7 +12,7 @@ function NasaPic() {
 
   async function nasaImageApi() {
     let result = await fetch(
-      `https://api.nasa.gov/planetary/apod?api_key=5hGXtiNISMXZjSMf7hvUqv1v67bFuqlJKoYVn6PX`
+      `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_API_KEY}`
     );
     let data = await result.json();
 
