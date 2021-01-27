@@ -190,3 +190,7 @@ code {
   border-bottom: solid 2px rgb(194, 0, 0);
   border-right: solid 2px rgb(194, 0, 0);
 } */
+
+.hide {
+  display: none;
+}

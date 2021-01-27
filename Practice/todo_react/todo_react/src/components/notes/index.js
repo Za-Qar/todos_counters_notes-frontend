@@ -21,6 +21,8 @@ function Notes() {
 
   const [colour, setColour] = useState("whiteNote");
 
+  const [hide, setHide] = useState("");
+
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
     // Encrypt
@@ -112,13 +114,13 @@ function Notes() {
   /*--------------------Notes backend end----------------------*/
 
   async function addNote() {
-    let newNotes = [
-      ...note,
-      { title: titleInput, text: textInput, colour: colour },
-    ];
-    setNote(newNotes);
+    setRetrieveAllNotes([
+      ...retrieveAllNote,
+      { title: titleInput, text: textInput, colour: colour, id: getNewNoteId },
+    ]);
     postNote(titleInput, textInput, colour);
   }
+  console.log("retrieveAllNote: ", retrieveAllNote);
 
   function deleteNote(id, noteId) {
     confirmAlert({
@@ -128,11 +130,17 @@ function Notes() {
         {
           label: "Yes",
           onClick: () => {
-            let newNotes = [...note.slice(0, id), ...note.slice(id + 1)];
-            setNote(newNotes);
+            // let newNotes = [
+            //   ...retrieveAllNote.slice(0, id),
+            //   ...retrieveAllNote.slice(id + 1),
+            // ];
+            setRetrieveAllNotes(
+              retrieveAllNote.filter((note) => note.id !== noteId)
+            );
 
             deleteNoteBackend(noteId);
-            retrieveAllNotes();
+            // retrieveAllNotes();
+            // setHide("hide");
           },
         },
         {
@@ -224,14 +232,15 @@ function Notes() {
                 noteText={item.text}
                 index={index}
                 deleteNote={deleteNote}
-                noteId={item.id}
+                noteId={getNewNoteId ? getNewNoteId : item.id}
                 key={index}
                 colour={item.color}
+                hide={hide}
               />
             );
           })}
           {/*noteText={noteText}*/}
-          {note.map((item, index) => {
+          {/* {note.map((item, index) => {
             return (
               <Note
                 area={area}
@@ -242,9 +251,10 @@ function Notes() {
                 noteId={getNewNoteId}
                 key={index}
                 colour={item.colour}
+                hide={hide}
               />
             );
-          })}
+          })} */}
         </motion.div>
       </div>
     </div>
