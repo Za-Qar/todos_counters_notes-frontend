@@ -27,7 +27,7 @@ You can either click on the "view project" hyperlink above or
 ### `npm i`
 
 * start the app
-### `npm run start
+### `npm run start`
 
 Please don't hesitate in contacting me if you have any queions or need ay assistance as I want to hear from you
-[Contact email](mailto: za.qa@outlook.com?subject=[GitHub]%20Todo%20Counter%20Notes).
+[Contact email](mailto:za.qa@outlook.com?subject=[GitHub]%20Todos%20Counters%20Notes)
