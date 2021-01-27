@@ -25,7 +25,7 @@ function Weather() {
     const apiKey = "caf81d1304dba9d89805ecde571c22c4";
     async function getWeather(latitude, longitude) {
       let api = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
       );
       //   console.log(api);
       let data = await api.json();
