@@ -22,7 +22,7 @@ function Weather() {
   const [wethImage, setWethImage] = useState("");
   // GET WEATHER FROM API PROVIDER
   useEffect(() => {
-    const apiKey = "caf81d1304dba9d89805ecde571c22c4";
+    const apiKey = `${process.env.REACT_APP_WEATHER_API}`;
     async function getWeather(latitude, longitude) {
       let api = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
@@ -31,7 +31,7 @@ function Weather() {
       let data = await api.json();
       let results = data.main;
       // console.log(results)
-      let currentSituation = data.weather[0].description;
+      let currentSituation = data?.weather[0].description;
       let { temp, feels_like, temp_min, temp_max, pressure } = results;
       let city = data.name;
 
