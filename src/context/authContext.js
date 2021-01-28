@@ -1,5 +1,5 @@
 //React
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
 import {
   FirebaseAuthProvider,
@@ -13,15 +13,18 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useState(null);
 
+  if (!userData) {
+    <IfFirebaseAuthedAnd
+      filter={({ providerId }) => providerId !== "anonymous"}
+    >
+      {({ user }) => {
+        setUserData(user?.email);
+      }}
+    </IfFirebaseAuthedAnd>;
+  }
+
   return (
-    <AuthContext.Provider value={[authUser, loading, error]}>
-      <IfFirebaseAuthedAnd
-        filter={({ providerId }) => providerId !== "anonymous"}
-      >
-        {({ user }) => {
-          setUserData(user?.email);
-        }}
-      </IfFirebaseAuthedAnd>
+    <AuthContext.Provider value={[userData, setUserData]}>
       {children}
     </AuthContext.Provider>
   );

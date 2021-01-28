@@ -45,6 +45,9 @@ import React, { useState } from "react";
 // userContext
 import { useUserContext } from "../../context/userContext.js";
 
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
 import {
   FirebaseAuthProvider,
   FirebaseAuthConsumer,
@@ -56,6 +59,10 @@ export default function Test() {
   // Context
   const [user] = useUserContext();
 
-  console.log(user);
+  //auth
+  const [userData] = useAuthContext();
+
+  console.log("this is userData: ", userData);
+
   return <></>;
 }

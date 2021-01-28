@@ -7,11 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 // Context
 import { UserProvider } from "./context/userContext.js";
 
+//Auth provider
+import { AuthProvider } from "./context/authContext.js";
+
 ReactDOM.render(
   <React.StrictMode>
-    <UserProvider>
-      <App />
-    </UserProvider>
+    <AuthProvider>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

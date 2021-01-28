@@ -49,14 +49,6 @@ code {
   position: relative;
 }
 
-/*-------------user image styling---------------*/
-.authUserImage {
-  width: 3rem;
-  border-radius: 100%;
-  position: absolute;
-  right: 0;
-}
-
 /*-------------Colour Choosing---------------*/
 .colour {
   margin-top: 60px;

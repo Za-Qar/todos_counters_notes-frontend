@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -28,13 +28,23 @@ import Test from "./components/test/test.js";
 
 import Todos from "./components/todos";
 
+//Font awesome
+import "font-awesome/css/font-awesome.min.css";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
+  const [burgerClass, setBurgerClass] = useState("");
+
+  function revealBurger() {
+    console.log("nav clicked");
+    burgerClass === "" ? setBurgerClass("responsive") : setBurgerClass("");
+  }
+
   return (
     <FirebaseAuthProvider {...config} firebase={firebase}>
       <div>
-        <div className="loginStuff">
+        {/* <div className="loginStuff">
           <FirebaseAuthConsumer>
             {({ isSignedIn, user, providerId }) => {
               return console.log(
@@ -42,13 +52,18 @@ function App() {
               );
             }}
           </FirebaseAuthConsumer>
-        </div>
+        </div> */}
 
         <Router>
           <nav className="nav">
             <div className="container">
               <div className="navContainer">
-                <ul className="navUl">
+                <ul className={`navUl ${burgerClass}`} onClick={revealBurger}>
+                  <li className="linkRouter">
+                    <a className="icon">
+                      <i className="fa fa-bars"></i>
+                    </a>
+                  </li>
                   <li>
                     <Link to="/" className="linkRouter">
                       <span>Todos</span>
@@ -72,6 +87,7 @@ function App() {
                   <li>
                     <Logout />
                   </li>
+
                   <li>
                     <IfFirebaseAuthedAnd
                       filter={({ providerId }) => providerId !== "anonymous"}
