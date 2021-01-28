@@ -35,7 +35,7 @@ function Note({
         <img
           className={`todoDelete`}
           onClick={() => {
-            deleteNote(noteId);
+            deleteNote(index, noteId);
             console.log(noteId);
           }}
           src="https://i.imgur.com/z4KpjzC.png"
