@@ -49,21 +49,13 @@ code {
   position: relative;
 }
 
-/*-------------user image styling---------------*/
-.authUserImage {
-  width: 3rem;
-  border-radius: 100%;
-  position: absolute;
-  right: 0;
-}
-
 /*-------------Colour Choosing---------------*/
 .colour {
-  margin-top: 60px;
   width: 100%;
-  margin-bottom: 25px;
-  height: 70px;
+  min-height: 10px;
   margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .colour h4 {
@@ -75,6 +67,7 @@ code {
   float: left;
   margin-right: 15px;
   font-size: 15px;
+  margin-bottom: 0;
 }
 
 .column1 {
@@ -94,6 +87,14 @@ code {
   border-radius: 100%;
   border-style: none;
   outline: none;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 17px;
+    height: 17px;
+    margin: 17px 3px 17px 3px;
+  }
 }
 
 .column:hover {

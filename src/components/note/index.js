@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import "./note.css";
 
@@ -10,14 +10,13 @@ function Note({
   deleteNote,
   noteId,
   colour,
-  hide,
 }) {
   //   const [note, setNote] = useState("");
 
   return (
-    <div className={`${hide}`}>
+    <div>
       <motion.div
-        class={`note ${colour}`}
+        className={`note ${colour}`}
         drag
         dragConstraints={area}
         dragElastic={0.05}
@@ -36,7 +35,7 @@ function Note({
         <img
           className={`todoDelete`}
           onClick={() => {
-            deleteNote(index, noteId);
+            deleteNote(noteId);
             console.log(noteId);
           }}
           src="https://i.imgur.com/z4KpjzC.png"

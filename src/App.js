@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -8,7 +8,7 @@ import {
   IfFirebaseAuthed,
   IfFirebaseAuthedAnd,
 } from "@react-firebase/auth";
-import { config } from "./components/config";
+import { config } from "./configs/configs";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -24,16 +24,27 @@ import Notes from "./components/notes";
 import NasaPic from "./components/nasaPic";
 import Login from "./components/login";
 import Logout from "./components/logout";
+import Test from "./components/test/test.js";
 
 import Todos from "./components/todos";
+
+//Font awesome
+import "font-awesome/css/font-awesome.min.css";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
+  const [burgerClass, setBurgerClass] = useState("");
+
+  function revealBurger() {
+    console.log("nav clicked");
+    burgerClass === "" ? setBurgerClass("responsive") : setBurgerClass("");
+  }
+
   return (
     <FirebaseAuthProvider {...config} firebase={firebase}>
       <div>
-        <div className="loginStuff">
+        {/* <div className="loginStuff">
           <FirebaseAuthConsumer>
             {({ isSignedIn, user, providerId }) => {
               return console.log(
@@ -41,13 +52,18 @@ function App() {
               );
             }}
           </FirebaseAuthConsumer>
-        </div>
+        </div> */}
 
         <Router>
           <nav className="nav">
             <div className="container">
               <div className="navContainer">
-                <ul className="navUl">
+                <ul className={`navUl ${burgerClass}`} onClick={revealBurger}>
+                  <li className="linkRouter">
+                    <a className="icon">
+                      <i className="fa fa-bars"></i>
+                    </a>
+                  </li>
                   <li>
                     <Link to="/" className="linkRouter">
                       <span>Todos</span>
@@ -65,12 +81,13 @@ function App() {
                       <span>Notes</span>
                     </Link>
                   </li>
-                  <li className="loginLi">
+                  <li>
                     <Login />
                   </li>
                   <li>
                     <Logout />
                   </li>
+
                   <li>
                     <IfFirebaseAuthedAnd
                       filter={({ providerId }) => providerId !== "anonymous"}
@@ -102,6 +119,10 @@ function App() {
           </div>
 
           <Switch>
+            <Route path="/test">
+              <Test />
+            </Route>
+
             <Route path="/notes">
               <Notes />
             </Route>

@@ -15,27 +15,54 @@
 //   }
 // };
 
-var React = require("react");
-var dragula = require("react-dragula");
-var Test = React.createClass({
-  render: function () {
-    return (
-      <div className="container">
-        <div>Swap me around</div>
-        <div>Swap her around</div>
-        <div>Swap him around</div>
-        <div>Swap them around</div>
-        <div>Swap us around</div>
-        <div>Swap things around</div>
-        <div>Swap everything around</div>
-      </div>
-    );
-  },
-  componentDidMount: function () {
-    var container = React.findDOMNode(this);
-    dragula([container]);
-  },
-});
-React.render(<Test />, document.getElementById("examples"));
+// var React = require("react");
+// var dragula = require("react-dragula");
+// var Test = React.createClass({
+//   render: function () {
+//     return (
+//       <div className="container">
+//         <div>Swap me around</div>
+//         <div>Swap her around</div>
+//         <div>Swap him around</div>
+//         <div>Swap them around</div>
+//         <div>Swap us around</div>
+//         <div>Swap things around</div>
+//         <div>Swap everything around</div>
+//       </div>
+//     );
+//   },
+//   componentDidMount: function () {
+//     var container = React.findDOMNode(this);
+//     dragula([container]);
+//   },
+// });
+// React.render(<Test />, document.getElementById("examples"));
 
-export default Test;
+// export default Test;
+
+import React, { useState } from "react";
+
+// userContext
+import { useUserContext } from "../../context/userContext.js";
+
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
+import {
+  FirebaseAuthProvider,
+  FirebaseAuthConsumer,
+  IfFirebaseAuthed,
+  IfFirebaseAuthedAnd,
+} from "@react-firebase/auth";
+
+export default function Test() {
+  // Context
+  const [user] = useUserContext();
+
+  //auth
+  const [userData] = useAuthContext();
+
+  console.log("this is userData: ", userData);
+
+  return <></>;
+}

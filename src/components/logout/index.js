@@ -1,14 +1,8 @@
 import React from "react";
-import { render } from "react-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd,
-} from "@react-firebase/auth";
-import { config } from "../config";
+import { FirebaseAuthProvider, IfFirebaseAuthed } from "@react-firebase/auth";
+import { config } from "../../configs/configs";
 
 import "./logout.css";
 
@@ -18,14 +12,14 @@ function Logout() {
       <IfFirebaseAuthed>
         {() => {
           return (
-            <button
+            <span
               onClick={() => {
                 firebase.auth().signOut();
               }}
-              className="logoutButton"
+              className="loginButton"
             >
               Logout
-            </button>
+            </span>
           );
         }}
       </IfFirebaseAuthed>

@@ -8,7 +8,7 @@ import {
   IfFirebaseAuthed,
   IfFirebaseAuthedAnd,
 } from "@react-firebase/auth";
-import { config } from "../config";
+import { config } from "../../configs/configs";
 
 import "./login.css";
 
@@ -21,7 +21,7 @@ function Login() {
             return;
           } else {
             return (
-              <button
+              <span
                 onClick={() => {
                   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
                   firebase.auth().signInWithPopup(googleAuthProvider);
@@ -29,7 +29,7 @@ function Login() {
                 className="loginButton"
               >
                 Login with Google
-              </button>
+              </span>
             );
           }
         }}
