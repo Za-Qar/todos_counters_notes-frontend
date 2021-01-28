@@ -24,6 +24,7 @@ import Notes from "./components/notes";
 import NasaPic from "./components/nasaPic";
 import Login from "./components/login";
 import Logout from "./components/logout";
+import Test from "./components/test/test.js";
 
 import Todos from "./components/todos";
 
@@ -102,6 +103,10 @@ function App() {
           </div>
 
           <Switch>
+            <Route path="/test">
+              <Test />
+            </Route>
+
             <Route path="/notes">
               <Notes />
             </Route>
