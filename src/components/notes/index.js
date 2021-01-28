@@ -13,15 +13,12 @@ function Notes() {
   const area = useRef(null);
   const [titleInput, setTitleInput] = useState("");
   const [textInput, setTextInput] = useState("");
-  const [note, setNote] = useState([]);
 
   const [retrieveAllNote, setRetrieveAllNotes] = useState([]);
 
   const [getNewNoteId, setNewNoteId] = useState(0);
 
   const [colour, setColour] = useState("whiteNote");
-
-  const [hide, setHide] = useState("");
 
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
@@ -114,15 +111,17 @@ function Notes() {
   /*--------------------Notes backend end----------------------*/
 
   async function addNote() {
+    console.log("this should be the note's colour: ", colour);
     setRetrieveAllNotes([
       ...retrieveAllNote,
-      { title: titleInput, text: textInput, colour: colour, id: getNewNoteId },
+      { title: titleInput, text: textInput, color: colour, id: getNewNoteId },
     ]);
     postNote(titleInput, textInput, colour);
+    setTitleInput("");
+    setTextInput("");
   }
-  console.log("retrieveAllNote: ", retrieveAllNote);
 
-  function deleteNote(id, noteId) {
+  function deleteNote(noteId) {
     confirmAlert({
       title: "Are you sure you want to delete this notes?",
       message: "This action is irreversible",
@@ -161,68 +160,70 @@ function Notes() {
             placeholder="Title"
             className="inputFieldNotesLeft"
             onChange={(e) => setTitleInput(e.target.value)}
+            value={titleInput}
           />
           <input
             placeholder="Text"
             className="inputFieldNotesRight"
             onChange={(e) => setTextInput(e.target.value)}
+            value={textInput}
           />
         </div>
-        <button className="addNoteButton" onClick={addNote}>
-          Add Note
-        </button>
-        <div class="colour">
+        <div className="colour">
           <h4>Choose a colour</h4>
-          <span class="column in1">
+          <span className="column in1">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("whiteNote")}
             />
           </span>
-          <span class="column in2">
+          <span className="column in2">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("greenNote")}
             />
           </span>
-          <span class="column in3">
+          <span className="column in3">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("redNote")}
             />
           </span>
-          <span class="column in4">
+          <span className="column in4">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("purpleNote")}
             />
           </span>
-          <span class="column in5">
+          <span className="column in5">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("peachNote")}
             />
           </span>
 
-          <span class="column in6">
+          <span className="column in6">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("blueNote")}
             />
           </span>
         </div>
+        <button className="addNoteButton" onClick={addNote}>
+          Add Note
+        </button>
         <motion.div className="drag-area" ref={area}>
           {retrieveAllNote.map((item, index) => {
             return (
@@ -235,7 +236,6 @@ function Notes() {
                 noteId={getNewNoteId ? getNewNoteId : item.id}
                 key={index}
                 colour={item.color}
-                hide={hide}
               />
             );
           })}

@@ -11,17 +11,23 @@
   font-size: 1rem;
 }
 
-.loginLi {
+/* .loginLi {
   float: right;
   height: 60px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   padding: 0;
   margin: 0;
   text-decoration: none;
   position: absolute;
   right: 0;
+  text-align: center;
+  width: 100%;
+} */
+
+.loginLi {
+  width: 100%;
+  text-align: center;
 }
 
 .loginButton:hover {

@@ -187,6 +187,7 @@ function Todos() {
         />
         <div class="colour">
           <h4>Choose a colour</h4>
+
           <span class="column in1">
             <input
               class="allColumns"
@@ -227,7 +228,6 @@ function Todos() {
               onChange={() => setColour("peach")}
             />
           </span>
-
           <span class="column in6">
             <input
               class="allColumns"

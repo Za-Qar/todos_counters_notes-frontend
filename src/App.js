@@ -8,7 +8,7 @@ import {
   IfFirebaseAuthed,
   IfFirebaseAuthedAnd,
 } from "@react-firebase/auth";
-import { config } from "./components/config";
+import { config } from "./configs/configs";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -81,7 +81,7 @@ function App() {
                       <span>Notes</span>
                     </Link>
                   </li>
-                  <li className="loginLi">
+                  <li>
                     <Login />
                   </li>
                   <li>
