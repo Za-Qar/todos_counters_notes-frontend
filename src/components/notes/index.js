@@ -121,7 +121,7 @@ function Notes() {
     setTextInput("");
   }
 
-  function deleteNote(noteId) {
+  function deleteNote(index, noteId) {
     confirmAlert({
       title: "Are you sure you want to delete this notes?",
       message: "This action is irreversible",
@@ -129,17 +129,11 @@ function Notes() {
         {
           label: "Yes",
           onClick: () => {
-            // let newNotes = [
-            //   ...retrieveAllNote.slice(0, id),
-            //   ...retrieveAllNote.slice(id + 1),
-            // ];
-            setRetrieveAllNotes(
-              retrieveAllNote.filter((note) => note.id !== noteId)
-            );
-
+            setRetrieveAllNotes([
+              ...retrieveAllNote.slice(0, index),
+              ...retrieveAllNote.slice(index + 1),
+            ]);
             deleteNoteBackend(noteId);
-            // retrieveAllNotes();
-            // setHide("hide");
           },
         },
         {
