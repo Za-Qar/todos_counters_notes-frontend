@@ -22,7 +22,7 @@ function Logout() {
               onClick={() => {
                 firebase.auth().signOut();
               }}
-              className="logoutButton"
+              className="loginButton"
             >
               Logout
             </button>

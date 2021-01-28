@@ -78,6 +78,7 @@
   right: 0;
 }
 
+/*-------------burger responsive styling---------------*/
 @media screen and (max-width: 600px) {
   .navUl li:not(:first-child) {
     display: none;
