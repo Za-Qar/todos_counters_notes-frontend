@@ -6,7 +6,6 @@ function Todo({
   deleteTodo,
   todoId,
   index,
-  todoClass,
   colour,
   strikeTodo,
   currentStatus,
@@ -22,12 +21,6 @@ function Todo({
     complete != "complete"
       ? setOpacityGarbage("opacityGarbage")
       : setOpacityGarbage("");
-    // if (!complete) {
-    //   setComplete("complete");
-    // } else {
-    //   setComplete("active");
-    // }
-    console.log(todoId, complete);
     strikeTodo(todoId, complete);
   }
 

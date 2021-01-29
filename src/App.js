@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div>
-      <div className="loginStuff">
+      {/* <div className="loginStuff">
         <FirebaseAuthConsumer>
           {({ isSignedIn, user, providerId }) => {
             return console.log(
@@ -50,7 +50,7 @@ function App() {
             );
           }}
         </FirebaseAuthConsumer>
-      </div>
+      </div> */}
 
       <Router>
         <nav className="nav">

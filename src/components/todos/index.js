@@ -141,8 +141,6 @@ function Todos() {
   }
 
   async function deleteTodoGet(id, todoId) {
-    //linting rule which is why confirm doesn't work.
-    //I can still window.confirm
     confirmAlert({
       title: "Are you sure you want to delete this todo?",
       message: "This action is irreversible",
@@ -150,20 +148,12 @@ function Todos() {
         {
           label: "Yes",
           onClick: () => {
-            console.log("this is the array id: ", id);
-            console.log("this is todo id: ", todoId);
-            console.log("to delete");
-
             const newTodo = [
               ...getTodos.slice(0, id),
               ...getTodos.slice(id + 1),
             ];
             setGetTodos(newTodo);
-
             deleteTodoBackend(todoId);
-
-            // retrieveAllTodos();
-            console.log(getTodos);
           },
         },
         {
