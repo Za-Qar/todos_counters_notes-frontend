@@ -64,5 +64,16 @@ export default function Test() {
 
   console.log("this is userData: ", userData);
 
-  return <></>;
+  return (
+    <>
+      {/* <IfFirebaseAuthedAnd
+        filter={({ providerId }) => providerId !== "anonymous"}
+      >
+        {({ user }) => {
+          console.log("email log: ", user?.email);
+          console.log(user?.email);
+        }}
+      </IfFirebaseAuthedAnd> */}
+    </>
+  );
 }

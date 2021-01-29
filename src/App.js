@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { render } from "react-dom";
-import firebase from "firebase/app";
+
 import "firebase/auth";
 import {
   FirebaseAuthProvider,
@@ -8,7 +8,6 @@ import {
   IfFirebaseAuthed,
   IfFirebaseAuthedAnd,
 } from "@react-firebase/auth";
-import { config } from "./configs/configs";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -42,106 +41,104 @@ function App() {
   }
 
   return (
-    <FirebaseAuthProvider {...config} firebase={firebase}>
-      <div>
-        {/* <div className="loginStuff">
-          <FirebaseAuthConsumer>
-            {({ isSignedIn, user, providerId }) => {
-              return console.log(
-                JSON.stringify({ isSignedIn, user, providerId }, null, 2)
-              );
-            }}
-          </FirebaseAuthConsumer>
-        </div> */}
-
-        <Router>
-          <nav className="nav">
-            <div className="container">
-              <div className="navContainer">
-                <ul className={`navUl ${burgerClass}`} onClick={revealBurger}>
-                  <li className="linkRouter">
-                    <a className="icon">
-                      <i className="fa fa-bars"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <Link to="/" className="linkRouter">
-                      <span>Todos</span>
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/counter" className="linkRouter">
-                      <span>Counters</span>
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/notes" className="linkRouter">
-                      <span>Notes</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Login />
-                  </li>
-                  <li>
-                    <Logout />
-                  </li>
-
-                  <li>
-                    <IfFirebaseAuthedAnd
-                      filter={({ providerId }) => providerId !== "anonymous"}
-                    >
-                      {({ user }) => {
-                        return (
-                          <img
-                            src={user.photoURL}
-                            alt="user image"
-                            className="authUserImage"
-                          />
-                        );
-                      }}
-                    </IfFirebaseAuthedAnd>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-          <Header />
-          <div className="container">
-            <IfFirebaseAuthedAnd
-              filter={({ providerId }) => providerId !== "anonymous"}
-            >
-              {({ user }) => {
-                return <p>Welcome {user.displayName}</p>;
-              }}
-            </IfFirebaseAuthedAnd>
-          </div>
-
-          <Switch>
-            <Route path="/test">
-              <Test />
-            </Route>
-
-            <Route path="/notes">
-              <Notes />
-            </Route>
-
-            <Route path="/counter">
-              <Counters />
-            </Route>
-
-            <Route path="/">
-              <Todos />
-            </Route>
-          </Switch>
-        </Router>
-
-        <TimeDate />
-        <Weather />
-        <NasaPic />
+    <div>
+      <div className="loginStuff">
+        <FirebaseAuthConsumer>
+          {({ isSignedIn, user, providerId }) => {
+            return console.log(
+              JSON.stringify({ isSignedIn, user, providerId }, null, 2)
+            );
+          }}
+        </FirebaseAuthConsumer>
       </div>
-    </FirebaseAuthProvider>
+
+      <Router>
+        <nav className="nav">
+          <div className="container">
+            <div className="navContainer">
+              <ul className={`navUl ${burgerClass}`} onClick={revealBurger}>
+                <li className="linkRouter">
+                  <a className="icon">
+                    <i className="fa fa-bars"></i>
+                  </a>
+                </li>
+                <li>
+                  <Link to="/" className="linkRouter">
+                    <span>Todos</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/counter" className="linkRouter">
+                    <span>Counters</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/notes" className="linkRouter">
+                    <span>Notes</span>
+                  </Link>
+                </li>
+                <li>
+                  <Login />
+                </li>
+                <li>
+                  <Logout />
+                </li>
+
+                <li>
+                  <IfFirebaseAuthedAnd
+                    filter={({ providerId }) => providerId !== "anonymous"}
+                  >
+                    {({ user }) => {
+                      return (
+                        <img
+                          src={user.photoURL}
+                          alt="user image"
+                          className="authUserImage"
+                        />
+                      );
+                    }}
+                  </IfFirebaseAuthedAnd>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <Header />
+        <div className="container">
+          <IfFirebaseAuthedAnd
+            filter={({ providerId }) => providerId !== "anonymous"}
+          >
+            {({ user }) => {
+              return <p>Welcome {user.displayName}</p>;
+            }}
+          </IfFirebaseAuthedAnd>
+        </div>
+
+        <Switch>
+          <Route path="/test">
+            <Test />
+          </Route>
+
+          <Route path="/notes">
+            <Notes />
+          </Route>
+
+          <Route path="/counter">
+            <Counters />
+          </Route>
+
+          <Route path="/">
+            <Todos />
+          </Route>
+        </Switch>
+      </Router>
+
+      <TimeDate />
+      <Weather />
+      <NasaPic />
+    </div>
   );
 }
 

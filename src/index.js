@@ -10,13 +10,19 @@ import { UserProvider } from "./context/userContext.js";
 //Auth provider
 import { AuthProvider } from "./context/authContext.js";
 
+import { FirebaseAuthProvider } from "@react-firebase/auth";
+import { config } from "./configs/configs";
+import firebase from "firebase/app";
+
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </AuthProvider>
+    <FirebaseAuthProvider {...config} firebase={firebase}>
+      <AuthProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </AuthProvider>
+    </FirebaseAuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

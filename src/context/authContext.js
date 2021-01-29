@@ -13,20 +13,22 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useState(null);
 
-  if (!userData) {
+  // if (!userData) {
+
+  // }
+
+  return (
     <IfFirebaseAuthedAnd
       filter={({ providerId }) => providerId !== "anonymous"}
     >
       {({ user }) => {
-        setUserData(user?.email);
+        return (
+          <AuthContext.Provider value={[user.email]}>
+            {children}
+          </AuthContext.Provider>
+        );
       }}
-    </IfFirebaseAuthedAnd>;
-  }
-
-  return (
-    <AuthContext.Provider value={[userData, setUserData]}>
-      {children}
-    </AuthContext.Provider>
+    </IfFirebaseAuthedAnd>
   );
 }
 
