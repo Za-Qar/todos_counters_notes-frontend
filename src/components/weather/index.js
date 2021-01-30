@@ -27,10 +27,10 @@ function Weather() {
       let api = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
       );
-      //   console.log(api);
+
       let data = await api.json();
       let results = data.main;
-      // console.log(results)
+
       let currentSituation = data?.weather[0].description;
       let { temp, feels_like, temp_min, temp_max, pressure } = results;
       let city = data.name;
@@ -46,11 +46,6 @@ function Weather() {
       setFeel(feels_like);
       setCurr(currentSituation);
       setCity(city);
-
-      console.log(temp);
-      console.log(feels_like);
-      console.log(currentSituation);
-      console.log(city);
 
       // /b /b => regex
       if (currentSituation === "fog") {

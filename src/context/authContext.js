@@ -1,34 +1,19 @@
 //React
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState } from "react";
 
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd,
-} from "@react-firebase/auth";
+import { FirebaseAuthConsumer } from "@react-firebase/auth";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [userData, setUserData] = useState(null);
-
-  // if (!userData) {
-
-  // }
-
   return (
-    <IfFirebaseAuthedAnd
-      filter={({ providerId }) => providerId !== "anonymous"}
-    >
-      {({ user }) => {
+    <FirebaseAuthConsumer>
+      {({ isSignedIn, user, providerId }) => {
         return (
-          <AuthContext.Provider value={[user.email]}>
-            {children}
-          </AuthContext.Provider>
+          <AuthContext.Provider value={[user]}>{children}</AuthContext.Provider>
         );
       }}
-    </IfFirebaseAuthedAnd>
+    </FirebaseAuthConsumer>
   );
 }
 

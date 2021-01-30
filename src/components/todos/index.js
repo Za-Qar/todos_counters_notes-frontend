@@ -9,7 +9,13 @@ import Todo from "../todo";
 // Encryption
 import CryptoJS from "react-native-crypto-js";
 
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
 function Todos() {
+  //auth
+  const [userData] = useAuthContext();
+
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
@@ -18,6 +24,8 @@ function Todos() {
   const [newTodoId, setNewTodoId] = useState(0);
 
   const [colour, setColour] = useState("white");
+
+  console.log("this is userData: ", userData?.email);
 
   /*---------------Todo backend----------------*/
 
@@ -37,7 +45,11 @@ function Todos() {
 
     fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "post",
-      body: JSON.stringify({ todo: encryptedMsg, colour: encryptedColour }),
+      body: JSON.stringify({
+        todo: encryptedMsg,
+        colour: encryptedColour,
+        email: userData?.email,
+      }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())

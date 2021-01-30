@@ -17,7 +17,6 @@ function NasaPic() {
     let data = await result.json();
 
     setUrl(data.url);
-    console.log(data.url);
 
     setCopyright(data.copyright);
     setDate(data.date);
@@ -47,7 +46,7 @@ function NasaPic() {
           <div className="nasaImageSmallContainer">
             <img
               src={url}
-              alt="Nasa picture of the day"
+              alt="Nasa pic of the day"
               className="nasaImgSmall"
               onClick={expandedImage}
             />
@@ -69,7 +68,7 @@ function NasaPic() {
             <p onClick={hideExpandedImage}>x</p>
           </div>
 
-          <img src={hdurl} alt="Nasa image of the day" className="nasaImgBig" />
+          <img src={hdurl} alt="Nasa pic of the day" className="nasaImgBig" />
         </div>
 
         <div className="nasaExplanation">

@@ -40,20 +40,13 @@
 
 // export default Test;
 
-import React, { useState } from "react";
+import React from "react";
 
 // userContext
 import { useUserContext } from "../../context/userContext.js";
 
 // userContext
 import { useAuthContext } from "../../context/authContext.js";
-
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd,
-} from "@react-firebase/auth";
 
 export default function Test() {
   // Context
