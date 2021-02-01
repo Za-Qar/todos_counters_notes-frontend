@@ -20,6 +20,7 @@ function Todo({
     complete !== "complete"
       ? setOpacityGarbage("opacityGarbage")
       : setOpacityGarbage("");
+    console.log("this is complete: ", complete);
     strikeTodo(todoId, complete);
   }
 
@@ -29,7 +30,7 @@ function Todo({
       <div className="container">
         <div className="todoDiv">
           <div className="todoInnerText">
-            <p className={`todoText ${complete}`} onClick={strikeThrough}>
+            <p className={`todoText ${complete}`} onClick={strikeThrough()}>
               {todoItem}
             </p>
           </div>
