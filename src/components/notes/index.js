@@ -9,7 +9,13 @@ import Note from "../note";
 // Encryption
 import CryptoJS from "react-native-crypto-js";
 
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
 function Notes() {
+  //auth
+  const [userData] = useAuthContext();
+
   const area = useRef(null);
   const [titleInput, setTitleInput] = useState("");
   const [textInput, setTextInput] = useState("");
@@ -19,6 +25,8 @@ function Notes() {
   const [getNewNoteId, setNewNoteId] = useState(0);
 
   const [colour, setColour] = useState("whiteNote");
+
+  /*---------------Notes backend----------------*/
 
   /*---------------Add Note----------------*/
   let postNote = (title, text, colour) => {
@@ -46,17 +54,23 @@ function Notes() {
         title: encryptedTitle,
         text: encryptedText,
         colour: encryptedColour,
+        email: userData?.email,
       }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((data) => setNewNoteId(data[0].id))
-      .catch((error) => console.log("Notes error: ", error));
+      .catch((error) => error);
   };
 
   /*---------------Retrieve all notes----------------*/
   async function retrieveAllNotes() {
-    let res = await fetch(`${BACKEND_URLS.NOTES}`);
+    let res;
+    if (userData) {
+      res = await fetch(`${BACKEND_URLS.NOTES}/?email=${userData?.email}`);
+    } else {
+      res = await fetch(`${BACKEND_URLS.NOTES}`);
+    }
     let data = await res.json();
 
     const decrypting = data.payload.map((item) => {
@@ -90,13 +104,12 @@ function Notes() {
       };
     });
 
-    console.log("these are all the notes on the database: ", data.payload);
     setRetrieveAllNotes(decrypting);
   }
 
   useEffect(() => {
     retrieveAllNotes();
-  }, []);
+  }, [userData]);
 
   /*---------------Delete note----------------*/
   let deleteNoteBackend = (id) => {
@@ -104,14 +117,13 @@ function Notes() {
       method: "delete",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "Note has been delete buddy boy"))
-      .catch((error) => console.log(error, "this is the delete note error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
 
-  /*--------------------Notes backend end----------------------*/
+  /*---------------Notes frontend----------------*/
 
   async function addNote() {
-    console.log("this should be the note's colour: ", colour);
     setRetrieveAllNotes([
       ...retrieveAllNote,
       { title: titleInput, text: textInput, color: colour, id: getNewNoteId },

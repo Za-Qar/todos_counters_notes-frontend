@@ -9,7 +9,13 @@ import Todo from "../todo";
 // Encryption
 import CryptoJS from "react-native-crypto-js";
 
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
 function Todos() {
+  //auth
+  const [userData] = useAuthContext();
+
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
@@ -35,25 +41,32 @@ function Todos() {
       `${process.env.ENCRYPTION_HASH}`
     ).toString();
 
-    console.log("todo fnc", msg);
     fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "post",
-      body: JSON.stringify({ todo: encryptedMsg, colour: encryptedColour }),
+      body: JSON.stringify({
+        todo: encryptedMsg,
+        colour: encryptedColour,
+        email: userData?.email,
+      }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((data) => setNewTodoId(data[0].id))
-      .catch((error) => console.log(error, "my error"));
+      .catch((error) => error);
   };
 
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
   async function retrieveAllTodos() {
-    let res = await fetch(TODO_BACKEND_URLS.TODOS); //process.env.REACT_APP_HOST_URL - for react
+    let res;
+    if (userData) {
+      res = await fetch(`${TODO_BACKEND_URLS.TODOS}/?email=${userData?.email}`);
+    } else {
+      res = await fetch(`${TODO_BACKEND_URLS.TODOS}`);
+    }
     let data = await res.json();
 
     const decrypting = data.payload.map((item) => {
-      console.log("this is proof of encryption: ", item.todo);
       // Decrypt
       let decryptingColour = CryptoJS.AES.decrypt(
         `${item.color}`,
@@ -74,13 +87,11 @@ function Todos() {
         todo: decryptedTodo,
       };
     });
-    console.log("this is the payload of todos: ", data.payload);
-    console.log("this is the decrypted payload of todos: ", decrypting);
     setGetTodos(decrypting);
   }
   useEffect(() => {
     retrieveAllTodos();
-  }, []);
+  }, [userData]);
 
   /*---------------Delete todo----------------*/
   let deleteTodoBackend = (id) => {
@@ -88,29 +99,26 @@ function Todos() {
       method: "delete",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "Todo has been delete buddy boy"))
-      .catch((error) => console.log(error, "this is the delete todo error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
   async function addTodo() {
     const newTodos = [...todos, { todo: inputValue, colour: colour }];
     setTodos(newTodos);
     setInputValue("");
     createTodo(inputValue, colour);
-    console.log("new Todos: ", newTodos);
   }
 
   /*---------------Strike through Todo----------------*/
   let strikeTodo = (id, value) => {
-    console.log("this is id: ", id);
-    console.log("this is value: ", value);
     fetch(`${TODO_BACKEND_URLS.TODOS}`, {
       method: "PATCH",
       body: JSON.stringify({ id: id, status: value }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "this is the id buddy boy"))
-      .catch((error) => console.log(error, "incrementCounter error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
 
   /*---------------Todo backend end----------------*/
@@ -141,8 +149,6 @@ function Todos() {
   }
 
   async function deleteTodoGet(id, todoId) {
-    //linting rule which is why confirm doesn't work.
-    //I can still window.confirm
     confirmAlert({
       title: "Are you sure you want to delete this todo?",
       message: "This action is irreversible",
@@ -150,20 +156,12 @@ function Todos() {
         {
           label: "Yes",
           onClick: () => {
-            console.log("this is the array id: ", id);
-            console.log("this is todo id: ", todoId);
-            console.log("to delete");
-
             const newTodo = [
               ...getTodos.slice(0, id),
               ...getTodos.slice(id + 1),
             ];
             setGetTodos(newTodo);
-
             deleteTodoBackend(todoId);
-
-            // retrieveAllTodos();
-            console.log(getTodos);
           },
         },
         {
@@ -185,52 +183,52 @@ function Todos() {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <div class="colour">
+        <div className="colour">
           <h4>Choose a colour</h4>
 
-          <span class="column in1">
+          <span className="column in1">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("white")}
             />
           </span>
-          <span class="column in2">
+          <span className="column in2">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("green")}
             />
           </span>
-          <span class="column in3">
+          <span className="column in3">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("red")}
             />
           </span>
-          <span class="column in4">
+          <span className="column in4">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("purple")}
             />
           </span>
-          <span class="column in5">
+          <span className="column in5">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("peach")}
             />
           </span>
-          <span class="column in6">
+          <span className="column in6">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("blue")}

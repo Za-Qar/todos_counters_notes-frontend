@@ -11,7 +11,13 @@ import Counter from "../counter";
 // Encryption
 import CryptoJS from "react-native-crypto-js";
 
+// userContext
+import { useAuthContext } from "../../context/authContext.js";
+
 function Counters() {
+  //auth
+  const [userData] = useAuthContext();
+
   const [inputValue, setInputValue] = useState("");
 
   const [counter, setCounter] = useState([]);
@@ -25,7 +31,6 @@ function Counters() {
 
   /*---------------Add Counter----------------*/
   let createCounter = (msg, count, colour) => {
-    console.log("counter Input recieved", msg);
     // Encrypt
     const encryptedMsg = CryptoJS.AES.encrypt(
       `${msg}`,
@@ -44,21 +49,41 @@ function Counters() {
         counter: encryptedMsg,
         zero: count,
         colour: encryptedColour,
+        email: userData?.email,
       }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((data) => setNewCounterId(data[0].id))
-      .catch((error) => console.log(error, "counter error"));
+      .catch((error) => error);
+  };
+
+  /*---------------Strike through Counter----------------*/
+  let strikeCounter = (id, value) => {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`, {
+      method: "PATCH",
+      body: JSON.stringify({ id: id, status: value }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((error) => error);
   };
 
   /*---------------Get all Counters----------------*/
   async function retrieveAllCounters() {
-    let res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`);
+    let res;
+    if (userData) {
+      res = await fetch(
+        `${COUNTERS_BACKEND_URLS.COUNTERS}/?email=${userData?.email}`
+      );
+    } else {
+      res = await fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`);
+    }
+
     let data = await res.json();
 
     const decrypting = data.payload.map((item) => {
-      console.log("this is proof of encryption: ", item.todo);
       // Decrypt
       const decryptingColour = CryptoJS.AES.decrypt(
         `${item.color}`,
@@ -74,18 +99,17 @@ function Counters() {
       const decryptedCounter = decryptingCounter.toString(CryptoJS.enc.Utf8);
       return {
         color: decryptedColour,
-        count: 0,
+        count: item.count,
         counter: decryptedCounter,
         id: item.id,
         status: item.status,
       };
     });
     setGetCounters(decrypting);
-    console.log("This is proof of encryption of counters: ", data.payload);
   }
   useEffect(() => {
     retrieveAllCounters();
-  }, []);
+  }, [userData]);
 
   /*---------------Delete Counter----------------*/
   let deleteCounterBackend = (id) => {
@@ -93,31 +117,31 @@ function Counters() {
       method: "delete",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "Counter has been delete buddy boy"))
-      .catch((error) => console.log(error, "this is the delete Counter error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
 
   /*---------------Increment Counter backend----------------*/
   let incrementCounter = (id) => {
-    console.log(id);
     fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/increment/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "this is the id buddy boy"))
-      .catch((error) => console.log(error, "incrementCounter error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
 
   /*---------------Decrement Counter backend----------------*/
   let decrementCounter = (id) => {
-    console.log("decremented counter", id);
     fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}/decremet/${id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data, "this is the decrement id buddy boy"))
-      .catch((error) => console.log(error, "this is the decerment error"));
+      .then((data) => data)
+      .catch((error) => error);
   };
+
+  /*---------------Counters frontend----------------*/
 
   async function addCounter() {
     const newCounter = [...counter, { counter: inputValue, colour: colour }];
@@ -140,11 +164,6 @@ function Counters() {
             ];
             setCounter(newCounter);
             deleteCounterBackend(counterId);
-
-            console.log(
-              "this is the counterID, line 113 react input.js: ",
-              counterId
-            );
           },
         },
         {
@@ -194,52 +213,52 @@ function Counters() {
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
         />
-        <div class="colour">
+        <div className="colour">
           <h4>Choose a colour</h4>
-          <span class="column in1">
+          <span className="column in1">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("white")}
             />
           </span>
-          <span class="column in2">
+          <span className="column in2">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("green")}
             />
           </span>
-          <span class="column in3">
+          <span className="column in3">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("red")}
             />
           </span>
-          <span class="column in4">
+          <span className="column in4">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("purple")}
             />
           </span>
-          <span class="column in5">
+          <span className="column in5">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("peach")}
             />
           </span>
 
-          <span class="column in6">
+          <span className="column in6">
             <input
-              class="allColumns"
+              className="allColumns"
               name="colour"
               type="radio"
               onChange={() => setColour("blue")}
@@ -263,6 +282,8 @@ function Counters() {
                   decrementCounter={decrementCounter}
                   counterValue={item.count}
                   colour={item.color}
+                  strikeCounter={strikeCounter}
+                  currentStatus={item.status}
                 />
               );
             })}
@@ -278,6 +299,8 @@ function Counters() {
                   decrementCounter={decrementCounter}
                   counterValue={0}
                   colour={item.colour}
+                  strikeCounter={strikeCounter}
+                  currentStatus={"active"}
                 />
               );
             })}

@@ -40,20 +40,13 @@
 
 // export default Test;
 
-import React, { useState } from "react";
+import React from "react";
 
 // userContext
 import { useUserContext } from "../../context/userContext.js";
 
 // userContext
 import { useAuthContext } from "../../context/authContext.js";
-
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd,
-} from "@react-firebase/auth";
 
 export default function Test() {
   // Context
@@ -62,7 +55,46 @@ export default function Test() {
   //auth
   const [userData] = useAuthContext();
 
+  // navigator.geolocation.getCurrentPosition(function (position) {
+  //   console.log("this is position :", position);
+  //   console.log("Latitude is :", position.coords.latitude);
+  //   console.log("Longitude is :", position.coords.longitude);
+  // });
+
+  // function componentDidMount() {
+  //   window.navigator.geolocation.getCurrentPosition(
+  //     function (position) {
+  //       console.log(position);
+  //     },
+  //     function (error) {
+  //       console.error("Error Code = " + error.code + " - " + error.message);
+  //     }
+  //   );
+  // }
+  // componentDidMount();
+
+  const successfulLookup = (position) => {
+    const { latitude, longitude } = position.coords;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=256a51c0238f4a5bb8e2c76ebced9e2c
+   `)
+      .then((res) => res.json())
+      .then(console.log);
+  };
+
+  navigator.geolocation.getCurrentPosition(successfulLookup, console.log);
+
   console.log("this is userData: ", userData);
 
-  return <></>;
+  return (
+    <>
+      {/* <IfFirebaseAuthedAnd
+        filter={({ providerId }) => providerId !== "anonymous"}
+      >
+        {({ user }) => {
+          console.log("email log: ", user?.email);
+          console.log(user?.email);
+        }}
+      </IfFirebaseAuthedAnd> */}
+    </>
+  );
 }
