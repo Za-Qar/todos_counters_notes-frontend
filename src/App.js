@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 
 import "firebase/auth";
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-  IfFirebaseAuthed,
-  IfFirebaseAuthedAnd,
-} from "@react-firebase/auth";
+import { IfFirebaseAuthedAnd } from "@react-firebase/auth";
 
-import logo from "./logo.svg";
+// import {
+//   FirebaseAuthProvider,
+//   FirebaseAuthConsumer,
+//   IfFirebaseAuthed,
+//   IfFirebaseAuthedAnd,
+// } from "@react-firebase/auth";
+
+// import logo from "./logo.svg";
+
 import "./App.css";
 
 import "./components/nav/nav.css";
 
 import Header from "./components/header";
-import Nav from "./components/nav";
 import Counters from "./components/counters";
 import TimeDate from "./components/timeDate";
 import Weather from "./components/weather";
@@ -36,31 +38,20 @@ function App() {
   const [burgerClass, setBurgerClass] = useState("");
 
   function revealBurger() {
-    console.log("nav clicked");
     burgerClass === "" ? setBurgerClass("responsive") : setBurgerClass("");
   }
 
   return (
     <div>
-      {/* <div className="loginStuff">
-        <FirebaseAuthConsumer>
-          {({ isSignedIn, user, providerId }) => {
-            return console.log(
-              JSON.stringify({ isSignedIn, user, providerId }, null, 2)
-            );
-          }}
-        </FirebaseAuthConsumer>
-      </div> */}
-
       <Router>
         <nav className="nav">
           <div className="container">
             <div className="navContainer">
               <ul className={`navUl ${burgerClass}`} onClick={revealBurger}>
                 <li className="linkRouter">
-                  <a className="icon">
+                  <button className="icon">
                     <i className="fa fa-bars"></i>
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <Link to="/" className="linkRouter">

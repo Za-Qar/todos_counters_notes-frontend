@@ -25,8 +25,6 @@ function Todos() {
 
   const [colour, setColour] = useState("white");
 
-  console.log("this is userData: ", userData?.email);
-
   /*---------------Todo backend----------------*/
 
   /*---------------Add todo----------------*/
@@ -60,7 +58,12 @@ function Todos() {
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
   async function retrieveAllTodos() {
-    let res = await fetch(TODO_BACKEND_URLS.TODOS); //process.env.REACT_APP_HOST_URL - for react
+    let res;
+    if (userData) {
+      res = await fetch(`${TODO_BACKEND_URLS.TODOS}/?email=${userData?.email}`);
+    } else {
+      res = await fetch(`${TODO_BACKEND_URLS.TODOS}`);
+    }
     let data = await res.json();
 
     const decrypting = data.payload.map((item) => {
@@ -88,7 +91,7 @@ function Todos() {
   }
   useEffect(() => {
     retrieveAllTodos();
-  }, []);
+  }, [userData]);
 
   /*---------------Delete todo----------------*/
   let deleteTodoBackend = (id) => {
