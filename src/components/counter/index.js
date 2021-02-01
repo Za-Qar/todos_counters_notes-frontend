@@ -10,9 +10,11 @@ function Counter({
   decrementCounter,
   counterValue,
   colour,
+  strikeCounter,
+  currentStatus,
 }) {
   const [counterLocalValue, setCounterLocalValue] = useState(0);
-  const [complete, setComplete] = useState("");
+  const [complete, setComplete] = useState(`${currentStatus}`);
   const [opacity, setOpacity] = useState("");
 
   function setDbCounterValueToLocal() {
@@ -28,9 +30,11 @@ function Counter({
   }
 
   function strikeThrough() {
-    !complete ? setComplete("complete") : setComplete("");
-    !complete ? setOpacity("opacity") : setOpacity("");
+    complete !== "complete" ? setComplete("complete") : setComplete("active");
+    complete !== "complete" ? setOpacity("opacity") : setOpacity("");
   }
+
+  strikeCounter(counterId, complete);
 
   return (
     <div className={`todo ${colour} ${opacity}`}>

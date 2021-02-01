@@ -58,6 +58,18 @@ function Counters() {
       .catch((error) => error);
   };
 
+  /*---------------Strike through Counter----------------*/
+  let strikeCounter = (id, value) => {
+    fetch(`${COUNTERS_BACKEND_URLS.COUNTERS}`, {
+      method: "PATCH",
+      body: JSON.stringify({ id: id, status: value }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((error) => error);
+  };
+
   /*---------------Get all Counters----------------*/
   async function retrieveAllCounters() {
     let res;
@@ -270,6 +282,8 @@ function Counters() {
                   decrementCounter={decrementCounter}
                   counterValue={item.count}
                   colour={item.color}
+                  strikeCounter={strikeCounter}
+                  currentStatus={item.status}
                 />
               );
             })}
@@ -285,6 +299,8 @@ function Counters() {
                   decrementCounter={decrementCounter}
                   counterValue={0}
                   colour={item.colour}
+                  strikeCounter={strikeCounter}
+                  currentStatus={"active"}
                 />
               );
             })}
