@@ -1,17 +1,17 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./weather.css";
 
-const initialState = "";
+// const initialState = "";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "temp":
-      return "??";
-  }
-}
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "temp":
+//       return "??";
+//   }
+// }
 
 function Weather() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
 
   const [temp, setTemp] = useState("");
   const [tempMax, setTempMax] = useState("");
@@ -32,7 +32,7 @@ function Weather() {
       let results = data.main;
 
       let currentSituation = data?.weather[0].description;
-      let { temp, feels_like, temp_min, temp_max, pressure } = results;
+      let { temp, feels_like, temp_min, temp_max } = results;
       let city = data.name;
 
       temp = Math.floor(results.temp - 273.15);
@@ -106,6 +106,12 @@ function Weather() {
     setInterval(getWeather(52.4862, -1.8904), 30000);
   }, []);
 
+  navigator.geolocation.getCurrentPosition(function (position) {
+    console.log("this is position :", position);
+    console.log("Latitude is :", position.coords.latitude);
+    console.log("Longitude is :", position.coords.longitude);
+  });
+
   return (
     <div className="container">
       <div className="sideBox weatherSec">
@@ -119,6 +125,7 @@ function Weather() {
           <img
             src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg"
             width="30px"
+            alt="max temperature icon"
           />
           <span className="spanWeather"></span>
           <p> Max: {tempMax}°C</p>
@@ -128,6 +135,7 @@ function Weather() {
           <img
             src="https://www.flaticon.com/svg/static/icons/svg/3593/3593622.svg"
             width="30px"
+            alt="min temperature icon"
           />
           <span className="spanWeather"></span>
           <p> Min: {tempMin}°C</p>
