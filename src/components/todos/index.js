@@ -69,7 +69,7 @@ function Todos() {
     const decrypting = data.payload.map((item) => {
       // Decrypt
       let decryptingColour = CryptoJS.AES.decrypt(
-        `${item.color}`,
+        `${item.colour}`,
         `${process.env.ENCRYPTION_HASH}`
       );
       const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
@@ -81,7 +81,7 @@ function Todos() {
       );
       const decryptedTodo = decryptingTodo.toString(CryptoJS.enc.Utf8);
       return {
-        color: decryptedColour,
+        colour: decryptedColour,
         id: item.id,
         status: item.status,
         todo: decryptedTodo,
@@ -121,7 +121,7 @@ function Todos() {
       .catch((error) => error);
   };
 
-  /*---------------Todo backend end----------------*/
+  /*---------------Todo frontend----------------*/
 
   async function deleteTodo(id, todoId) {
     //linting rule which is why confirm doesn't work.
@@ -249,13 +249,13 @@ function Todos() {
                   todoId={item.id}
                   index={index}
                   deleteTodo={deleteTodoGet}
-                  colour={item.color}
+                  colour={item.colour}
                   strikeTodo={strikeTodo}
                   currentStatus={item.status}
                 />
               );
             })}
-            {todos.map((item, index, array) => {
+            {todos.map((item, index) => {
               return (
                 <Todo
                   key={uuid()}
