@@ -20,6 +20,10 @@ function Weather() {
   const [curr, setCurr] = useState("");
   const [city, setCity] = useState("");
   const [wethImage, setWethImage] = useState("");
+
+  const [userLat, setUserLat] = useState(52.4862);
+  const [userLong, setUserLong] = useState(-1.8904);
+
   // GET WEATHER FROM API PROVIDER
   useEffect(() => {
     const apiKey = `${process.env.REACT_APP_WEATHER_API}`;
@@ -102,15 +106,14 @@ function Weather() {
       }
     }
 
-    getWeather(52.4862, -1.8904);
-    setInterval(getWeather(52.4862, -1.8904), 30000);
-  }, []);
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setUserLat(position.coords.latitude);
+      setUserLong(position.coords.longitude);
+    });
 
-  navigator.geolocation.getCurrentPosition(function (position) {
-    console.log("this is position :", position);
-    console.log("Latitude is :", position.coords.latitude);
-    console.log("Longitude is :", position.coords.longitude);
-  });
+    getWeather(userLat, userLong);
+    setInterval(getWeather(userLat, userLong), 30000);
+  }, []);
 
   return (
     <div className="container">
