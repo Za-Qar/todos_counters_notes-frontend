@@ -52,6 +52,8 @@ function Weather() {
       setCity(city);
 
       // /b /b => regex
+
+      // I didn't like the api's iocns so I'm using my own
       if (currentSituation === "fog") {
         setWethImage(
           "https://www.flaticon.com/svg/static/icons/svg/2076/2076792.svg"

@@ -121,7 +121,7 @@ function Todos() {
       .catch((error) => error);
   };
 
-  /*---------------Todo backend end----------------*/
+  /*---------------Todo frontend----------------*/
 
   async function deleteTodo(id, todoId) {
     //linting rule which is why confirm doesn't work.
@@ -255,7 +255,7 @@ function Todos() {
                 />
               );
             })}
-            {todos.map((item, index, array) => {
+            {todos.map((item, index) => {
               return (
                 <Todo
                   key={uuid()}

@@ -1,100 +1,235 @@
-// import * as React from "react";
-// import * as ReactDOM from 'react-dom';
-// import Dragula from 'react-dragula';
-// export class App extends React.Component {
-//   render () {
-//     return <div className='container' ref={this.dragulaDecorator}>
-//       <div>Swap me around</div>
-//       <div>Swap her around</div>
-//       <div>Swap him around</div>
-//       <div>Swap them around</div>
-//       <div>Swap us around</div>
-//       <div>Swap things around</div>
-//       <div>Swap everything around</div>
-//     </div>;
-//   }
-// };
+import React, { useState, useEffect } from "react";
+import { confirmAlert } from "react-confirm-alert";
+import { TODO_BACKEND_URLS } from "../../configs/configs.js";
 
-// var React = require("react");
-// var dragula = require("react-dragula");
-// var Test = React.createClass({
-//   render: function () {
-//     return (
-//       <div className="container">
-//         <div>Swap me around</div>
-//         <div>Swap her around</div>
-//         <div>Swap him around</div>
-//         <div>Swap them around</div>
-//         <div>Swap us around</div>
-//         <div>Swap things around</div>
-//         <div>Swap everything around</div>
-//       </div>
-//     );
-//   },
-//   componentDidMount: function () {
-//     var container = React.findDOMNode(this);
-//     dragula([container]);
-//   },
-// });
-// React.render(<Test />, document.getElementById("examples"));
+import uuid from "react-uuid";
 
-// export default Test;
+import Todo from "../todo";
 
-import React from "react";
-
-// userContext
-import { useUserContext } from "../../context/userContext.js";
+// Encryption
+import CryptoJS from "react-native-crypto-js";
 
 // userContext
 import { useAuthContext } from "../../context/authContext.js";
 
-export default function Test() {
-  // Context
-  const [user] = useUserContext();
-
+function Todos() {
   //auth
   const [userData] = useAuthContext();
 
-  // navigator.geolocation.getCurrentPosition(function (position) {
-  //   console.log("this is position :", position);
-  //   console.log("Latitude is :", position.coords.latitude);
-  //   console.log("Longitude is :", position.coords.longitude);
-  // });
+  const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState([]);
 
-  // function componentDidMount() {
-  //   window.navigator.geolocation.getCurrentPosition(
-  //     function (position) {
-  //       console.log(position);
-  //     },
-  //     function (error) {
-  //       console.error("Error Code = " + error.code + " - " + error.message);
-  //     }
-  //   );
-  // }
-  // componentDidMount();
+  const [getTodos, setGetTodos] = useState([]);
 
-  const successfulLookup = (position) => {
-    const { latitude, longitude } = position.coords;
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=256a51c0238f4a5bb8e2c76ebced9e2c
-   `)
-      .then((res) => res.json())
-      .then(console.log);
+  const [newTodoId, setNewTodoId] = useState(0);
+
+  const [colour, setColour] = useState("white");
+
+  /*---------------Todo backend----------------*/
+
+  /*---------------Add todo----------------*/
+  // let createTodo = (msg, colour) => {
+  //   console.log("should add a todo: ");
+  //   localStorage.setItem("TodosLocalStorage", {
+  //     todo: msg,
+  //     colour: colour,
+  //     status: "active",
+  //   });
+  // };
+
+  /*---------------Retrieve all todos----------------*/
+  //Retrieve All
+  async function retrieveAllTodos() {
+    console.log("should retrive all todos: ");
+    console.log(
+      "should be the data: ",
+      JSON.parse(localStorage.getItem("TodosLocalStorage"))
+    );
+
+    let localTodos = JSON.parse(localStorage.getItem("TodosLocalStorage"));
+    // setGetTodos();
+  }
+  useEffect(() => {
+    retrieveAllTodos();
+  }, [userData]);
+
+  /*---------------Delete todo----------------*/
+  let deleteTodoBackend = (id) => {
+    console.log("should remove todo: ", id);
   };
 
-  navigator.geolocation.getCurrentPosition(successfulLookup, console.log);
+  /*---------------Add todo----------------*/
+  async function addTodo() {
+    const newTodos = [...todos, { todo: inputValue, colour: colour }];
+    setTodos(newTodos);
+    setInputValue("");
 
-  console.log("this is userData: ", userData);
+    localStorage.setItem(
+      "TodosLocalStorage",
+      JSON.stringify({
+        todo: inputValue,
+        colour: colour,
+        status: "active",
+      })
+    );
+  }
+
+  /*---------------Strike through Todo----------------*/
+  let strikeTodo = (id, value) => {
+    console.log("should strike todo: ", id);
+  };
+
+  /*---------------Todo frontend----------------*/
+
+  async function deleteTodo(id, todoId) {
+    confirmAlert({
+      title: "Are you sure you want to delete this todo?",
+      message: "This action is irreversible",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
+            setTodos(newTodo);
+            deleteTodoBackend(todoId);
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  }
+
+  async function deleteTodoGet(id, todoId) {
+    confirmAlert({
+      title: "Are you sure you want to delete this todo?",
+      message: "This action is irreversible",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            const newTodo = [
+              ...getTodos.slice(0, id),
+              ...getTodos.slice(id + 1),
+            ];
+            setGetTodos(newTodo);
+            deleteTodoBackend(todoId);
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  }
 
   return (
-    <>
-      {/* <IfFirebaseAuthedAnd
-        filter={({ providerId }) => providerId !== "anonymous"}
-      >
-        {({ user }) => {
-          console.log("email log: ", user?.email);
-          console.log(user?.email);
-        }}
-      </IfFirebaseAuthedAnd> */}
-    </>
+    <div className="container">
+      <div className="inputSec">
+        {/* <button onClick={debugging}>Debugging</button> */}
+        <input
+          className="inputField"
+          onChange={(e) => setInputValue(e.target.value)}
+          value={inputValue}
+        />
+        <div className="colour">
+          <h4>Choose a colour</h4>
+
+          <span className="column in1">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("white")}
+            />
+          </span>
+          <span className="column in2">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("green")}
+            />
+          </span>
+          <span className="column in3">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("red")}
+            />
+          </span>
+          <span className="column in4">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("purple")}
+            />
+          </span>
+          <span className="column in5">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("peach")}
+            />
+          </span>
+          <span className="column in6">
+            <input
+              className="allColumns"
+              name="colour"
+              type="radio"
+              onChange={() => setColour("blue")}
+            />
+          </span>
+        </div>
+
+        <div className="inputButtons">
+          <button onClick={addTodo}>Add Todo</button>
+        </div>
+        <div className="appSec">
+          <div className="todoSection">
+            {getTodos.map((item, index) => {
+              return (
+                <Todo
+                  key={uuid()}
+                  todoItem={item.todo}
+                  todoId={item.id}
+                  index={index}
+                  deleteTodo={deleteTodoGet}
+                  colour={item.color}
+                  strikeTodo={strikeTodo}
+                  currentStatus={item.status}
+                />
+              );
+            })}
+            {todos.map((item, index) => {
+              return (
+                <Todo
+                  key={uuid()}
+                  todoItem={item.todo}
+                  todoId={newTodoId}
+                  index={index}
+                  deleteTodo={deleteTodo}
+                  colour={item.colour}
+                  strikeTodo={strikeTodo}
+                  currentStatus={"active"}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
+
+export default Todos;
