@@ -56,8 +56,8 @@ function Todos() {
 
   /*---------------Add todo----------------*/
   async function addTodo() {
-    const newTodos = [...todos, { todo: inputValue, colour: colour }];
-    setTodos(newTodos);
+    const newTodos = [...getTodos, { todo: inputValue, colour: colour }];
+    setGetTodos(newTodos);
     setInputValue("");
 
     localStorage.setItem("TodosLocalStorage", JSON.stringify(newTodos));
