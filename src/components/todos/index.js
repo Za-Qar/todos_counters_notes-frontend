@@ -87,7 +87,7 @@ function Todos() {
         todo: decryptedTodo,
       };
     });
-    setGetTodos(decrypting);
+    setTodos(decrypting);
   }
   useEffect(() => {
     retrieveAllTodos();
@@ -156,11 +156,8 @@ function Todos() {
         {
           label: "Yes",
           onClick: () => {
-            const newTodo = [
-              ...getTodos.slice(0, id),
-              ...getTodos.slice(id + 1),
-            ];
-            setGetTodos(newTodo);
+            const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
+            setTodos(newTodo);
             deleteTodoBackend(todoId);
           },
         },
@@ -241,31 +238,17 @@ function Todos() {
         </div>
         <div className="appSec">
           <div className="todoSection">
-            {getTodos.map((item, index) => {
-              return (
-                <Todo
-                  key={uuid()}
-                  todoItem={item.todo}
-                  todoId={item.id}
-                  index={index}
-                  deleteTodo={deleteTodoGet}
-                  colour={item.colour}
-                  strikeTodo={strikeTodo}
-                  currentStatus={item.status}
-                />
-              );
-            })}
             {todos.map((item, index) => {
               return (
                 <Todo
                   key={uuid()}
                   todoItem={item.todo}
-                  todoId={newTodoId}
+                  todoId={newTodoId ? newTodoId : item.id}
                   index={index}
-                  deleteTodo={deleteTodo}
+                  deleteTodo={newTodoId ? deleteTodoGet : deleteTodo}
                   colour={item.colour}
                   strikeTodo={strikeTodo}
-                  currentStatus={"active"}
+                  currentStatus={item.status}
                 />
               );
             })}

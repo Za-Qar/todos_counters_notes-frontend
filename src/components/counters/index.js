@@ -22,7 +22,6 @@ function Counters() {
 
   const [counter, setCounter] = useState([]);
 
-  const [getCounters, setGetCounters] = useState([]);
   const [newCounterId, setNewCounterId] = useState(0);
 
   const [colour, setColour] = useState("white");
@@ -105,7 +104,7 @@ function Counters() {
         status: item.status,
       };
     });
-    setGetCounters(decrypting);
+    setCounter(decrypting);
   }
   useEffect(() => {
     retrieveAllCounters();
@@ -187,10 +186,10 @@ function Counters() {
           label: "Yes",
           onClick: () => {
             const newCounter = [
-              ...getCounters.slice(0, id),
-              ...getCounters.slice(id + 1),
+              ...counter.slice(0, id),
+              ...counter.slice(id + 1),
             ];
-            setGetCounters(newCounter);
+            setCounter(newCounter);
             deleteCounterBackend(counterId);
           },
         },
@@ -270,37 +269,22 @@ function Counters() {
         </div>
         <div className="appSec">
           <div className="counterSection">
-            {getCounters.map((item, index) => {
-              return (
-                <Counter
-                  key={uuid()}
-                  counterItem={item.counter}
-                  counterId={item.id}
-                  index={index}
-                  deleteCounter={deleteCounterGet}
-                  incrementCounter={incrementCounter}
-                  decrementCounter={decrementCounter}
-                  counterValue={item.count}
-                  colour={item.colour}
-                  strikeCounter={strikeCounter}
-                  currentStatus={item.status}
-                />
-              );
-            })}
             {counter.map((item, index) => {
               return (
                 <Counter
                   key={uuid()}
                   counterItem={item.counter}
-                  counterId={newCounterId}
+                  counterId={newCounterId ? newCounterId : item.id}
                   index={index}
-                  deleteCounter={deleteCounter}
+                  deleteCounter={
+                    newCounterId ? deleteCounterGet : deleteCounter
+                  }
                   incrementCounter={incrementCounter}
                   decrementCounter={decrementCounter}
-                  counterValue={0}
+                  counterValue={newCounterId ? 0 : item.count}
                   colour={item.colour}
                   strikeCounter={strikeCounter}
-                  currentStatus={"active"}
+                  currentStatus={item.status}
                 />
               );
             })}
