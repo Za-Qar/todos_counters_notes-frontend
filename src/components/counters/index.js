@@ -86,7 +86,7 @@ function Counters() {
     const decrypting = data.payload.map((item) => {
       // Decrypt
       const decryptingColour = CryptoJS.AES.decrypt(
-        `${item.color}`,
+        `${item.colour}`,
         `${process.env.ENCRYPTION_HASH}`
       );
       const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
@@ -98,7 +98,7 @@ function Counters() {
       );
       const decryptedCounter = decryptingCounter.toString(CryptoJS.enc.Utf8);
       return {
-        color: decryptedColour,
+        colour: decryptedColour,
         count: item.count,
         counter: decryptedCounter,
         id: item.id,
@@ -281,7 +281,7 @@ function Counters() {
                   incrementCounter={incrementCounter}
                   decrementCounter={decrementCounter}
                   counterValue={item.count}
-                  colour={item.color}
+                  colour={item.colour}
                   strikeCounter={strikeCounter}
                   currentStatus={item.status}
                 />

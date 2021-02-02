@@ -76,7 +76,7 @@ function Notes() {
     const decrypting = data.payload.map((item) => {
       // Decrypt
       const decryptingColour = CryptoJS.AES.decrypt(
-        `${item.color}`,
+        `${item.colour}`,
         `${process.env.ENCRYPTION_HASH}`
       );
       const decryptedColour = decryptingColour.toString(CryptoJS.enc.Utf8);
@@ -96,7 +96,7 @@ function Notes() {
       const decryptedTitle = decryptingTitle.toString(CryptoJS.enc.Utf8);
 
       return {
-        color: decryptedColour,
+        colour: decryptedColour,
         id: item.id,
         text: decryptedText,
         title: decryptedTitle,
@@ -126,7 +126,7 @@ function Notes() {
   async function addNote() {
     setRetrieveAllNotes([
       ...retrieveAllNote,
-      { title: titleInput, text: textInput, color: colour, id: getNewNoteId },
+      { title: titleInput, text: textInput, colour: colour, id: getNewNoteId },
     ]);
     postNote(titleInput, textInput, colour);
     setTitleInput("");
@@ -241,7 +241,7 @@ function Notes() {
                 deleteNote={deleteNote}
                 noteId={getNewNoteId ? getNewNoteId : item.id}
                 key={index}
-                colour={item.color}
+                colour={item.colour}
               />
             );
           })}

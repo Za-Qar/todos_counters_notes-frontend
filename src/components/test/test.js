@@ -40,14 +40,10 @@ function Todos() {
   /*---------------Retrieve all todos----------------*/
   //Retrieve All
   async function retrieveAllTodos() {
-    console.log("should retrive all todos: ");
-    console.log(
-      "should be the data: ",
-      JSON.parse(localStorage.getItem("TodosLocalStorage"))
-    );
-
     let localTodos = JSON.parse(localStorage.getItem("TodosLocalStorage"));
-    // setGetTodos();
+    setGetTodos(localTodos);
+
+    console.log("Local storage todos: ", localTodos);
   }
   useEffect(() => {
     retrieveAllTodos();
@@ -64,14 +60,7 @@ function Todos() {
     setTodos(newTodos);
     setInputValue("");
 
-    localStorage.setItem(
-      "TodosLocalStorage",
-      JSON.stringify({
-        todo: inputValue,
-        colour: colour,
-        status: "active",
-      })
-    );
+    localStorage.setItem("TodosLocalStorage", JSON.stringify(newTodos));
   }
 
   /*---------------Strike through Todo----------------*/
@@ -198,6 +187,7 @@ function Todos() {
         <div className="appSec">
           <div className="todoSection">
             {getTodos.map((item, index) => {
+              console.log("this is item: ", item.colour);
               return (
                 <Todo
                   key={uuid()}
@@ -205,7 +195,7 @@ function Todos() {
                   todoId={item.id}
                   index={index}
                   deleteTodo={deleteTodoGet}
-                  colour={item.color}
+                  colour={item.colour}
                   strikeTodo={strikeTodo}
                   currentStatus={item.status}
                 />
