@@ -113,7 +113,7 @@ function Weather() {
 
     getWeather(userLat, userLong);
     setInterval(getWeather(userLat, userLong), 30000);
-  }, []);
+  }, [userLat, userLong]);
 
   return (
     <div className="container">
