@@ -80,32 +80,7 @@ function Todos() {
           onClick: () => {
             const newTodo = [...todos.slice(0, id), ...todos.slice(id + 1)];
             setTodos(newTodo);
-            deleteTodoBackend(todoId);
-          },
-        },
-        {
-          label: "No",
-          onClick: () => {
-            return;
-          },
-        },
-      ],
-    });
-  }
-
-  async function deleteTodoGet(id, todoId) {
-    confirmAlert({
-      title: "Are you sure you want to delete this todo?",
-      message: "This action is irreversible",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            const newTodo = [
-              ...getTodos.slice(0, id),
-              ...getTodos.slice(id + 1),
-            ];
-            setGetTodos(newTodo);
+            localStorage.setItem("TodosLocalStorage", JSON.stringify(newTodo));
             deleteTodoBackend(todoId);
           },
         },
@@ -194,7 +169,7 @@ function Todos() {
                   todoItem={item.todo}
                   todoId={item.id}
                   index={index}
-                  deleteTodo={deleteTodoGet}
+                  deleteTodo={deleteTodo}
                   colour={item.colour}
                   strikeTodo={strikeTodo}
                   currentStatus={item.status}
