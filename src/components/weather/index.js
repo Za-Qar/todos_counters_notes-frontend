@@ -56,54 +56,54 @@ function Weather() {
       // I didn't like the api's iocns so I'm using my own
       if (currentSituation === "fog") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2076/2076792.svg"
+          "https://pics.freeicons.io/uploads/icons/png/17956487541554125860-512.png"
         );
       } else if (currentSituation === "clear sky") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2698/2698194.svg"
+          "https://pics.freeicons.io/uploads/icons/png/3900066401606062167-512.png"
         );
       } else if (currentSituation === "few clouds") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/1146/1146869.svg"
+          "https://pics.freeicons.io/uploads/icons/png/4845584041548329956-512.png"
         );
       } else if (currentSituation === "scattered clouds") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2151/2151266.svg"
+          "https://pics.freeicons.io/uploads/icons/png/1494720511548329949-512.png"
         );
       } else if (currentSituation === "broken clouds") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/616/616682.svg"
+          "https://pics.freeicons.io/uploads/icons/png/12070495781553228568-512.png"
         );
       } else if (currentSituation === "shower rain") {
         setWethImage(
-          "https://www.flaticon.com/premium-icon/icons/svg/1959/1959338.svg"
+          "https://pics.freeicons.io/uploads/icons/png/10573724551548329942-512.png"
         );
       } else if (currentSituation === "rain") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/616/616450.svg"
+          "https://pics.freeicons.io/uploads/icons/png/19370507541554125871-512.png"
         );
       } else if (currentSituation === "thunderstorm") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/1779/1779963.svg"
+          "https://pics.freeicons.io/uploads/icons/png/21259361781663251033-512.png"
         );
       } else if (currentSituation === "snow") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2942/2942909.svg"
+          "https://pics.freeicons.io/uploads/icons/png/19933719791554125873-512.png"
         );
       } else if (currentSituation === "mist") {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/990/990469.svg"
+          "https://pics.freeicons.io/uploads/icons/png/17007333341618135482-512.png"
         );
       } else if (
         currentSituation === "moderate rain" ||
         currentSituation === "light rain"
       ) {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/2948/2948217.svg"
+          "https://pics.freeicons.io/uploads/icons/png/11977253731548329942-512.png"
         );
       } else {
         setWethImage(
-          "https://www.flaticon.com/svg/static/icons/svg/616/616450.svg"
+          "https://pics.freeicons.io/uploads/icons/png/2010892651596027191-512.png"
         );
       }
     }
@@ -128,7 +128,7 @@ function Weather() {
 
         <div className="temp">
           <img
-            src="https://www.flaticon.com/svg/static/icons/svg/2041/2041670.svg"
+            src="https://pics.freeicons.io/uploads/icons/png/21374267471600621651-512.png"
             width="30px"
             alt="max temperature icon"
           />
@@ -138,7 +138,7 @@ function Weather() {
 
         <div className="temp">
           <img
-            src="https://www.flaticon.com/svg/static/icons/svg/3593/3593622.svg"
+            src="https://pics.freeicons.io/uploads/icons/png/11021436831600621496-512.png"
             width="30px"
             alt="min temperature icon"
           />
